@@ -1,0 +1,20 @@
+{
+  "range": "CAR!A1:Z1000",
+  "majorDimension": "ROWS",
+  "values": [
+    [
+      "Tata",
+      "Mahindra",
+      "Maruti Suzuki",
+      "Force Motors",
+      "Hindustan Motors"
+    ],
+    [
+      "https://www.carlogos.org/logo/Tata-logo.png",
+      "https://logowik.com/content/uploads/images/mahindra-suv1293.jpg",
+      "https://i.pinimg.com/originals/8b/d2/5e/8bd25eeeff66ddfdbb2d5a17c90f4034.jpg",
+      "https://www.carlogos.org/logo/Force-Motors-logo.png",
+      "https://www.carlogos.org/logo/Hindustan-Motors-logo.png"
+    ]
+  ]
+}
