@@ -61,7 +61,7 @@ public class Manager : MonoBehaviour
             string data = request.downloadHandler.text;
 
             RootObject c = JsonConvert.DeserializeObject<RootObject>(data);
-            Debug.Log(c.values[0].Length);
+            // Debug.Log(c.values[0].Length);
             foreach (string cat in c.values[0])
             {
                 GameObject Button = Instantiate(pfButton, levelPanel);

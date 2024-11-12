@@ -21,7 +21,7 @@ public class GameInternal : MonoBehaviour
 
     private void Start()
     {
-        items = levelManager.GetItemDetails();
+        // items = levelManager.GetItemDetails();
 
         StartCoroutine(LoadImage(items[0].LogoURL.ToString()));
         logoText.text = items[0].Manufacturer.ToString();
