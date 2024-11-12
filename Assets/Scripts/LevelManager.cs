@@ -33,10 +33,9 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private string iD = "1pYU1mu9NBDYt3Ls_IYxMtbnaNrJ_t2jZxy7MYGFLjEA";
     [SerializeField] private string apiKey = "AIzaSyAA23WLN6TWfFj_J1VXvYPUOCIMSXGo254";
     [SerializeField] private string sheetName = "Sheet1";
-    [SerializeField] private Button carBtn;
+
     [SerializeField] private Transform gamePanel;
     [SerializeField] private TextAsset jsonText;
-    private Sprite image;
 
     [SerializeField] private List<ItemDetail> item = new List<ItemDetail>();
 
@@ -45,15 +44,7 @@ public class LevelManager : MonoBehaviour
     {
         return item;
     }
-    private void OnEnable()
-    {
-        carBtn.onClick.AddListener(OnCarButton);
-    }
 
-    private void OnDisable()
-    {
-        carBtn.onClick.RemoveListener(OnCarButton);
-    }
     private void OnCarButton()
     {
 
