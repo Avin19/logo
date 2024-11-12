@@ -19,10 +19,12 @@ public class ItemDetail
     public string Manufacturer { get; set; }
     public string LogoURL { get; set; }
 
+
     public ItemDetail(string manufacturer, string logoURL)
     {
         Manufacturer = manufacturer;
         LogoURL = logoURL;
+
     }
 }
 
@@ -34,7 +36,7 @@ public class LevelManager : MonoBehaviour
     [SerializeField] private Button carBtn;
     [SerializeField] private Transform gamePanel;
     [SerializeField] private TextAsset jsonText;
-    [SerializeField] private bool online;
+    private Sprite image;
 
     [SerializeField] private List<ItemDetail> item = new List<ItemDetail>();
 
@@ -54,20 +56,11 @@ public class LevelManager : MonoBehaviour
     }
     private void OnCarButton()
     {
-        if (online)
-        {
-            sheetName = "CAR";
 
-            StartCoroutine(GetData($"https://sheets.googleapis.com/v4/spreadsheets/{iD}/values/{sheetName}?key={apiKey}"));
-        }
-        else
-        {
-            string data = jsonText.text;
+        sheetName = "CAR";
 
-            RootObject c = JsonConvert.DeserializeObject<RootObject>(data);
+        StartCoroutine(GetData($"https://sheets.googleapis.com/v4/spreadsheets/{iD}/values/{sheetName}?key={apiKey}"));
 
-
-        }
     }
 
     IEnumerator GetData(string url)
@@ -82,16 +75,36 @@ public class LevelManager : MonoBehaviour
         string data = www.downloadHandler.text;
 
         RootObject c = JsonConvert.DeserializeObject<RootObject>(data);
-        var manufacturer = c.values[0];
-        var logoURL = c.values[1];
 
-        for (int i = 0; i < manufacturer.Length; i++)
+        for (int i = 0; i < c.values[0].Length; i++)
         {
-            item.Add(new ItemDetail(manufacturer[i], logoURL[i]));
+
+
+            item.Add(new ItemDetail(c.values[0][i], c.values[1][i]));
         }
 
         gamePanel.gameObject.SetActive(!gamePanel.gameObject.activeSelf);
 
+    }
+    private IEnumerator LoadImage(string url)
+    {
+        UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
+
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            Debug.LogError("failed to load Iamge" + request.error);
+        }
+        else
+        {
+            Texture2D texture = DownloadHandlerTexture.GetContent(request);
+
+            Sprite image = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
+
+
+
+        }
     }
 }
 
