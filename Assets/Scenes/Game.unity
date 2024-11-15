@@ -297,7 +297,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &340027065
 RectTransform:
   m_ObjectHideFlags: 0
@@ -385,6 +385,8 @@ MonoBehaviour:
   levelManager: {fileID: 1394866910}
   logoImage: {fileID: 1108162386}
   logoText: {fileID: 980700851}
+  nextBtn: {fileID: 590948141}
+  preBtn: {fileID: 360930865}
 --- !u!1 &360930863
 GameObject:
   m_ObjectHideFlags: 0
@@ -2410,12 +2412,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3fd26eb2acf2fbd4095e8c2b6141e516, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  iD: 1pYU1mu9NBDYt3Ls_IYxMtbnaNrJ_t2jZxy7MYGFLjEA
-  apiKey: AIzaSyAA23WLN6TWfFj_J1VXvYPUOCIMSXGo254
-  sheetName: Sheet1
-  gamePanel: {fileID: 340027065}
-  jsonText: {fileID: 4900000, guid: 22e0cd104c198f14f9d5afed8f21ab38, type: 3}
-  item: []
+  manager: {fileID: 1449044914}
 --- !u!1 &1449044913
 GameObject:
   m_ObjectHideFlags: 0

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 
 // Get all the item from the LevelManger
@@ -19,13 +20,56 @@ public class GameInternal : MonoBehaviour
     [SerializeField] private TextMeshProUGUI logoText;
     private List<ItemDetail> items = new List<ItemDetail>();
 
+    [Header(" Button ")]
+    [SerializeField] private Button nextBtn;
+    [SerializeField] private Button preBtn;
+    [SerializeField] private int itemCount = 0;
+
+    private void OnEnable()
+    {
+        nextBtn.onClick.AddListener(OnNext);
+        preBtn.onClick.AddListener(OnPre);
+    }
+
+    private void OnPre()
+    {
+        if (itemCount == 0)
+        {
+            itemCount = items.Count - 1;
+        }
+        else
+        {
+            itemCount -= 1;
+        }
+        LoadGamedate();
+    }
+    private void LoadGamedate()
+    {
+        StartCoroutine(LoadImage(items[itemCount].LogoURL.ToString()));
+        logoText.text = items[itemCount].Manufacturer.ToString();
+
+
+    }
     private void Start()
     {
-        // items = levelManager.GetItemDetails();
+        items = levelManager.GetItems();
 
-        StartCoroutine(LoadImage(items[0].LogoURL.ToString()));
-        logoText.text = items[0].Manufacturer.ToString();
 
+        LoadGamedate();
+
+    }
+
+    private void OnNext()
+    {
+        if (itemCount == items.Count - 1)
+        {
+            itemCount = 0;
+        }
+        else
+        {
+            itemCount += 1;
+        }
+        LoadGamedate();
     }
 
     private IEnumerator LoadImage(string url)

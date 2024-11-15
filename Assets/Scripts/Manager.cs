@@ -71,10 +71,16 @@ public class Manager : MonoBehaviour
     }
     private void Start()
     {
+        SetAllThePanelFalse();
         welcomePanel.gameObject.SetActive(true);
     }
+    public void StartGame()
+    {
+        SetAllThePanelFalse();
+        mainPanel.gameObject.SetActive(true);
+    }
 
-    private void SetAllThePanelFalse()
+    public void SetAllThePanelFalse()
     {
         welcomePanel.gameObject.SetActive(false);
         mainPanel.gameObject.SetActive(false);
