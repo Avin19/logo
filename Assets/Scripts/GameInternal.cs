@@ -24,7 +24,18 @@ public class GameInternal : MonoBehaviour
     [SerializeField] private Button nextBtn;
     [SerializeField] private Button preBtn;
     [SerializeField] private int itemCount = 0;
+    [SerializeField] private Manager manager;
+    [SerializeField] private string correctAnswer;
+    [SerializeField] private GameObject pfCorrectAnwser;
+    [SerializeField] private GameObject pfRandomLetter;
 
+    [SerializeField] private GameObject userAnswer;
+    [SerializeField] private GameObject randomAnwser;
+
+
+
+    // Can use queue in place of List . 
+    [SerializeField] private List<string> chars = new List<string>();
     private void OnEnable()
     {
         nextBtn.onClick.AddListener(OnNext);
@@ -45,9 +56,27 @@ public class GameInternal : MonoBehaviour
     }
     private void LoadGamedate()
     {
+        chars.Clear();
+        manager.LoadingScreen(true);
         StartCoroutine(LoadImage(items[itemCount].LogoURL.ToString()));
-        logoText.text = items[itemCount].Manufacturer.ToString();
+        correctAnswer = items[itemCount].Manufacturer.ToString();
+        foreach (char c in correctAnswer)
+        {
+            chars.Add(c.ToString().ToUpper());
+            Instantiate(pfCorrectAnwser, userAnswer.transform);
+        }
 
+
+
+
+
+
+
+
+    }
+
+    private void LetterGenerator()
+    {
 
     }
     private void Start()
@@ -89,6 +118,7 @@ public class GameInternal : MonoBehaviour
             Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
 
             logoImage.sprite = sprite;
+            manager.LoadingScreen(false);
         }
     }
 

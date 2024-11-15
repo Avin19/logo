@@ -13,6 +13,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private Transform mainPanel;
     [SerializeField] private Transform welcomePanel;
     [SerializeField] private Transform levelPanel;
+    [SerializeField] private Transform loadingPanel;
     //[SerializeField] private Transform settingPanel;
 
     [Header("Buttons")]
@@ -39,11 +40,17 @@ public class Manager : MonoBehaviour
         // settingPanel.gameObject.SetActive(true);
 
     }
-    private void StartButton()
+    public void LoadingData()
     {
         SetAllThePanelFalse();
+        loadingPanel.gameObject.SetActive(true);
+    }
+    private void StartButton()
+    {
+
+        LoadingData();
         StartCoroutine(LoadCatgories());
-        levelPanel.gameObject.SetActive(true);
+
     }
 
 
@@ -67,6 +74,7 @@ public class Manager : MonoBehaviour
                 GameObject Button = Instantiate(pfButton, levelPanel);
                 Button.transform.GetComponentInChildren<TextMeshProUGUI>().text = cat;
             }
+            LevelLoaded();
         }
     }
     private void Start()
@@ -85,7 +93,17 @@ public class Manager : MonoBehaviour
         welcomePanel.gameObject.SetActive(false);
         mainPanel.gameObject.SetActive(false);
         levelPanel.gameObject.SetActive(false);
-        settingbtn.gameObject.SetActive(false);
+        // settingbtn.gameObject.SetActive(false);
+        loadingPanel.gameObject.SetActive(false);
+    }
+    public void LevelLoaded()
+    {
+        SetAllThePanelFalse();
+        levelPanel.gameObject.SetActive(true);
+    }
+    public void LoadingScreen(bool set)
+    {
+        loadingPanel.gameObject.SetActive(set);
     }
 
     private void OnDisable()
