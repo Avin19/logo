@@ -37,7 +37,11 @@ public class GameInternal : MonoBehaviour
 
     // Can use queue in place of List . 
     [SerializeField] private List<char> chars = new List<Char>();
+
+    private List<TextHandler> randomLetterList = new List<TextHandler>();
+    private List<AnswerTexthandler> answerLetter = new List<AnswerTexthandler>();
     [SerializeField] private char[] randomchar = new char[20];
+    private int count = -1;
     private void OnEnable()
     {
         nextBtn.onClick.AddListener(OnNext);
@@ -63,10 +67,11 @@ public class GameInternal : MonoBehaviour
         int randomNumber = UnityEngine.Random.Range(0, items.Count);
         StartCoroutine(LoadImage(items[randomNumber].LogoURL.ToString()));
         correctAnswer = items[randomNumber].Manufacturer.ToString();
+        answerLetter.Clear();
         foreach (char c in correctAnswer)
         {
             chars.Add(c);
-            Instantiate(pfCorrectAnwser, userAnswer.transform);
+            answerLetter.Add(Instantiate(pfCorrectAnwser, userAnswer.transform).GetComponent<AnswerTexthandler>());
         }
 
         LetterGenerator();
@@ -76,9 +81,11 @@ public class GameInternal : MonoBehaviour
     private void LetterGenerator()
     {
         RandomLetter();
+        randomLetterList.Clear();
         for (int i = 0; i < 20; i++)
         {
             GameObject letters = Instantiate(pfRandomLetter, randomAnwser.transform);
+            randomLetterList.Add(letters.GetComponent<TextHandler>());
             letters.GetComponent<TextHandler>().SetText(randomchar[UnityEngine.Random.Range(0, randomchar.Length)].ToString());
         }
     }
@@ -146,6 +153,18 @@ public class GameInternal : MonoBehaviour
             manager.LoadingScreen(false);
         }
     }
+
+    public void ButtonClicked(TextHandler textHandler)
+    {
+        count++;
+        count = Mathf.Clamp(count, 0, answerLetter.Capacity - 1);
+        if (randomLetterList.Contains(textHandler))
+        {
+            answerLetter[count].GetComponent<AnswerTexthandler>().SetText(textHandler.GetText());
+        }
+    }
+
+
 
 }
 
