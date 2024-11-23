@@ -7,6 +7,7 @@ using TMPro;
 using System;
 
 
+
 // Get all the item from the LevelManger
 // display the image url 
 // maintain score and hint 
@@ -35,7 +36,8 @@ public class GameInternal : MonoBehaviour
 
 
     // Can use queue in place of List . 
-    [SerializeField] private List<string> chars = new List<string>();
+    [SerializeField] private List<char> chars = new List<Char>();
+    [SerializeField] private char[] randomchar = new char[20];
     private void OnEnable()
     {
         nextBtn.onClick.AddListener(OnNext);
@@ -58,34 +60,57 @@ public class GameInternal : MonoBehaviour
     {
         chars.Clear();
         manager.LoadingScreen(true);
-        StartCoroutine(LoadImage(items[itemCount].LogoURL.ToString()));
-        correctAnswer = items[itemCount].Manufacturer.ToString();
+        int randomNumber = UnityEngine.Random.Range(0, items.Count);
+        StartCoroutine(LoadImage(items[randomNumber].LogoURL.ToString()));
+        correctAnswer = items[randomNumber].Manufacturer.ToString();
         foreach (char c in correctAnswer)
         {
-            chars.Add(c.ToString().ToUpper());
+            chars.Add(c);
             Instantiate(pfCorrectAnwser, userAnswer.transform);
         }
 
-
-
-
-
-
-
+        LetterGenerator();
 
     }
 
     private void LetterGenerator()
     {
+        RandomLetter();
+        for (int i = 0; i < 20; i++)
+        {
+            GameObject letters = Instantiate(pfRandomLetter, randomAnwser.transform);
+            letters.GetComponent<TextHandler>().SetText(randomchar[UnityEngine.Random.Range(0, randomchar.Length)].ToString());
+        }
+    }
+    private void RandomLetter()
+    {
+        char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+                        'h', 'i', 'j', 'k', 'l', 'm', 'n',
+                        'o', 'p', 'q', 'r', 's', 't', 'u',
+                        'v', 'w', 'x', 'y', 'z' };
+
+        int index = 0;
+
+        for (int i = 0; i < 20; i++)
+        {
+
+            if (i <= 3)
+            {
+                randomchar[i] = chars[i];
+            }
+            else
+            {
+                index = UnityEngine.Random.Range(0, alphabet.Length - 1);
+                randomchar[i] = alphabet[index];
+            }
+        }
+
 
     }
     private void Start()
     {
         items = levelManager.GetItems();
-
-
         LoadGamedate();
-
     }
 
     private void OnNext()
