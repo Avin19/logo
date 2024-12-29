@@ -5,15 +5,23 @@ using UnityEngine;
 
 public class LevelManager : MonoBehaviour
 {
-    [SerializeField] private Transform gamePanel;
-    [SerializeField] private DataSO dataSO;
+    [SerializeField] private Manager manager;
 
     private List<ItemDetail> items = new List<ItemDetail>();
+    public string Name { get; set; }
 
-    public void SwtichToGame()
+
+    public void SetItemdetails(List<ItemDetail> itemDetails)
     {
-        gameObject.SetActive(true);
+        items = itemDetails;
+        manager.StartGame();
+
     }
+    public List<ItemDetail> GetItems()
+    {
+        return items;
+    }
+
 
 
 
