@@ -10,7 +10,6 @@ using TMPro;
 public class Manager : MonoBehaviour
 {
     [Header("Manager")]
-    [SerializeField] private LevelManager levelManager;
     [SerializeField] private GameInternal gameInternal;
 
     [Header("  UI Panels")]
@@ -54,7 +53,7 @@ public class Manager : MonoBehaviour
 
     private void BackToLevel()
     {
-        levelManager.SetupGame();
+        gameInternal.Restart();
         SetAllThePanelFalse();
         levelPanel.gameObject.SetActive(true);
     }
@@ -104,6 +103,7 @@ public class Manager : MonoBehaviour
     {
         SetAllThePanelFalse();
         mainPanel.gameObject.SetActive(true);
+
     }
 
     public void SetAllThePanelFalse()

@@ -20,7 +20,11 @@ public class GameInternal : MonoBehaviour
     [SerializeField] private LevelManager levelManager;
     [SerializeField] private Image logoImage;
     [SerializeField] private TextMeshProUGUI logoText;
+
     private List<ItemDetail> items = new List<ItemDetail>();
+
+    [SerializeField] private GameObject resultPanel;
+
 
     [Header(" Button ")]
     [SerializeField] private Button nextBtn;
@@ -46,6 +50,7 @@ public class GameInternal : MonoBehaviour
     {
         nextBtn.onClick.AddListener(OnNext);
         preBtn.onClick.AddListener(OnPre);
+        StartGame();
     }
     private void OnDisable()
     {
@@ -83,7 +88,6 @@ public class GameInternal : MonoBehaviour
     {
 
         chars.Clear();
-        manager.LoadingScreen(true);
 
         int randomNumber = UnityEngine.Random.Range(0, items.Count);
         StartCoroutine(LoadImage(items[randomNumber].LogoURL.ToString()));
@@ -147,12 +151,7 @@ public class GameInternal : MonoBehaviour
 
 
     }
-    private void Start()
-    {
-        items = levelManager.GetItems();
-        count = 0;
-        LoadGamedate();
-    }
+
 
     private IEnumerator LoadImage(string url)
     {
@@ -198,17 +197,18 @@ public class GameInternal : MonoBehaviour
                     check = false;
                 }
             }
-
+            resultPanel.SetActive(true);
             if (check)
             {
-                // increase the point 
+                //soundManager to Run a Sound 
+                //playerperfabs to store value
             }
             else
-            {
-                // reduce the heath
+            {   //player score 
             }
+
             Restart();
-            Start();
+            StartGame();
             //reload the game with new 
 
         }
@@ -226,6 +226,13 @@ public class GameInternal : MonoBehaviour
             Destroy(o.gameObject);
         }
 
+    }
+    public void StartGame()
+    {
+        logoText.text = levelManager.Name + " QUIZ ";
+        items = levelManager.GetItems();
+        count = 0;
+        LoadGamedate();
     }
 
 

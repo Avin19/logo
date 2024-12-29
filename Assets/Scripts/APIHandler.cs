@@ -65,6 +65,7 @@ public class APIHandler : MonoBehaviour
     }
     private void OnButtonClick(string _sheetName)
     {
+        levelManager.Name = _sheetName;
         StartCoroutine(LoadData($"https://sheets.googleapis.com/v4/spreadsheets/{iD}/values/{_sheetName}?key={apiKey}"));
     }
 
@@ -80,26 +81,31 @@ public class APIHandler : MonoBehaviour
         {
             string data = www.downloadHandler.text;
             RootObject jsondata = JsonConvert.DeserializeObject<RootObject>(data);
-            item.Clear();
-            for (int i = 0; i < jsondata.values[0].Length; i++)
+            if (item.Count == jsondata.values[0].Length) { }
+            else
             {
 
-                item.Add(new ItemDetail(jsondata.values[0][i], jsondata.values[1][i]));
+                for (int i = 0; i < jsondata.values[0].Length; i++)
+                {
+
+                    item.Add(new ItemDetail(jsondata.values[0][i], jsondata.values[1][i]));
+                }
             }
-
-            levelManager.SetItemdetails(item);
-
-
 
         }
 
+
+        levelManager.SetItemdetails(item);
+
+
     }
 
-
-
-
-
-
 }
+
+
+
+
+
+
 
 
