@@ -5,6 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 using System;
+using UnityEditor.Build.Reporting;
 
 
 
@@ -40,12 +41,17 @@ public class GameInternal : MonoBehaviour
 
     private List<TextHandler> randomLetterList = new List<TextHandler>();
     private List<AnswerTexthandler> answerLetter = new List<AnswerTexthandler>();
-    [SerializeField] private char[] randomchar = new char[20];
     private int count = -1;
+    #region  Listener
     private void OnEnable()
     {
         nextBtn.onClick.AddListener(OnNext);
         preBtn.onClick.AddListener(OnPre);
+    }
+    private void OnDisable()
+    {
+        nextBtn.onClick.RemoveListener(OnNext);
+        preBtn.onClick.RemoveListener(OnPre);
     }
 
     private void OnPre()
@@ -60,14 +66,37 @@ public class GameInternal : MonoBehaviour
         }
         LoadGamedate();
     }
+    private void OnNext()
+    {
+        if (itemCount == items.Count - 1)
+        {
+            itemCount = 0;
+        }
+        else
+        {
+            itemCount += 1;
+        }
+        LoadGamedate();
+    }
+    #endregion
+
+    /// <summary>
+    /// Here first clear the chars list
+    /// then set the loading screen to true
+    ///
+    ///</summary>
     private void LoadGamedate()
     {
+
         chars.Clear();
         manager.LoadingScreen(true);
+
         int randomNumber = UnityEngine.Random.Range(0, items.Count);
         StartCoroutine(LoadImage(items[randomNumber].LogoURL.ToString()));
         correctAnswer = items[randomNumber].Manufacturer.ToString();
+
         answerLetter.Clear();
+
         foreach (char c in correctAnswer)
         {
             chars.Add(c);
@@ -78,18 +107,19 @@ public class GameInternal : MonoBehaviour
 
     }
 
+
+
     private void LetterGenerator()
     {
-        RandomLetter();
         randomLetterList.Clear();
         for (int i = 0; i < 20; i++)
         {
             GameObject letters = Instantiate(pfRandomLetter, randomAnwser.transform);
             randomLetterList.Add(letters.GetComponent<TextHandler>());
-            letters.GetComponent<TextHandler>().SetText(randomchar[UnityEngine.Random.Range(0, randomchar.Length)].ToString());
+            letters.GetComponent<TextHandler>().SetText(RandomLetter().ToString());
         }
     }
-    private void RandomLetter()
+    private char RandomLetter()
     {
         char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g',
                         'h', 'i', 'j', 'k', 'l', 'm', 'n',
@@ -103,14 +133,16 @@ public class GameInternal : MonoBehaviour
 
             if (i <= 3)
             {
-                randomchar[i] = chars[i];
+                return chars[i];
             }
             else
             {
                 index = UnityEngine.Random.Range(0, alphabet.Length - 1);
-                randomchar[i] = alphabet[index];
+                return alphabet[index];
             }
+
         }
+        return alphabet[index];
 
 
     }
@@ -120,18 +152,7 @@ public class GameInternal : MonoBehaviour
         LoadGamedate();
     }
 
-    private void OnNext()
-    {
-        if (itemCount == items.Count - 1)
-        {
-            itemCount = 0;
-        }
-        else
-        {
-            itemCount += 1;
-        }
-        LoadGamedate();
-    }
+
 
     private IEnumerator LoadImage(string url)
     {

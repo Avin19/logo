@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1989033821610038281, guid: 7c31bd5be39ab274581648755968847a, type: 3}
+      propertyPath: m_Colors.m_NormalColor.b
+      value: 0.01132071
+      objectReference: {fileID: 0}
+    - target: {fileID: 1989033821610038281, guid: 7c31bd5be39ab274581648755968847a, type: 3}
+      propertyPath: m_Colors.m_NormalColor.g
+      value: 0.01132071
+      objectReference: {fileID: 0}
+    - target: {fileID: 1989033821610038281, guid: 7c31bd5be39ab274581648755968847a, type: 3}
+      propertyPath: m_Colors.m_NormalColor.r
+      value: 0.01132071
+      objectReference: {fileID: 0}
     - target: {fileID: 3079082731379008796, guid: 7c31bd5be39ab274581648755968847a, type: 3}
       propertyPath: m_text
       value: 
@@ -120,22 +132,24 @@ PrefabInstance:
       propertyPath: m_Color.r
       value: 0
       objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 1989033821610038281, guid: 7c31bd5be39ab274581648755968847a, type: 3}
-    - {fileID: 5250303743880537065, guid: 7c31bd5be39ab274581648755968847a, type: 3}
+    - target: {fileID: 6651777196571542395, guid: 7c31bd5be39ab274581648755968847a, type: 3}
+      propertyPath: m_FillCenter
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4501369682583391060, guid: 7c31bd5be39ab274581648755968847a, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 8775870026988643373}
+      addedObject: {fileID: 7079399940571422856}
   m_SourcePrefab: {fileID: 100100000, guid: 7c31bd5be39ab274581648755968847a, type: 3}
 --- !u!1 &582831665811383167 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4501369682583391060, guid: 7c31bd5be39ab274581648755968847a, type: 3}
   m_PrefabInstance: {fileID: 3922267692300625963}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &8775870026988643373
+--- !u!114 &7079399940571422856
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

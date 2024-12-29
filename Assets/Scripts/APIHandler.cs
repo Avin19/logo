@@ -71,7 +71,6 @@ public class APIHandler : MonoBehaviour
     private void OnButtonClick(string _sheetName)
     {
 
-        sheetName = "CAR";
         StartCoroutine(LoadData($"https://sheets.googleapis.com/v4/spreadsheets/{iD}/values/{sheetName}?key={apiKey}"));
 
     }
