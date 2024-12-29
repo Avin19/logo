@@ -28,6 +28,8 @@ public class TextHandler : MonoBehaviour
 
     private void OnButtonClick()
     {
+        button.onClick.RemoveListener(OnButtonClick);
+        button.GetComponent<Image>().color = Color.gray;
         GameObject.FindAnyObjectByType<GameInternal>().ButtonClicked(this);
     }
 }

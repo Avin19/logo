@@ -36,15 +36,12 @@ public class ItemDetail
 }
 public class APIHandler : MonoBehaviour
 {
-    // [SerializeField] private string baseURL = "https://sheets.googleapis.com/v4/spreadsheets/";
     [SerializeField] private string iD = "1pYU1mu9NBDYt3Ls_IYxMtbnaNrJ_t2jZxy7MYGFLjEA";
     [SerializeField] private string apiKey = "AIzaSyAA23WLN6TWfFj_J1VXvYPUOCIMSXGo254";
 
     [SerializeField] private string sheetName;
-    //$"https://sheets.googleapis.com/v4/spreadsheets/{iD}/values/{sheetName}?key={apiKey}"
 
     [SerializeField] private List<ItemDetail> item = new List<ItemDetail>();
-    private Sprite image;
     private LevelManager levelManager;
 
     private void Awake()
@@ -56,13 +53,11 @@ public class APIHandler : MonoBehaviour
     private Button onbutton;
     private void Start()
     {
-
         sheetName = GetComponentInChildren<TextMeshProUGUI>().text;
     }
     private void OnEnable()
     {
         onbutton.onClick.AddListener(() => OnButtonClick(sheetName));
-
     }
     private void OnDisable()
     {
@@ -70,9 +65,7 @@ public class APIHandler : MonoBehaviour
     }
     private void OnButtonClick(string _sheetName)
     {
-
-        StartCoroutine(LoadData($"https://sheets.googleapis.com/v4/spreadsheets/{iD}/values/{sheetName}?key={apiKey}"));
-
+        StartCoroutine(LoadData($"https://sheets.googleapis.com/v4/spreadsheets/{iD}/values/{_sheetName}?key={apiKey}"));
     }
 
     private IEnumerator LoadData(string url)
@@ -86,16 +79,14 @@ public class APIHandler : MonoBehaviour
         else
         {
             string data = www.downloadHandler.text;
-            Debug.Log(data);
             RootObject jsondata = JsonConvert.DeserializeObject<RootObject>(data);
-
-
-            Debug.Log(data);
+            item.Clear();
             for (int i = 0; i < jsondata.values[0].Length; i++)
             {
 
                 item.Add(new ItemDetail(jsondata.values[0][i], jsondata.values[1][i]));
             }
+
             levelManager.SetItemdetails(item);
 
 

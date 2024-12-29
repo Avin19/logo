@@ -35,13 +35,12 @@ public class GameInternal : MonoBehaviour
     [SerializeField] private GameObject randomAnwser;
 
 
-
     // Can use queue in place of List . 
     [SerializeField] private List<char> chars = new List<Char>();
-
     private List<TextHandler> randomLetterList = new List<TextHandler>();
-    private List<AnswerTexthandler> answerLetter = new List<AnswerTexthandler>();
-    private int count = -1;
+    [SerializeField] private List<AnswerTexthandler> answerLetter = new List<AnswerTexthandler>();
+    [SerializeField] private List<char> randomChars = new List<Char>();
+    [SerializeField] private int count = 0;
     #region  Listener
     private void OnEnable()
     {
@@ -80,11 +79,6 @@ public class GameInternal : MonoBehaviour
     }
     #endregion
 
-    /// <summary>
-    /// Here first clear the chars list
-    /// then set the loading screen to true
-    ///
-    ///</summary>
     private void LoadGamedate()
     {
 
@@ -100,59 +94,65 @@ public class GameInternal : MonoBehaviour
         foreach (char c in correctAnswer)
         {
             chars.Add(c);
-            answerLetter.Add(Instantiate(pfCorrectAnwser, userAnswer.transform).GetComponent<AnswerTexthandler>());
+            GameObject answer = Instantiate(pfCorrectAnwser, userAnswer.transform);
+            answerLetter.Add(answer.GetComponent<AnswerTexthandler>());
         }
-
         LetterGenerator();
 
     }
-
-
-
     private void LetterGenerator()
     {
         randomLetterList.Clear();
+        if (correctAnswer.Length > 20)
+        {
+            LoadGamedate();
+            Debug.Log("correctAnswer is greater then capacity");
+            return;
+
+        }
         for (int i = 0; i < 20; i++)
         {
             GameObject letters = Instantiate(pfRandomLetter, randomAnwser.transform);
             randomLetterList.Add(letters.GetComponent<TextHandler>());
-            letters.GetComponent<TextHandler>().SetText(RandomLetter().ToString());
+
         }
+        RandomLetter();
+        for (int i = 0; i < randomLetterList.Count; i++)
+        {
+
+            int index = UnityEngine.Random.Range(0, randomChars.Count);
+            randomLetterList[i].SetText(randomChars[index].ToString());
+            randomChars.RemoveAt(index);
+
+        }
+
     }
-    private char RandomLetter()
+    private void RandomLetter()
     {
         char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g',
                         'h', 'i', 'j', 'k', 'l', 'm', 'n',
                         'o', 'p', 'q', 'r', 's', 't', 'u',
                         'v', 'w', 'x', 'y', 'z' };
-
-        int index = 0;
-
-        for (int i = 0; i < 20; i++)
+        for (int i = 0; i < randomLetterList.Count; i++)
         {
-
-            if (i <= 3)
+            if (i < chars.Count)
             {
-                return chars[i];
+                randomChars.Add(chars[i]);
             }
             else
             {
-                index = UnityEngine.Random.Range(0, alphabet.Length - 1);
-                return alphabet[index];
+                randomChars.Add(alphabet[UnityEngine.Random.Range(0, alphabet.Length)]);
             }
-
         }
-        return alphabet[index];
 
 
     }
     private void Start()
     {
         items = levelManager.GetItems();
+        count = 0;
         LoadGamedate();
     }
-
-
 
     private IEnumerator LoadImage(string url)
     {
@@ -177,14 +177,56 @@ public class GameInternal : MonoBehaviour
 
     public void ButtonClicked(TextHandler textHandler)
     {
-        count++;
-        count = Mathf.Clamp(count, 0, answerLetter.Capacity - 1);
-        if (randomLetterList.Contains(textHandler))
+
+        if (count < answerLetter.Count)
         {
             answerLetter[count].GetComponent<AnswerTexthandler>().SetText(textHandler.GetText());
+            count++;
         }
-    }
+        if (count == answerLetter.Count)
+        {
+            Debug.Log("Checking Answers Now ! ");
+            bool check = false;
+            for (int i = 0; i < answerLetter.Count; i++)
+            {
+                if (chars[i].ToString() == answerLetter[i].GetText())
+                {
+                    check = true;
+                }
+                else
+                {
+                    check = false;
+                }
+            }
 
+            if (check)
+            {
+                // increase the point 
+            }
+            else
+            {
+                // reduce the heath
+            }
+            Restart();
+            Start();
+            //reload the game with new 
+
+        }
+
+
+    }
+    public void Restart()
+    {
+        foreach (AnswerTexthandler o in answerLetter)
+        {
+            Destroy(o.gameObject);
+        }
+        foreach (TextHandler o in randomLetterList)
+        {
+            Destroy(o.gameObject);
+        }
+
+    }
 
 
 }

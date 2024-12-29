@@ -9,6 +9,10 @@ using TMPro;
 // Work on setting panel is remaining 
 public class Manager : MonoBehaviour
 {
+    [Header("Manager")]
+    [SerializeField] private LevelManager levelManager;
+    [SerializeField] private GameInternal gameInternal;
+
     [Header("  UI Panels")]
     [SerializeField] private Transform mainPanel;
     [SerializeField] private Transform welcomePanel;
@@ -20,7 +24,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private Button startBtn;
     [SerializeField] private Button quitBtn;
     [SerializeField] private Button settingbtn;
-
+    [SerializeField] private Button backToLevel;
     [SerializeField] private GameObject pfButton;
 
 
@@ -33,12 +37,26 @@ public class Manager : MonoBehaviour
         startBtn.onClick.AddListener(StartButton);
         quitBtn.onClick.AddListener(() => { Application.Quit(); });
         settingbtn.onClick.AddListener(SettingButton);
+        backToLevel.onClick.AddListener(BackToLevel);
+    }
+    private void OnDisable()
+    {
+        startBtn.onClick.RemoveListener(StartButton);
+        settingbtn.onClick.RemoveListener(SettingButton);
+        backToLevel.onClick.RemoveListener(BackToLevel);
     }
     private void SettingButton()
     {
         SetAllThePanelFalse();
         // settingPanel.gameObject.SetActive(true);
 
+    }
+
+    private void BackToLevel()
+    {
+        levelManager.SetupGame();
+        SetAllThePanelFalse();
+        levelPanel.gameObject.SetActive(true);
     }
     public void LoadingData()
     {
@@ -93,7 +111,7 @@ public class Manager : MonoBehaviour
         welcomePanel.gameObject.SetActive(false);
         mainPanel.gameObject.SetActive(false);
         levelPanel.gameObject.SetActive(false);
-        // settingbtn.gameObject.SetActive(false);
+        //settingbtn.gameObject.SetActive(false);
         loadingPanel.gameObject.SetActive(false);
     }
     public void LevelLoaded()
@@ -106,11 +124,7 @@ public class Manager : MonoBehaviour
         loadingPanel.gameObject.SetActive(set);
     }
 
-    private void OnDisable()
-    {
-        startBtn.onClick.RemoveListener(StartButton);
-        settingbtn.onClick.RemoveListener(SettingButton);
-    }
+
 
 
 }

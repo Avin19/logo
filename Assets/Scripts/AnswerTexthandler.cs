@@ -11,6 +11,10 @@ public class AnswerTexthandler : MonoBehaviour
     {
         textData.text = text;
     }
+    public string GetText()
+    {
+        return textData.text;
+    }
 }
 
 

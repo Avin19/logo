@@ -6,13 +6,14 @@ using UnityEngine;
 public class LevelManager : MonoBehaviour
 {
     [SerializeField] private Manager manager;
+    [SerializeField] private GameInternal gameInternal;
 
     private List<ItemDetail> items = new List<ItemDetail>();
 
     public void SetItemdetails(List<ItemDetail> itemDetails)
     {
+        items.Clear();
         items = itemDetails;
-        Debug.Log("Item is passed");
         manager.StartGame();
 
     }
@@ -22,7 +23,7 @@ public class LevelManager : MonoBehaviour
     }
     public void SetupGame()
     {
-
+        gameInternal.Restart();
     }
 
 
