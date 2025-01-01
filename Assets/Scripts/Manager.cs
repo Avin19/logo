@@ -4,6 +4,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 using TMPro;
+using System;
 
 
 // Work on setting panel is remaining 
@@ -11,48 +12,67 @@ public class Manager : MonoBehaviour
 {
     [Header("Manager")]
     [SerializeField] private GameInternal gameInternal;
+    [SerializeField] private Transform levelHolder;
 
     [Header("  UI Panels")]
     [SerializeField] private Transform mainPanel;
     [SerializeField] private Transform welcomePanel;
     [SerializeField] private Transform levelPanel;
     [SerializeField] private Transform loadingPanel;
-    //[SerializeField] private Transform settingPanel;
+    [SerializeField] private Transform settingPanel;
 
     [Header("Buttons")]
     [SerializeField] private Button startBtn;
     [SerializeField] private Button quitBtn;
     [SerializeField] private Button settingbtn;
     [SerializeField] private Button backToLevel;
+    [SerializeField] private Button backToMenu;
+    [SerializeField] private Button backToLevelMenu;
     [SerializeField] private GameObject pfButton;
-
-
-
 
 
 
     private void OnEnable()
     {
         startBtn.onClick.AddListener(StartButton);
-        quitBtn.onClick.AddListener(() => { Application.Quit(); });
+        quitBtn.onClick.AddListener(() =>
+        {
+            SoundManager.Instance.ButtonClick();
+            Application.Quit();
+        });
         settingbtn.onClick.AddListener(SettingButton);
         backToLevel.onClick.AddListener(BackToLevel);
+        backToMenu.onClick.AddListener(BackToMenu);
+        backToLevelMenu.onClick.AddListener(BackToMenu);
     }
+
+    private void BackToMenu()
+    {
+        SoundManager.Instance.ButtonClick();
+        SetAllThePanelFalse();
+        welcomePanel.gameObject.SetActive(true);
+    }
+
     private void OnDisable()
     {
         startBtn.onClick.RemoveListener(StartButton);
         settingbtn.onClick.RemoveListener(SettingButton);
         backToLevel.onClick.RemoveListener(BackToLevel);
+        backToMenu.onClick.RemoveListener(BackToMenu);
+        backToLevel.onClick.RemoveListener(BackToMenu);
     }
     private void SettingButton()
     {
+        SoundManager.Instance.ButtonClick();
+
         SetAllThePanelFalse();
-        // settingPanel.gameObject.SetActive(true);
+        settingPanel.gameObject.SetActive(true);
 
     }
 
     private void BackToLevel()
     {
+        SoundManager.Instance.ButtonClick();
         gameInternal.Restart();
         SetAllThePanelFalse();
         levelPanel.gameObject.SetActive(true);
@@ -64,6 +84,7 @@ public class Manager : MonoBehaviour
     }
     private void StartButton()
     {
+        SoundManager.Instance.ButtonClick();
 
         LoadingData();
         StartCoroutine(LoadCatgories());
@@ -86,10 +107,17 @@ public class Manager : MonoBehaviour
 
             RootObject c = JsonConvert.DeserializeObject<RootObject>(data);
             // Debug.Log(c.values[0].Length);
-            foreach (string cat in c.values[0])
+            if (c.values[0].Length == levelHolder.childCount)
             {
-                GameObject Button = Instantiate(pfButton, levelPanel);
-                Button.transform.GetComponentInChildren<TextMeshProUGUI>().text = cat;
+
+            }
+            else
+            {
+                foreach (string cat in c.values[0])
+                {
+                    GameObject Button = Instantiate(pfButton, levelHolder);
+                    Button.transform.GetComponentInChildren<TextMeshProUGUI>().text = cat;
+                }
             }
             LevelLoaded();
         }
@@ -111,7 +139,7 @@ public class Manager : MonoBehaviour
         welcomePanel.gameObject.SetActive(false);
         mainPanel.gameObject.SetActive(false);
         levelPanel.gameObject.SetActive(false);
-        //settingbtn.gameObject.SetActive(false);
+        settingPanel.gameObject.SetActive(false);
         loadingPanel.gameObject.SetActive(false);
     }
     public void LevelLoaded()

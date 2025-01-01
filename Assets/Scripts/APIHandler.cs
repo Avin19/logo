@@ -65,6 +65,7 @@ public class APIHandler : MonoBehaviour
     }
     private void OnButtonClick(string _sheetName)
     {
+        SoundManager.Instance.ButtonClick();
         levelManager.Name = _sheetName;
         StartCoroutine(LoadData($"https://sheets.googleapis.com/v4/spreadsheets/{iD}/values/{_sheetName}?key={apiKey}"));
     }

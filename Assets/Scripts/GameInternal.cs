@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using UnityEditor.Build.Reporting;
 
 
 
@@ -23,8 +22,7 @@ public class GameInternal : MonoBehaviour
 
     private List<ItemDetail> items = new List<ItemDetail>();
 
-    [SerializeField] private GameObject resultPanel;
-
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     [Header(" Button ")]
     [SerializeField] private Button nextBtn;
@@ -38,6 +36,8 @@ public class GameInternal : MonoBehaviour
     [SerializeField] private GameObject userAnswer;
     [SerializeField] private GameObject randomAnwser;
 
+
+    private int score = 0;
 
     // Can use queue in place of List . 
     [SerializeField] private List<char> chars = new List<Char>();
@@ -57,7 +57,19 @@ public class GameInternal : MonoBehaviour
         nextBtn.onClick.RemoveListener(OnNext);
         preBtn.onClick.RemoveListener(OnPre);
     }
-
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("Score"))
+        {
+            score = PlayerPrefs.GetInt("Score", 0);
+        }
+        else
+        {
+            score = 0;
+            PlayerPrefs.SetInt("Score", score);
+        }
+        scoreText.text = score.ToString();
+    }
     private void OnPre()
     {
         if (itemCount == 0)
@@ -197,16 +209,21 @@ public class GameInternal : MonoBehaviour
                     check = false;
                 }
             }
-            resultPanel.SetActive(true);
             if (check)
             {
-                //soundManager to Run a Sound 
-                //playerperfabs to store value
+                SoundManager.Instance.CorrectAnswer();
+                score++;
+
             }
             else
-            {   //player score 
+            {
+                SoundManager.Instance.WrongAnswer();
+                if (score > 0)
+                {
+                    score--;
+                }
             }
-
+            scoreText.text = score.ToString();
             Restart();
             StartGame();
             //reload the game with new 
