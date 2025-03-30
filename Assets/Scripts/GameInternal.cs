@@ -5,7 +5,6 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using UnityEditor.Build.Reporting;
 
 
 
@@ -23,8 +22,7 @@ public class GameInternal : MonoBehaviour
 
     private List<ItemDetail> items = new List<ItemDetail>();
 
-    [SerializeField] private GameObject resultPanel;
-
+    [SerializeField] private TextMeshProUGUI scoreText;
 
     [Header(" Button ")]
     [SerializeField] private Button nextBtn;
@@ -38,6 +36,8 @@ public class GameInternal : MonoBehaviour
     [SerializeField] private GameObject userAnswer;
     [SerializeField] private GameObject randomAnwser;
 
+
+    [SerializeField] private int score;
 
     // Can use queue in place of List . 
     [SerializeField] private List<char> chars = new List<Char>();
@@ -57,7 +57,20 @@ public class GameInternal : MonoBehaviour
         nextBtn.onClick.RemoveListener(OnNext);
         preBtn.onClick.RemoveListener(OnPre);
     }
-
+    private void Start()
+    {
+        if (PlayerPrefs.HasKey("Score"))
+        {
+            Debug.Log(PlayerPrefs.GetInt("Score"));
+            score = PlayerPrefs.GetInt("Score");
+        }
+        else
+        {
+            score = 0;
+            PlayerPrefs.SetInt("Score", score);
+        }
+        scoreText.text = score.ToString();
+    }
     private void OnPre()
     {
         if (itemCount == 0)
@@ -197,16 +210,22 @@ public class GameInternal : MonoBehaviour
                     check = false;
                 }
             }
-            resultPanel.SetActive(true);
             if (check)
             {
-                //soundManager to Run a Sound 
-                //playerperfabs to store value
+                SoundManager.Instance.CorrectAnswer();
+                score++;
+
             }
             else
-            {   //player score 
+            {
+                SoundManager.Instance.WrongAnswer();
+                if (score > 0)
+                {
+                    score--;
+                }
             }
-
+            scoreText.text = score.ToString();
+            PlayerPrefs.SetInt("Score", score);
             Restart();
             StartGame();
             //reload the game with new 
@@ -232,6 +251,7 @@ public class GameInternal : MonoBehaviour
         logoText.text = levelManager.Name + " QUIZ ";
         items = levelManager.GetItems();
         count = 0;
+        manager.LoadingScreen(true);
         LoadGamedate();
     }
 
