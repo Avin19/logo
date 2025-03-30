@@ -37,7 +37,7 @@ public class GameInternal : MonoBehaviour
     [SerializeField] private GameObject randomAnwser;
 
 
-    private int score = 0;
+    [SerializeField] private int score;
 
     // Can use queue in place of List . 
     [SerializeField] private List<char> chars = new List<Char>();
@@ -61,7 +61,8 @@ public class GameInternal : MonoBehaviour
     {
         if (PlayerPrefs.HasKey("Score"))
         {
-            score = PlayerPrefs.GetInt("Score", 0);
+            Debug.Log(PlayerPrefs.GetInt("Score"));
+            score = PlayerPrefs.GetInt("Score");
         }
         else
         {
@@ -224,6 +225,7 @@ public class GameInternal : MonoBehaviour
                 }
             }
             scoreText.text = score.ToString();
+            PlayerPrefs.SetInt("Score", score);
             Restart();
             StartGame();
             //reload the game with new 
@@ -249,6 +251,7 @@ public class GameInternal : MonoBehaviour
         logoText.text = levelManager.Name + " QUIZ ";
         items = levelManager.GetItems();
         count = 0;
+        manager.LoadingScreen(true);
         LoadGamedate();
     }
 

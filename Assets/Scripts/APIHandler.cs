@@ -104,7 +104,12 @@ public class APIHandler : MonoBehaviour
 }
 
 
-
+[System.Serializable]
+public class APIConfig
+{
+    public string SHEET_ID;
+    public string GOOGLE_API_KEY;
+}
 
 
 
