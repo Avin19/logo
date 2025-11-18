@@ -125,6 +125,7 @@ public class Manager : MonoBehaviour
     private void Start()
     {
         SetAllThePanelFalse();
+        AdManager.Instance.ShowBanner();
         welcomePanel.gameObject.SetActive(true);
     }
     public void StartGame()
