@@ -3550,6 +3550,8 @@ MonoBehaviour:
   backToMenu: {fileID: 1752853587}
   backToLevelMenu: {fileID: 1062760888}
   pfButton: {fileID: 4320936356283709070, guid: c88aa1d245eefe849923ce6df51c0cac, type: 3}
+  interstitialFrequency: 3
+  rewardedButton: {fileID: 1062760888}
 --- !u!4 &1449044915
 Transform:
   m_ObjectHideFlags: 0
@@ -3577,16 +3579,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4aec2c00fc338eb41bf64ac4ca75502c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _androidGameId: 5824579
-  _iOSGameId: 5824578
-  _testMode: 1
-  _androidInterstitialId: Interstitial_Android
-  _iOSInterstitialId: Interstitial_iOS
-  _androidRewardedId: Rewarded_Android
-  _iOSRewardedId: Rewarded_iOS
-  _androidBannerId: Banner_Android
-  _iOSBannerId: Banner_iOS
-  _bannerPosition: 1
+  appId: ca-app-pub-1779486678797596~9298393837
+  bannerAdUnitId: ca-app-pub-1779486678797596/7897673480
+  interstitialAdUnitId: ca-app-pub-1779486678797596/1863582321
+  rewardedAdUnitId: ca-app-pub-1779486678797596/2158911040
+  rewardedInterstitialAdUnitId: 
+  AutoReloadOnFail: 1
 --- !u!1 &1478932434
 GameObject:
   m_ObjectHideFlags: 0
