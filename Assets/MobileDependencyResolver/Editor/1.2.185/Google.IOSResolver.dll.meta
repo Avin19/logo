@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 61c24b9980ea49ae90c8b62fb489de77
+guid: a1a3cd348b3c4bbc82b68b73893f222a
 labels:
 - gvh_version-1.2.185
-- gvhp_exportpath-ExternalDependencyManager/Editor/Google.VersionHandler.dll
+- gvhp_exportpath-ExternalDependencyManager/Editor/1.2.185/Google.IOSResolver.dll
 - gvh
 - gvhp_targets-editor
 PluginImporter:
@@ -10,8 +10,11 @@ PluginImporter:
   serializedVersion: 2
   iconMap: {}
   executionOrder: {}
+  defineConstraints: []
   isPreloaded: 0
   isOverridable: 0
+  isExplicitlyReferenced: 0
+  validateReferences: 0
   platformData:
   - first:
       Any: 

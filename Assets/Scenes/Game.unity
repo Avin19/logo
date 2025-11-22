@@ -649,23 +649,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   levelManager: {fileID: 1053736740}
+  manager: {fileID: 1449044914}
   logoImage: {fileID: 1108162386}
   logoText: {fileID: 1075858064}
   scoreText: {fileID: 1812538398}
-  nextBtn: {fileID: 590948141}
-  preBtn: {fileID: 360930865}
-  itemCount: 0
-  manager: {fileID: 1449044914}
-  correctAnswer: 
+  itemNameText: {fileID: 0}
+  itemUrlText: {fileID: 0}
+  indexText: {fileID: 0}
+  allItemsText: {fileID: 0}
   pfCorrectAnwser: {fileID: 4501369682583391060, guid: 7c31bd5be39ab274581648755968847a, type: 3}
   pfRandomLetter: {fileID: 4501369682583391060, guid: fc716d0009cdefe47a5c16870b3449e2, type: 3}
   userAnswer: {fileID: 1222205613}
   randomAnwser: {fileID: 1005395753}
-  score: 0
-  chars: 
-  answerLetter: []
-  randomChars: 
-  count: 0
+  nextBtn: {fileID: 590948141}
+  preBtn: {fileID: 360930865}
+  randomLetterCount: 20
 --- !u!1 &360930863
 GameObject:
   m_ObjectHideFlags: 0
@@ -2396,6 +2394,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1053736739}
   - component: {fileID: 1053736740}
+  - component: {fileID: 1053736741}
   m_Layer: 5
   m_Name: LevelPanel
   m_TagString: Untagged
@@ -2437,6 +2436,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 1449044914}
+--- !u!114 &1053736741
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053736738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 50
+    m_Right: 50
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 4
+  m_Spacing: 20
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 0
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 1
+  m_ReverseArrangement: 0
 --- !u!1 &1062760884
 GameObject:
   m_ObjectHideFlags: 0
@@ -3516,7 +3541,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1449044915}
   - component: {fileID: 1449044914}
-  - component: {fileID: 1449044916}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -3536,8 +3560,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a66014e9d8154c4dad077224462567a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameInternal: {fileID: 340027069}
-  levelHolder: {fileID: 1394866906}
+  levelManager: {fileID: 1053736740}
+  levelHolder: {fileID: 1053736739}
   mainPanel: {fileID: 340027065}
   welcomePanel: {fileID: 513141858}
   levelPanel: {fileID: 1053736739}
@@ -3552,6 +3576,9 @@ MonoBehaviour:
   pfButton: {fileID: 4320936356283709070, guid: c88aa1d245eefe849923ce6df51c0cac, type: 3}
   interstitialFrequency: 3
   rewardedButton: {fileID: 1062760888}
+  githubJsonUrl: 'https://raw.githubusercontent.com/Avin19/Dataloader/main/categories.json '
+  webRequestTimeout: 10
+  datasetToLoad: countries
 --- !u!4 &1449044915
 Transform:
   m_ObjectHideFlags: 0
@@ -3567,24 +3594,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1449044916
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1449044913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4aec2c00fc338eb41bf64ac4ca75502c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  appId: ca-app-pub-1779486678797596~9298393837
-  bannerAdUnitId: ca-app-pub-1779486678797596/7897673480
-  interstitialAdUnitId: ca-app-pub-1779486678797596/1863582321
-  rewardedAdUnitId: ca-app-pub-1779486678797596/2158911040
-  rewardedInterstitialAdUnitId: 
-  AutoReloadOnFail: 1
 --- !u!1 &1478932434
 GameObject:
   m_ObjectHideFlags: 0
@@ -5411,6 +5420,103 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!4 &1153995246288936313
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153995246288936319}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1153995246288936319
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1153995246288936313}
+  - component: {fileID: 1153995246288936322}
+  - component: {fileID: 1153995246288936321}
+  - component: {fileID: 1153995246288936320}
+  - component: {fileID: 1153995246288936324}
+  m_Layer: 0
+  m_Name: UnityAdsManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1153995246288936320
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153995246288936319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 950131f7eaf1fc443a8f5f418341fff5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: Rewarded_Android
+  _iOSAdUnitId: Rewarded_iOS
+--- !u!114 &1153995246288936321
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153995246288936319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 563f000aa8b12fd4189d7ae4c98d0475, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _androidAdUnitId: Interstitial_Android
+  _iOSAdUnitId: Interstitial_iOS
+--- !u!114 &1153995246288936322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153995246288936319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4db8b801d068a9418384317f932b39d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _bannerPosition: 1
+  _androidAdUnitId: Banner_Android
+  _iOSAdUnitId: Banner_iOS
+--- !u!114 &1153995246288936324
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1153995246288936319}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a3c84da3fcb0204dbdfdfa110f1037d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bannerAd: {fileID: 1153995246288936322}
+  interstitialAd: {fileID: 1153995246288936321}
+  rewardedAds: {fileID: 1153995246288936320}
+  _androidGameId: 5824579
+  _iOSGameId: 5824578
+  _testMode: 0
+  _gameId: 
 --- !u!1 &1492888705417191514
 GameObject:
   m_ObjectHideFlags: 0
@@ -5547,5 +5653,6 @@ SceneRoots:
   - {fileID: 619394802}
   - {fileID: 1816388205}
   - {fileID: 1652974614}
-  - {fileID: 1449044915}
   - {fileID: 1889039334}
+  - {fileID: 1153995246288936313}
+  - {fileID: 1449044915}
