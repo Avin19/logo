@@ -198,8 +198,7 @@ public class Manager : MonoBehaviour
         if (levelPanel != null) levelPanel.gameObject.SetActive(true);
 
 
-        // optional: hide banner
-        // if (AdManager.Instance != null) AdManager.Instance.HideBanner();
+
     }
 
     public void LoadingScreen(bool set)
@@ -463,77 +462,74 @@ public class Manager : MonoBehaviour
             // }
 
             // Wire button click: build List<ItemDetail> and send to levelManager
-            Button b = btnGO.GetComponent<Button>();
-            if (b != null)
-            {
-                List<string> namesCopy = names;
-                List<string> urlsCopy = urls;
-                string capturedName = name;
-                int capturedIndex = i;
+            // Button b = btnGO.GetComponent<Button>();
+            // if (b != null)
+            // {
+            //     List<string> namesCopy = names;
+            //     List<string> urlsCopy = urls;
+            //     string capturedName = name;
+            //     int capturedIndex = i;
 
-                b.onClick.AddListener(() =>
-                {
-                    if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
+            //     b.onClick.AddListener(() =>
+            //     {
+            //         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
 
-                    // Build items from the entire list (names+urls)
-                    List<ItemDetail> items = new List<ItemDetail>();
-                    for (int j = 0; j < (namesCopy?.Count ?? 0); j++)
-                    {
-                        string m = namesCopy[j] ?? string.Empty;
-                        string u = (urlsCopy != null && j < urlsCopy.Count) ? urlsCopy[j] ?? string.Empty : string.Empty;
-                        items.Add(new ItemDetail(m, u));
-                    }
+            //         // Build items from the entire list (names+urls)
+            //         List<ItemDetail> items = new List<ItemDetail>();
+            //         for (int j = 0; j < (namesCopy?.Count ?? 0); j++)
+            //         {
+            //             string m = namesCopy[j] ?? string.Empty;
+            //             string u = (urlsCopy != null && j < urlsCopy.Count) ? urlsCopy[j] ?? string.Empty : string.Empty;
+            //             items.Add(new ItemDetail(m, u));
+            //         }
 
-                    // send to LevelManager
-                    if (levelManager != null)
-                    {
-                        levelManager.SetItemdetails(new List<ItemDetail>(items));
-                    }
-                    else
-                    {
-                        Debug.LogWarning("[Manager] levelManager is not assigned - can't send items.");
-                    }
-                });
-            }
-            else
-            {
-                Debug.LogWarning("[Manager] pfButton prefab has no Button component.");
-            }
+            //         // send to LevelManager
+            //         if (levelManager != null)
+            //         {
+            //             levelManager.SetItemdetails(new List<ItemDetail>(items));
+            //         }
+
+            //     });
+            // }
+            // else
+            // {
+            //     Debug.LogWarning("[Manager] pfButton prefab has no Button component.");
+            // }
         }
     }
 
-    private IEnumerator DownloadAndAssignImage(string url, Image targetImage)
-    {
-        if (string.IsNullOrEmpty(url) || targetImage == null)
-            yield break;
+    // private IEnumerator DownloadAndAssignImage(string url, Image targetImage)
+    // {
+    //     if (string.IsNullOrEmpty(url) || targetImage == null)
+    //         yield break;
 
-        using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(url))
-        {
-            uwr.timeout = webRequestTimeout;
-            yield return uwr.SendWebRequest();
+    //     using (UnityWebRequest uwr = UnityWebRequestTexture.GetTexture(url))
+    //     {
+    //         uwr.timeout = webRequestTimeout;
+    //         yield return uwr.SendWebRequest();
 
-            if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
-            {
-                Debug.LogWarning($"[Manager] Failed to download image from {url} : {uwr.error}");
-                yield break;
-            }
+    //         if (uwr.result == UnityWebRequest.Result.ConnectionError || uwr.result == UnityWebRequest.Result.ProtocolError)
+    //         {
+    //             Debug.LogWarning($"[Manager] Failed to download image from {url} : {uwr.error}");
+    //             yield break;
+    //         }
 
-            Texture2D tex = DownloadHandlerTexture.GetContent(uwr);
-            if (tex != null)
-            {
-                if (!textureCache.ContainsKey(url)) textureCache[url] = tex;
-                AssignTextureToImage(tex, targetImage);
-            }
-        }
-    }
+    //         Texture2D tex = DownloadHandlerTexture.GetContent(uwr);
+    //         if (tex != null)
+    //         {
+    //             if (!textureCache.ContainsKey(url)) textureCache[url] = tex;
+    //             AssignTextureToImage(tex, targetImage);
+    //         }
+    //     }
+    // }
 
-    private void AssignTextureToImage(Texture2D tex, Image img)
-    {
-        if (tex == null || img == null) return;
-        Sprite s = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.one * 0.5f);
-        img.sprite = s;
-        img.preserveAspect = true;
-    }
+    // private void AssignTextureToImage(Texture2D tex, Image img)
+    // {
+    //     if (tex == null || img == null) return;
+    //     Sprite s = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.one * 0.5f);
+    //     img.sprite = s;
+    //     img.preserveAspect = true;
+    // }
     #endregion
 
     #region Helpers & small classes

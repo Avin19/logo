@@ -648,7 +648,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 817205044b0627145b50f66033d05f1c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelManager: {fileID: 1053736740}
   manager: {fileID: 1449044914}
   logoImage: {fileID: 1108162386}
   logoText: {fileID: 1075858064}
@@ -2435,6 +2434,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   manager: {fileID: 1449044914}
+  items: []
+  <Name>k__BackingField: 
 --- !u!1 &1062760884
 GameObject:
   m_ObjectHideFlags: 0
@@ -3499,7 +3500,7 @@ MonoBehaviour:
   m_Spacing: 10
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 0
-  m_ChildControlWidth: 0
+  m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 1
@@ -3533,7 +3534,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a66014e9d8154c4dad077224462567a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  levelManager: {fileID: 1053736740}
   levelHolder: {fileID: 1394866906}
   mainPanel: {fileID: 340027065}
   welcomePanel: {fileID: 513141858}

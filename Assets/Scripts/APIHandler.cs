@@ -1,12 +1,4 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 
@@ -17,22 +9,14 @@ public class APIHandler : MonoBehaviour
 
     [SerializeField] private string sheetName;
 
-    [Header("Output")]
-    [SerializeField] private List<ItemDetail> item = new List<ItemDetail>();
-
-    private LevelManager levelManager;
     private Button onbutton;
 
-
     private UnityEngine.Events.UnityAction clickAction;
-
-
-    [SerializeField] private int streamingAssetsTimeout = 10;
 
     private void Awake()
     {
         onbutton = GetComponent<Button>();
-        levelManager = GetComponentInParent<LevelManager>();
+
     }
 
     private void Start()
