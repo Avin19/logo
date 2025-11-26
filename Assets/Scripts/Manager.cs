@@ -66,15 +66,7 @@ public class Manager : MonoBehaviour
     private UnityEngine.Events.UnityAction backToMenuAction;
     private UnityEngine.Events.UnityAction backToLevelMenuAction;
 
-    private void Awake()
-    {
-        // Optional: auto-find levelHolder if not assigned
-        if (levelHolder == null)
-        {
-            var found = GameObject.Find("LevelHolder");
-            if (found != null) levelHolder = found.transform;
-        }
-    }
+
 
     private void OnEnable()
     {
@@ -121,21 +113,19 @@ public class Manager : MonoBehaviour
 
         if (rewardedButton != null)
             rewardedButton.onClick.AddListener(ShowRewardedFromUI);
-        AdManager.Instance.ShowBanner();
+
 
     }
 
     private void OnDisable()
     {
-        if (startBtn != null && startAction != null) startBtn.onClick.RemoveListener(startAction);
-        if (quitBtn != null && quitAction != null) quitBtn.onClick.RemoveListener(quitAction);
-        if (settingbtn != null && settingAction != null) settingbtn.onClick.RemoveListener(settingAction);
-        if (backToLevel != null && backToLevelAction != null) backToLevel.onClick.RemoveListener(backToLevelAction);
-        if (backToMenu != null && backToMenuAction != null) backToMenu.onClick.RemoveListener(backToMenuAction);
-        if (backToLevelMenu != null && backToLevelMenuAction != null) backToLevelMenu.onClick.RemoveListener(backToLevelMenuAction);
-
-        if (rewardedButton != null)
-            rewardedButton.onClick.RemoveListener(ShowRewardedFromUI);
+        startBtn.onClick.RemoveListener(startAction);
+        quitBtn.onClick.RemoveListener(quitAction);
+        settingbtn.onClick.RemoveListener(settingAction);
+        backToLevel.onClick.RemoveListener(backToLevelAction);
+        backToMenu.onClick.RemoveListener(backToMenuAction);
+        backToLevelMenu.onClick.RemoveListener(backToLevelMenuAction);
+        rewardedButton.onClick.RemoveListener(ShowRewardedFromUI);
 
 
 
@@ -150,9 +140,6 @@ public class Manager : MonoBehaviour
         SetAllThePanelFalse();
         if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
 
-        // show banner if AdManager present
-
-
     }
 
     #region UI panel actions
@@ -161,7 +148,7 @@ public class Manager : MonoBehaviour
         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
         SetAllThePanelFalse();
         if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
-        AdManager.Instance.ShowReward();
+        AdManager.Instance.ShowRewarded();
     }
 
     private void SettingButton()
@@ -179,7 +166,7 @@ public class Manager : MonoBehaviour
         SetAllThePanelFalse();
         if (levelPanel != null) levelPanel.gameObject.SetActive(true);
 
-        AdManager.Instance.ShowInterstital();
+        AdManager.Instance.ShowInterstitial();
 
     }
 
@@ -209,6 +196,7 @@ public class Manager : MonoBehaviour
     {
         SetAllThePanelFalse();
         if (levelPanel != null) levelPanel.gameObject.SetActive(true);
+
 
         // optional: hide banner
         // if (AdManager.Instance != null) AdManager.Instance.HideBanner();

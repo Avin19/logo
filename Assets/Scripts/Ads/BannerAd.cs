@@ -59,7 +59,7 @@ public class BannerAd : MonoBehaviour
     {
         Debug.Log($"Banner Error: {message}");
         isLoaded = false;
-        LoadBanner();
+
         // Optionally execute additional code, such as attempting to load another ad.
     }
 
@@ -97,8 +97,5 @@ public class BannerAd : MonoBehaviour
     void OnBannerShown() { }
     void OnBannerHidden() { }
 
-    void OnDestroy()
-    {
 
-    }
 }
