@@ -8,19 +8,11 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// Manager.cs
-/// - Loads categories.json from GitHub RAW (optional) -> overwrites persistent copy when downloaded
-/// - Falls back to persistentDataPath -> StreamingAssets -> Resources
-/// - Parses DataModel (cars/countries) and legacy Google Sheets `values` format
-/// - Populates levelHolder with button prefab instances (pfButton)
-/// - Downloads thumbnails with in-memory cache
-/// - Keeps UI panel flow and ad hooks
-/// </summary>
+
 public class Manager : MonoBehaviour
 {
     [Header("Manager")]
-    [SerializeField] private LevelManager levelManager;
+
     [SerializeField] private Transform levelHolder;
 
     [Header("UI Panels")]
@@ -50,12 +42,13 @@ public class Manager : MonoBehaviour
     [SerializeField] private string githubJsonUrl = "";
     [SerializeField] private int webRequestTimeout = 10;
     [Header("Which dataset to load from categories.json (cars / countries)")]
-    [SerializeField] private string datasetToLoad = "cars";
+    [SerializeField] private string categoryToLoad;
+
 
     private const string INTERSTITIAL_COUNT_KEY = "interstitial_count";
 
     // Image cache
-    private Dictionary<string, Texture2D> textureCache = new Dictionary<string, Texture2D>(StringComparer.OrdinalIgnoreCase);
+
     private List<Coroutine> runningImageCoroutines = new List<Coroutine>();
 
     // store listeners so we can remove them
@@ -142,7 +135,7 @@ public class Manager : MonoBehaviour
 
     }
 
-    #region UI panel actions
+
     private void BackToMenu()
     {
         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
@@ -161,8 +154,7 @@ public class Manager : MonoBehaviour
     private void BackToLevel()
     {
         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
-        if (levelManager != null)
-            levelManager.Name = levelManager.Name; // noop, just keep
+        // noop, just keep
         SetAllThePanelFalse();
         if (levelPanel != null) levelPanel.gameObject.SetActive(true);
 
@@ -181,6 +173,17 @@ public class Manager : MonoBehaviour
     {
         SetAllThePanelFalse();
         if (mainPanel != null) mainPanel.gameObject.SetActive(true);
+        var gameInternal = mainPanel.GetComponentInChildren<GameInternal>();
+        if (gameInternal != null)
+        {
+            gameInternal.LoadCategoryById(categoryToLoad);
+        }
+
+
+    }
+    public void SetCatorgoryToLoad(string category)
+    {
+        categoryToLoad = category;
     }
 
     public void SetAllThePanelFalse()
@@ -205,9 +208,7 @@ public class Manager : MonoBehaviour
     {
         if (loadingPanel != null) loadingPanel.gameObject.SetActive(set);
     }
-    #endregion
 
-    #region Start button & ads
     private void StartButton()
     {
         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
@@ -217,11 +218,7 @@ public class Manager : MonoBehaviour
         PlayerPrefs.Save();
 
         bool shouldShowInterstitial = interstitialFrequency > 0 && (count % interstitialFrequency == 0);
-
-
-
         LoadingData();
-
         StartCoroutine(LoadCatgories());
     }
 
@@ -235,7 +232,7 @@ public class Manager : MonoBehaviour
     {
         Debug.Log($"Grant reward: ");
     }
-    #endregion
+
     private List<string> GetTopLevelKeys(string json)
     {
         var keys = new List<string>();
@@ -257,7 +254,7 @@ public class Manager : MonoBehaviour
     }
 
 
-    #region Loading & Parsing categories.json (remote -> persistent -> streaming -> resources)
+
     private IEnumerator LoadCatgories()
     {
         string json = null;
@@ -402,9 +399,7 @@ public class Manager : MonoBehaviour
             Debug.LogWarning("[Manager] Failed to write categories.json to persistent: " + ex.Message);
         }
     }
-    #endregion
 
-    #region Populate buttons / images
     private void PopulateButtons(List<string> names, List<string> urls)
     {
         if (pfButton == null)
@@ -530,9 +525,7 @@ public class Manager : MonoBehaviour
     //     img.sprite = s;
     //     img.preserveAspect = true;
     // }
-    #endregion
 
-    #region Helpers & small classes
     // Holds URL on instantiated button gameObject
     public class UrlHolder : MonoBehaviour { public string url; }
 
@@ -544,5 +537,5 @@ public class Manager : MonoBehaviour
 
     [Serializable]
     public class LegacyRoot { public List<List<string>> values; }
-    #endregion
+
 }

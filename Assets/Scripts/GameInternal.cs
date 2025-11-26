@@ -7,23 +7,9 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 
-/// <summary>
-/// GameInternal: drives the quiz UI using ItemDetail list provided by LevelManager.
-/// - Loads logo images (with in-memory cache)
-/// - Generates answer slots and random letters
-/// - Maintains score using PlayerPrefs
-/// - Handles next/previous navigation
-/// 
-/// Additional UI fields:
-/// - itemNameText: shows the currently selected Manufacturer/name
-/// - itemUrlText: shows the currently selected Logo URL (clickable behavior can be added)
-/// - indexText: shows "currentIndex / total"
-/// - allItemsText (optional): developer/debug text area listing all loaded items
-/// </summary>
 public class GameInternal : MonoBehaviour
 {
     [Header("Managers / UI")]
-    [SerializeField] private LevelManager levelManager;
     [SerializeField] private Manager manager;
     [SerializeField] private Image logoImage;
     [SerializeField] private TextMeshProUGUI logoText;
@@ -55,13 +41,12 @@ public class GameInternal : MonoBehaviour
     private int score = 0;
     private int fillIndex = 0;
 
-    // Collections
     private readonly List<char> answerChars = new List<char>();
     private readonly List<char> randomChars = new List<char>();
     private readonly List<TextHandler> randomLetterList = new List<TextHandler>();
     private readonly List<AnswerTexthandler> answerLetter = new List<AnswerTexthandler>();
 
-    // Simple in-memory cache to avoid re-downloading same image during a session
+
     private readonly Dictionary<string, Sprite> spriteCache = new Dictionary<string, Sprite>(StringComparer.OrdinalIgnoreCase);
 
     #region Unity lifecycle & listeners
@@ -71,8 +56,7 @@ public class GameInternal : MonoBehaviour
         if (nextBtn != null) nextBtn.onClick.AddListener(OnNext);
         if (preBtn != null) preBtn.onClick.AddListener(OnPre);
 
-        if (levelManager != null)
-            levelManager.OnItemsUpdated += OnItemsUpdated;
+
     }
 
     private void OnDisable()
@@ -80,8 +64,7 @@ public class GameInternal : MonoBehaviour
         if (nextBtn != null) nextBtn.onClick.RemoveListener(OnNext);
         if (preBtn != null) preBtn.onClick.RemoveListener(OnPre);
 
-        if (levelManager != null)
-            levelManager.OnItemsUpdated -= OnItemsUpdated;
+
     }
 
     private void Start()
@@ -96,6 +79,61 @@ public class GameInternal : MonoBehaviour
     }
 
     #endregion
+    // Add this to GameInternal class
+
+    /// <summary>
+    /// Load a CategorySO by id and convert to ItemDetail list, then start the game.
+    /// Call this when a category button is clicked (pass the category id).
+    /// </summary>
+    public void LoadCategoryById(string categoryId)
+    {
+        if (string.IsNullOrEmpty(categoryId))
+        {
+            Debug.LogWarning("[GameInternal] LoadCategoryById called with empty id.");
+            return;
+        }
+
+        // Clear any previous content
+        Restart();
+
+        // Find category SO
+        CategorySO cat = CategoryRepository.GetById(categoryId);
+        if (cat == null)
+        {
+            Debug.LogWarning($"[GameInternal] Category '{categoryId}' not found (check CategoryAssets or Resources).");
+            return;
+        }
+
+        // Map CategorySO -> ItemDetail
+        items = CategoryToItemMapper.Map(cat);
+
+        // Reset indices and start
+        itemCount = 0;
+        fillIndex = 0;
+
+        // Optional: show category name somewhere
+        if (itemNameText != null) itemNameText.text = cat.displayName;
+
+        // Start the game
+        StartGame();
+    }
+
+    /// <summary>
+    /// Convenience to load all category items (flattened) — useful if you want one big pool.
+    /// </summary>
+    public void LoadAllCategories()
+    {
+        Restart();
+
+        var all = CategoryRepository.GetAll();
+        items = CategoryToItemMapper.Map(all);
+
+        itemCount = 0;
+        fillIndex = 0;
+
+        StartGame();
+    }
+
 
     #region Public handlers
 
@@ -103,7 +141,7 @@ public class GameInternal : MonoBehaviour
     private void OnItemsUpdated(List<ItemDetail> newItems)
     {
         // Optionally use this to auto-start or refresh UI
-        items = levelManager.GetItems();
+
         // If you want to auto-start when LevelManager updates, uncomment:
         // StartGame();
 
@@ -114,13 +152,7 @@ public class GameInternal : MonoBehaviour
     public void StartGame()
     {
         // Defensive checks
-        if (levelManager == null)
-        {
-            Debug.LogWarning("[GameInternal] levelManager not assigned.");
-            return;
-        }
 
-        items = levelManager.GetItems() ?? new List<ItemDetail>();
 
         if (manager != null) manager.LoadingScreen(true);
 
@@ -128,8 +160,7 @@ public class GameInternal : MonoBehaviour
         itemCount = 0;
 
         // Update header text
-        if (logoText != null)
-            logoText.text = (string.IsNullOrEmpty(levelManager.Name) ? "QUIZ" : levelManager.Name + " QUIZ");
+
 
         if (items.Count == 0)
         {
@@ -202,8 +233,7 @@ public class GameInternal : MonoBehaviour
 
         // Update header and "content" UI
         correctAnswer = (chosen.Manufacturer ?? string.Empty).Trim();
-        if (logoText != null)
-            logoText.text = $"{(string.IsNullOrEmpty(levelManager?.Name) ? "QUIZ" : levelManager.Name + " QUIZ")}";
+
 
         // Set the content display (name/url/index)
         DisplayItemContent(chosen, index, items.Count);
@@ -494,6 +524,7 @@ public class GameInternal : MonoBehaviour
 
     public void Restart()
     {
+
         // Destroy answer slots
         foreach (AnswerTexthandler a in answerLetter)
         {

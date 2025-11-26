@@ -10,8 +10,10 @@ public class APIHandler : MonoBehaviour
     [SerializeField] private string sheetName;
 
     private Button onbutton;
+    [SerializeField] private Manager manager;
+    private GameInternal gameInternal;
 
-    private UnityEngine.Events.UnityAction clickAction;
+
 
     private void Awake()
     {
@@ -27,6 +29,11 @@ public class APIHandler : MonoBehaviour
             TextMeshProUGUI tmp = GetComponentInChildren<TextMeshProUGUI>();
             if (tmp != null) sheetName = tmp.text;
         }
+        if (manager == null)
+        {
+            manager = FindObjectOfType<Manager>();
+        }
+
 
     }
 
@@ -38,23 +45,24 @@ public class APIHandler : MonoBehaviour
             return;
         }
 
-        onbutton.onClick.AddListener(clickAction);
-        clickAction = () => OnButtonClick(sheetName);
+        onbutton.onClick.AddListener(OnButtonClick);
+
     }
 
     private void OnDisable()
     {
-        if (onbutton != null && clickAction != null)
-        {
-            onbutton.onClick.RemoveListener(clickAction);
-        }
+
+        onbutton.onClick.RemoveListener(OnButtonClick);
+
     }
 
-    private void OnButtonClick(string _sheetName)
+    private void OnButtonClick()
     {
         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
 
+        manager.SetCatorgoryToLoad(sheetName);
+        manager.LoadingScreen(true);
+        manager.StartGame();
 
-        // levelManager.StartCoroutine(LoadLocalOnly(_sheetName));
     }
 }
