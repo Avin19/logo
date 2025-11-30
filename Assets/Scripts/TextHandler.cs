@@ -1,37 +1,44 @@
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
-
-
+using TMPro;
 
 public class TextHandler : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI textData;
+    private TextMeshProUGUI txt;
+    private Button btn;
+    private GameInternal game;
 
-    private Button button;
-
-
-    public void SetText(string text)
+    void Awake()
     {
-        textData.text = text;
+        txt = GetComponentInChildren<TextMeshProUGUI>();
+        btn = GetComponent<Button>();
+        game = FindObjectOfType<GameInternal>();
+
+        btn.onClick.AddListener(OnClick);
     }
+
+    void OnClick()
+    {
+        if (game == null) return;
+
+        // forward THIS tile to GameInternal
+        game.ButtonClicked(this);
+    }
+
+    public void SetText(string t)
+    {
+        if (txt != null)
+            txt.text = t;
+    }
+
     public string GetText()
     {
-        return textData.text;
+        return txt != null ? txt.text : string.Empty;
     }
 
-    private void Start()
+    public void SetInteractable(bool state)
     {
-        button = GetComponent<Button>();
-        button.onClick.AddListener(OnButtonClick);
-    }
-
-    private void OnButtonClick()
-    {
-        button.onClick.RemoveListener(OnButtonClick);
-        button.GetComponent<Image>().color = Color.gray;
-        GameObject.FindAnyObjectByType<GameInternal>().ButtonClicked(this);
+        if (btn != null)
+            btn.interactable = state;
     }
 }
-
-

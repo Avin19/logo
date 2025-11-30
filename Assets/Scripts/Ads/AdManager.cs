@@ -324,7 +324,10 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     private void GrantReward()
     {
         // TODO: Implement the actual reward logic for your game, e.g. give coins/lives.
-        Debug.Log("AdManager: Granting reward to user (placeholder).");
+        GameInternal gi = FindObjectOfType<GameInternal>();
+        gi.AddHintPoints(5);
+
+
     }
     #endregion
 

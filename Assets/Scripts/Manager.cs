@@ -141,7 +141,7 @@ public class Manager : MonoBehaviour
         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
         SetAllThePanelFalse();
         if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
-        AdManager.Instance.ShowRewarded();
+
     }
 
     private void SettingButton()
@@ -158,7 +158,7 @@ public class Manager : MonoBehaviour
         SetAllThePanelFalse();
         if (levelPanel != null) levelPanel.gameObject.SetActive(true);
 
-        AdManager.Instance.ShowInterstitial();
+
 
     }
 
