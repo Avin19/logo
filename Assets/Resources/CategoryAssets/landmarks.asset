@@ -16,16 +16,16 @@ MonoBehaviour:
   displayName: Landmarks
   logos:
   - name: EiffelTower
-    imageUrl: https://en.wikipedia.org/wiki/Eiffel_Tower#/media/File:Tour_Eiffel_Wikimedia_Commons_(cropped).jpg
-  - name: Taj Mahal
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/d/da/Taj-Mahal.jpg
-  - name: Statue of Liberty
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/a/a1/Statue_of_Liberty_7.jpg
-  - name: Big Ben
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/4/4f/Elizabeth_Tower_from_Westminster_Bridge.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/500px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg
+  - name: TajMahal
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Taj_Mahal_%28Edited%29.jpeg/1280px-Taj_Mahal_%28Edited%29.jpeg
+  - name: StatueofLiberty
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Front_view_of_Statue_of_Liberty_%28cropped%29.jpg/500px-Front_view_of_Statue_of_Liberty_%28cropped%29.jpg
+  - name: BigBen
+    imageUrl: https://en.wikipedia.org/wiki/File:Elizabeth_Tower,_June_2022.jpg
   - name: Colosseum
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/d/d5/Colosseo_2020.jpg
-  - name: Great Wall
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/6/6f/GreatWallBadaling.jpg
-  - name: Burj Khalifa
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/f/fb/Burj_Khalifa.jpg
+    imageUrl: https://en.wikipedia.org/wiki/File:Colosseo_2020.jpg
+  - name: GreatWall
+    imageUrl: https://en.wikipedia.org/wiki/File:The_Great_Wall_of_China_at_Jinshanling-edit.jpg
+  - name: BurjKhalifa
+    imageUrl: https://upload.wikimedia.org/wikipedia/en/thumb/9/93/Burj_Khalifa.jpg/500px-Burj_Khalifa.jpg

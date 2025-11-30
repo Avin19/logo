@@ -141,6 +141,7 @@ public class Manager : MonoBehaviour
         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
         SetAllThePanelFalse();
         if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
+        AdManager.Instance.ShowInterstitial();
 
     }
 

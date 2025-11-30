@@ -9,8 +9,8 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 
     // --- Game IDs -----------------------------------------------------------------
     [Header("Game IDs")]
-    [SerializeField] private string androidGameId = "YOUR_ANDROID_GAME_ID";
-    [SerializeField] private string iOSGameId = "YOUR_IOS_GAME_ID";
+    [SerializeField] private string androidGameId = "5824579";
+    [SerializeField] private string iOSGameId = "5824578";
     [SerializeField] private bool testMode = true;
     private string gameId;
 
@@ -21,6 +21,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     [SerializeField] private string bannerIOSAdUnitId = "Banner_iOS";
     private string bannerAdUnitId;
     private bool bannerLoaded = false;
+    private bool isBannerLoading = false;
 
     // --- Interstitial -------------------------------------------------------------
     [Header("Interstitial")]
@@ -28,6 +29,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     [SerializeField] private string interstitialIOSAdUnitId = "Interstitial_iOS";
     private string interstitialAdUnitId;
     private bool interstitialLoaded = false;
+    private bool isInterstitialLoading = false;
 
     // --- Rewarded -----------------------------------------------------------------
     [Header("Rewarded")]
@@ -35,6 +37,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     [SerializeField] private string rewardedIOSAdUnitId = "Rewarded_iOS";
     private string rewardedAdUnitId;
     private bool rewardedLoaded = false;
+    private bool isRewardedLoading = false;
 
     // Used to remember which adUnitId is showing (so we can route callbacks)
     private string lastShowingAdUnitId = null;
@@ -85,7 +88,6 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         else
         {
             Debug.Log("AdManager: Advertisement already initialized or not supported.");
-            // If already initialized, proactively load ads
             if (Advertisement.isInitialized)
             {
                 OnInitializationComplete();
@@ -96,10 +98,9 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     public void OnInitializationComplete()
     {
         Debug.Log("AdManager: Unity Ads Initialization Complete.");
-        // Set banner position
         Advertisement.Banner.SetPosition(bannerPosition);
 
-        // Load all ad types
+        // Start loading everything once
         LoadBanner();
         LoadInterstitial();
         LoadRewarded();
@@ -120,7 +121,15 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
             return;
         }
 
+        // Already loaded or in-progress → skip
+        if (bannerLoaded || isBannerLoading)
+        {
+            Debug.Log("AdManager: Banner already loaded or loading, skipping LoadBanner.");
+            return;
+        }
+
         Debug.Log("AdManager: Loading banner: " + bannerAdUnitId);
+        isBannerLoading = true;
 
         BannerLoadOptions options = new BannerLoadOptions
         {
@@ -146,7 +155,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         }
         else
         {
-            Debug.Log("AdManager: Banner not loaded yet; loading now.");
+            Debug.Log("AdManager: Banner not loaded yet, requesting load.");
             LoadBanner();
         }
     }
@@ -161,17 +170,30 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     {
         Debug.Log("AdManager: Banner loaded.");
         bannerLoaded = true;
+        isBannerLoading = false;
+
+        // Auto-show when loaded
+        ShowBanner();
     }
 
     private void OnBannerError(string message)
     {
         Debug.LogError($"AdManager: Banner Error: {message}");
         bannerLoaded = false;
+        isBannerLoading = false;
     }
 
     private void OnBannerClicked() { /* optional */ }
-    private void OnBannerShown() { /* optional */ }
-    private void OnBannerHidden() { /* optional */ }
+
+    private void OnBannerShown()
+    {
+        Debug.Log("AdManager: Banner shown.");
+    }
+
+    private void OnBannerHidden()
+    {
+        Debug.Log("AdManager: Banner hidden.");
+    }
     #endregion
 
     #region Interstitial
@@ -183,7 +205,14 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
             return;
         }
 
+        if (interstitialLoaded || isInterstitialLoading)
+        {
+            Debug.Log("AdManager: Interstitial already loaded or loading, skipping LoadInterstitial.");
+            return;
+        }
+
         Debug.Log("AdManager: Loading interstitial: " + interstitialAdUnitId);
+        isInterstitialLoading = true;
         Advertisement.Load(interstitialAdUnitId, this);
     }
 
@@ -196,7 +225,7 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         }
         else
         {
-            Debug.Log("AdManager: Interstitial not loaded. Loading now.");
+            Debug.Log("AdManager: Interstitial not loaded. Requesting load.");
             LoadInterstitial();
         }
     }
@@ -211,7 +240,14 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
             return;
         }
 
+        if (rewardedLoaded || isRewardedLoading)
+        {
+            Debug.Log("AdManager: Rewarded already loaded or loading, skipping LoadRewarded.");
+            return;
+        }
+
         Debug.Log("AdManager: Loading rewarded ad: " + rewardedAdUnitId);
+        isRewardedLoading = true;
         Advertisement.Load(rewardedAdUnitId, this);
     }
 
@@ -224,14 +260,13 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         }
         else
         {
-            Debug.Log("AdManager: Rewarded ad not loaded. Loading now.");
+            Debug.Log("AdManager: Rewarded ad not loaded. Requesting load.");
             LoadRewarded();
         }
     }
     #endregion
 
     #region IUnityAdsLoadListener
-    // Called when an ad successfully loads.
     public void OnUnityAdsAdLoaded(string adUnitId)
     {
         Debug.Log("AdManager: OnUnityAdsAdLoaded: " + adUnitId);
@@ -239,15 +274,14 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         if (adUnitId.Equals(interstitialAdUnitId))
         {
             interstitialLoaded = true;
+            isInterstitialLoading = false;
         }
         else if (adUnitId.Equals(rewardedAdUnitId))
         {
             rewardedLoaded = true;
+            isRewardedLoading = false;
         }
-        else if (adUnitId.Equals(bannerAdUnitId))
-        {
-            bannerLoaded = true;
-        }
+        // Banners use BannerLoadOptions callbacks, not this
     }
 
     public void OnUnityAdsFailedToLoad(string adUnitId, UnityAdsLoadError error, string message)
@@ -257,17 +291,13 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
         if (adUnitId.Equals(interstitialAdUnitId))
         {
             interstitialLoaded = false;
+            isInterstitialLoading = false;
         }
         else if (adUnitId.Equals(rewardedAdUnitId))
         {
             rewardedLoaded = false;
+            isRewardedLoading = false;
         }
-        else if (adUnitId.Equals(bannerAdUnitId))
-        {
-            bannerLoaded = false;
-        }
-
-        // Optionally implement retry/backoff logic here.
     }
     #endregion
 
@@ -276,11 +306,16 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
     {
         Debug.LogError($"AdManager: Error showing Ad Unit {adUnitId}: {error} - {message}");
 
-        // mark as not loaded so we can attempt reload
         if (adUnitId.Equals(interstitialAdUnitId))
+        {
             interstitialLoaded = false;
+            isInterstitialLoading = false;
+        }
         else if (adUnitId.Equals(rewardedAdUnitId))
+        {
             rewardedLoaded = false;
+            isRewardedLoading = false;
+        }
     }
 
     public void OnUnityAdsShowStart(string adUnitId)
@@ -299,45 +334,47 @@ public class AdManager : MonoBehaviour, IUnityAdsInitializationListener, IUnityA
 
         if (adUnitId.Equals(interstitialAdUnitId))
         {
-            // Interstitial finished - reload for next time
             interstitialLoaded = false;
+            isInterstitialLoading = false;
+            // Auto-load next
             LoadInterstitial();
         }
         else if (adUnitId.Equals(rewardedAdUnitId))
         {
-            // Rewarded finished: if COMPLETED -> grant reward, then reload
             rewardedLoaded = false;
+            isRewardedLoading = false;
+
             if (showCompletionState == UnityAdsShowCompletionState.COMPLETED)
             {
                 Debug.Log("AdManager: Rewarded ad completed - grant reward here.");
                 GrantReward();
             }
+
             LoadRewarded();
         }
 
-        // reset last showing id
         lastShowingAdUnitId = null;
     }
     #endregion
 
-    #region Reward handling (example)
+    #region Reward handling
     private void GrantReward()
     {
-        // TODO: Implement the actual reward logic for your game, e.g. give coins/lives.
+        // Example: add 5 hint points
         GameInternal gi = FindObjectOfType<GameInternal>();
-        gi.AddHintPoints(5);
-
-
+        if (gi != null)
+        {
+            gi.AddHintPoints(5);
+        }
+        else
+        {
+            Debug.LogWarning("AdManager: Could not find GameInternal to grant reward.");
+        }
     }
     #endregion
 
-    // Optional helper methods for external scripts ------------------------------------------------
-    // Example: external script calls AdManager.Instance.ShowInterstitial();
-    // or AdManager.Instance.ShowRewarded();
-
     private void OnDestroy()
     {
-        // clean up singleton reference (if this instance was destroyed)
         if (Instance == this)
             Instance = null;
     }

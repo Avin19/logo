@@ -16,32 +16,32 @@ MonoBehaviour:
   displayName: Vegetables
   logos:
   - name: Potato
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/6/60/Potato.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/Patates.jpg/1280px-Patates.jpg
   - name: Tomato
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/8/88/Bright_red_tomato_and_cross_section02.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Tomato_je.jpg/960px-Tomato_je.jpg
   - name: Onion
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/2/25/Onion.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Mixed_onions.jpg/960px-Mixed_onions.jpg
   - name: Carrot
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/7/7e/Carrots.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a2/Vegetable-Carrot-Bundle-wStalks.jpg/1280px-Vegetable-Carrot-Bundle-wStalks.jpg
   - name: Cabbage
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/3/3f/Cabbage.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/6/6f/Cabbage_and_cross_section_on_white.jpg
   - name: Cauliflower
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/f/f4/Cauliflower.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Chou-fleur_02.jpg/960px-Chou-fleur_02.jpg
   - name: Spinach
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/0/02/Spinach.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/3/37/Spinacia_oleracea_Spinazie_bloeiend.jpg/500px-Spinacia_oleracea_Spinazie_bloeiend.jpg
   - name: Broccoli
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/0/03/Broccoli_and_cross_section_edit.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/0/03/Broccoli_and_cross_section_edit.jpg/1280px-Broccoli_and_cross_section_edit.jpg
   - name: Capsicum
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/8/83/Bell_peppers.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Red_capsicum_and_cross_section.jpg/1280px-Red_capsicum_and_cross_section.jpg
   - name: Pumpkin
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/3/36/Pumpkins.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/5/5c/FrenchMarketPumpkinsB.jpg/960px-FrenchMarketPumpkinsB.jpg
   - name: Brinjal
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/3/3e/Eggplant.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/7/76/Solanum_melongena_24_08_2012_%281%29.JPG/960px-Solanum_melongena_24_08_2012_%281%29.JPG
   - name: Cucumber
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/9/96/Cucumber.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/9/96/ARS_cucumber.jpg/500px-ARS_cucumber.jpg
   - name: Radish
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/f/fb/Daikon.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Radish_3371103037_4ab07db0bf_o.jpg/500px-Radish_3371103037_4ab07db0bf_o.jpg
   - name: Beetroot
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/4/45/Beetroot.jpg
-  - name: Green Peas
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/5/56/Peas.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Detroitdarkredbeets.png/250px-Detroitdarkredbeets.png
+  - name: Peas
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/1/11/Peas_in_pods_-_Studio.jpg/250px-Peas_in_pods_-_Studio.jpg
