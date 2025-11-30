@@ -185,6 +185,10 @@ public class Manager : MonoBehaviour
     {
         categoryToLoad = category;
     }
+    public string GetCatorgyToLoad()
+    {
+        return categoryToLoad;
+    }
 
     public void SetAllThePanelFalse()
     {
@@ -259,57 +263,42 @@ public class Manager : MonoBehaviour
     {
         string json = null;
 
-        // 1) Try to download remote JSON and overwrite persistent file if URL provided and network available
-        if (!string.IsNullOrEmpty(githubJsonUrl) && Application.internetReachability != NetworkReachability.NotReachable)
-        {
-            using (UnityWebRequest req = UnityWebRequest.Get(githubJsonUrl))
-            {
-                req.timeout = webRequestTimeout;
-                yield return req.SendWebRequest();
+        // 1) Try StreamingAssets first (use UnityWebRequest on Android)
+#if UNITY_ANDROID && !UNITY_EDITOR
+    string saPath = Path.Combine(Application.streamingAssetsPath, "categories.json");
 
-                if (req.result == UnityWebRequest.Result.Success)
-                {
-                    try
-                    {
-                        json = req.downloadHandler.text;
-                        WritePersistentJson(json);
-                        Debug.Log("[Manager] Downloaded categories.json from GitHub and saved to persistentDataPath.");
-                    }
-                    catch (Exception ex)
-                    {
-                        Debug.LogWarning("[Manager] Download succeeded but failed to write persistent file: " + ex.Message);
-                        json = null;
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("[Manager] Failed to download categories.json from GitHub: " + req.error);
-                }
-            }
+    using (UnityWebRequest req = UnityWebRequest.Get(saPath))
+    {
+        req.timeout = webRequestTimeout;
+        yield return req.SendWebRequest();
+
+        if (req.result == UnityWebRequest.Result.Success)
+        {
+            json = req.downloadHandler.text;
+            Debug.Log("[Manager] Loaded categories.json from StreamingAssets via UWR.");
         }
         else
         {
-            if (!string.IsNullOrEmpty(githubJsonUrl))
-                Debug.Log("[Manager] No internet or githubJsonUrl empty; skipping remote fetch.");
+            Debug.LogWarning("[Manager] Failed to load StreamingAssets categories.json: " + req.error);
         }
-
-        // 2) If we didn't get JSON from remote, try persistentDataPath
-        if (string.IsNullOrEmpty(json))
+    }
+#else
+        try
         {
-            json = LoadJsonFromPersistent();
-            if (!string.IsNullOrEmpty(json))
-                Debug.Log("[Manager] Loaded categories.json from persistentDataPath.");
+            string saPath = Path.Combine(Application.streamingAssetsPath, "categories.json");
+            if (File.Exists(saPath))
+            {
+                json = File.ReadAllText(saPath);
+                Debug.Log("[Manager] Loaded categories.json from StreamingAssets file.");
+            }
         }
-
-        // 3) If still not found, try StreamingAssets (use UnityWebRequest on Android)
-        if (string.IsNullOrEmpty(json))
+        catch (Exception ex)
         {
-            json = LoadJsonFromStreamingAssets();
-            if (!string.IsNullOrEmpty(json))
-                Debug.Log("[Manager] Loaded categories.json from StreamingAssets.");
+            Debug.LogWarning("[Manager] Error reading StreamingAssets categories.json: " + ex.Message);
         }
+#endif
 
-        // 4) Fallback to Resources/categories.json
+        // 2) Fallback → Resources/categories.json
         if (string.IsNullOrEmpty(json))
         {
             TextAsset ta = Resources.Load<TextAsset>("categories");
@@ -318,28 +307,29 @@ public class Manager : MonoBehaviour
                 json = ta.text;
                 Debug.Log("[Manager] Loaded categories.json from Resources.");
             }
+            else
+            {
+                Debug.LogError("[Manager] categories.json NOT FOUND in StreamingAssets or Resources.");
+                yield break;
+            }
         }
 
-        if (string.IsNullOrEmpty(json))
-        {
-            Debug.LogError("[Manager] categories.json not found in remote/persistent/StreamingAssets/Resources. Make sure file exists.");
-            yield break;
-        }
+        // ✅ Parse categories
         List<string> categoryKeys = GetTopLevelKeys(json);
+
+        Debug.Log("[Manager] Final categories loaded: " + string.Join(", ", categoryKeys));
 
         if (categoryKeys.Count == 0)
         {
-            Debug.LogError("[Manager] No keys found in categories.json");
+            Debug.LogError("[Manager] No category keys found in JSON.");
             yield break;
         }
 
-        // No URLs at this stage, only names
         PopulateButtons(categoryKeys, null);
 
         LevelLoaded();
-        yield break;
-
     }
+
 
     private string LoadJsonFromPersistent()
     {

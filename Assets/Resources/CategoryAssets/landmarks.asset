@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: landmarks
+  m_EditorClassIdentifier: 
+  id: landmarks
+  displayName: Landmarks
+  logos:
+  - name: EiffelTower
+    imageUrl: https://en.wikipedia.org/wiki/Eiffel_Tower#/media/File:Tour_Eiffel_Wikimedia_Commons_(cropped).jpg
+  - name: Taj Mahal
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/d/da/Taj-Mahal.jpg
+  - name: Statue of Liberty
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/a/a1/Statue_of_Liberty_7.jpg
+  - name: Big Ben
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/4/4f/Elizabeth_Tower_from_Westminster_Bridge.jpg
+  - name: Colosseum
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/d/d5/Colosseo_2020.jpg
+  - name: Great Wall
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/6/6f/GreatWallBadaling.jpg
+  - name: Burj Khalifa
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/f/fb/Burj_Khalifa.jpg

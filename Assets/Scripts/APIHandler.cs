@@ -11,7 +11,6 @@ public class APIHandler : MonoBehaviour
 
     private Button onbutton;
     [SerializeField] private Manager manager;
-    private GameInternal gameInternal;
 
 
 

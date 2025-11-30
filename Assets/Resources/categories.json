@@ -242,5 +242,135 @@
             "https://upload.wikimedia.org/wikipedia/commons/d/d5/Pear_ripe.jpg",
             "https://upload.wikimedia.org/wikipedia/commons/8/88/Raspberry.jpg"
         ]
+    },
+    "logobrands": {
+        "names": [
+            "Apple",
+            "Google",
+            "Microsoft",
+            "Amazon",
+            "Netflix",
+            "Facebook",
+            "Instagram",
+            "Twitter",
+            "YouTube",
+            "Spotify"
+        ],
+        "urls": [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/512px-Apple_logo_black.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/512px-Google_2015_logo.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/512px-Amazon_logo.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/512px-Netflix_2015_logo.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Facebook-icon-1.svg/512px-Facebook-icon-1.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/512px-Instagram_logo_2016.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Twitter_logo.svg/512px-Twitter_logo.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/512px-YouTube_Logo_2017.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/512px-Spotify_logo_with_text.svg.png"
+        ]
+    },
+    "sports": {
+        "names": [
+            "Football",
+            "Basketball",
+            "Cricket Bat",
+            "Tennis Racket",
+            "Golf Club",
+            "Hockey Stick",
+            "Badminton Shuttle",
+            "Baseball",
+            "Table Tennis Bat"
+        ],
+        "urls": [
+            "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d3/Soccerball.svg/512px-Soccerball.svg.png",
+            "https://upload.wikimedia.org/wikipedia/commons/7/7a/Basketball.png",
+            "https://upload.wikimedia.org/wikipedia/commons/4/4b/Cricket_bat.png",
+            "https://upload.wikimedia.org/wikipedia/commons/2/21/Tennis_racket.png",
+            "https://upload.wikimedia.org/wikipedia/commons/2/21/Golf_club.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/4/44/Hockey_stick.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/7/7d/Shuttlecock.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/f/fb/Baseball_(crop).jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/d/d5/Table_tennis_bats.jpg"
+        ]
+    },
+    "landmarks": {
+        "names": [
+            "Eiffel Tower",
+            "Taj Mahal",
+            "Statue of Liberty",
+            "Big Ben",
+            "Colosseum",
+            "Great Wall",
+            "Burj Khalifa"
+        ],
+        "urls": [
+            "https://upload.wikimedia.org/wikipedia/commons/d/d2/Eiffel_Tower.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/d/da/Taj-Mahal.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/a/a1/Statue_of_Liberty_7.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/4/4f/Elizabeth_Tower_from_Westminster_Bridge.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/d/d5/Colosseo_2020.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/6f/GreatWallBadaling.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/f/fb/Burj_Khalifa.jpg"
+        ]
+    },
+    "foods": {
+        "names": [
+            "Pizza",
+            "Burger",
+            "Biryani",
+            "Pasta",
+            "Sushi",
+            "Tacos",
+            "Ramen",
+            "Dosa",
+            "Pancakes"
+        ],
+        "urls": [
+            "https://upload.wikimedia.org/wikipedia/commons/d/d3/Supreme_pizza.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/4/4f/Hamburger.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/6e/Chicken_Biryani.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/b/b6/Fettuccine_pasta.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/6/60/Sushi_platter.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/9/98/Tacos_de_carnitas.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/4/4c/Ramen.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/9/99/Masala_Dosa.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/2/2c/Pancakes.jpg"
+        ]
+    },
+    "vegetables": {
+        "names": [
+            "Potato",
+            "Tomato",
+            "Onion",
+            "Carrot",
+            "Cabbage",
+            "Cauliflower",
+            "Spinach",
+            "Broccoli",
+            "Capsicum",
+            "Pumpkin",
+            "Brinjal",
+            "Cucumber",
+            "Radish",
+            "Beetroot",
+            "Green Peas"
+        ],
+        "urls": [
+            "https://upload.wikimedia.org/wikipedia/commons/6/60/Potato.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/8/88/Bright_red_tomato_and_cross_section02.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/2/25/Onion.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/7/7e/Carrots.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/3/3f/Cabbage.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/f/f4/Cauliflower.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/0/02/Spinach.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/0/03/Broccoli_and_cross_section_edit.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/8/83/Bell_peppers.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/3/36/Pumpkins.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/3/3e/Eggplant.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/9/96/Cucumber.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/f/fb/Daikon.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/4/45/Beetroot.jpg",
+            "https://upload.wikimedia.org/wikipedia/commons/5/56/Peas.jpg"
+        ]
     }
 }

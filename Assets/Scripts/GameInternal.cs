@@ -76,6 +76,7 @@ public class GameInternal : MonoBehaviour
             PlayerPrefs.SetInt("Score", 0);
 
         UpdateScoreText();
+        itemNameText.text = manager.GetCatorgyToLoad();
     }
 
     #endregion
@@ -107,16 +108,17 @@ public class GameInternal : MonoBehaviour
         // Map CategorySO -> ItemDetail
         items = CategoryToItemMapper.Map(cat);
 
+        Debug.Log($"[GameInternal] Loaded category '{cat.id}' with {items.Count} items.");
+
         // Reset indices and start
         itemCount = 0;
         fillIndex = 0;
 
-        // Optional: show category name somewhere
         if (itemNameText != null) itemNameText.text = cat.displayName;
 
-        // Start the game
         StartGame();
     }
+
 
     /// <summary>
     /// Convenience to load all category items (flattened) — useful if you want one big pool.
@@ -153,7 +155,7 @@ public class GameInternal : MonoBehaviour
     {
         // Defensive checks
 
-
+        RefreshAllItemsText();
         if (manager != null) manager.LoadingScreen(true);
 
         fillIndex = 0;
@@ -202,6 +204,7 @@ public class GameInternal : MonoBehaviour
             itemCount++;
 
         LoadGamedate();
+
     }
 
     #endregion
@@ -211,6 +214,7 @@ public class GameInternal : MonoBehaviour
     private void LoadGamedate()
     {
         ClearPreviousRound();
+        RefreshAllItemsText();
 
         if (items == null || items.Count == 0)
         {
