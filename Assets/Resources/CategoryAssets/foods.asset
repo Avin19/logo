@@ -16,7 +16,7 @@ MonoBehaviour:
   displayName: Foods
   logos:
   - name: Pizza
-    imageUrl: https://upload.wikimedia.org/wikipedia/commons/d/d3/Supreme_pizza.jpg
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/9/91/Pizza-3007395.jpg/330px-Pizza-3007395.jpg
   - name: Burger
     imageUrl: https://upload.wikimedia.org/wikipedia/commons/4/4f/Hamburger.jpg
   - name: Biryani
