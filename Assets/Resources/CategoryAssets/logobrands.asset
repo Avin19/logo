@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: logobrands
   m_EditorClassIdentifier: 
   id: logobrands
-  displayName: Logobrands
+  displayName: Logo
   logos:
   - name: Apple
     imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/512px-Apple_logo_black.svg.png

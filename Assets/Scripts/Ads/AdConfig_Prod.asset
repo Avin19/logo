@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 95765d3b495cb7e41b6f7decdac931c2, type: 3}
+  m_Name: AdConfig_Prod
+  m_EditorClassIdentifier: 
+  bannerId: ca-app-pub-1779486678797596/1979417804
+  interstitialId: ca-app-pub-1779486678797596/3390085285
+  rewardedId: ca-app-pub-1779486678797596/5142150652
+  enableGdprConsent: 0
+  requestConsentOnStartup: 0
+  loadBannerOnStart: 1
+  autoShowBanner: 1
+  bannerRetryInitialDelay: 30
+  bannerRetryMaxDelay: 300
+  interstitialEveryNEvents: 2
+  interstitialCooldownSeconds: 30
+  preloadRewarded: 1
+  useTestAds: 0

@@ -345,7 +345,9 @@ public class GameInternal : MonoBehaviour
 
     #region HINT SYSTEM
 
-    public void RequestHintAd() => AdManager.Instance.ShowRewarded();
+    public void RequestHintAd() => AdMobManager.Instance.ShowRewarded(() =>
+   { AddHintPoints(5); }
+    );
 
     public void AddHintPoints(int amt)
     {
