@@ -76,11 +76,11 @@ public class GameInternal : MonoBehaviour
 
     #region CATEGORY LOAD
 
-    public void LoadCategoryById(string categoryId)
+    public void LoadCategoryById(CategorySO categoryId)
     {
         Restart();
 
-        CategorySO cat = CategoryRepository.GetById(categoryId);
+        CategorySO cat = categoryId;
         if (cat == null)
         {
             Debug.LogWarning($"[GameInternal] Category '{categoryId}' not found.");

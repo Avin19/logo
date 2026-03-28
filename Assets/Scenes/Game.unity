@@ -711,7 +711,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &340027065
 RectTransform:
   m_ObjectHideFlags: 0
@@ -719,7 +719,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 340027064}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -728,7 +728,7 @@ RectTransform:
   - {fileID: 962766315}
   - {fileID: 1892871465}
   - {fileID: 397633891}
-  m_Father: {fileID: 1652974614}
+  m_Father: {fileID: 1053736739}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2937,6 +2937,7 @@ GameObject:
   - component: {fileID: 1053736739}
   - component: {fileID: 1053736741}
   - component: {fileID: 1053736740}
+  - component: {fileID: 1053736742}
   m_Layer: 5
   m_Name: LevelPanel
   m_TagString: Untagged
@@ -2958,6 +2959,7 @@ RectTransform:
   m_Children:
   - {fileID: 1394866906}
   - {fileID: 1062760885}
+  - {fileID: 340027065}
   m_Father: {fileID: 1652974614}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -3003,6 +3005,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1053736738}
   m_CullTransparentMesh: 1
+--- !u!114 &1053736742
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1053736738}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 96ddbb8b2e522a843b84585b3f011a67, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gameInternal: {fileID: 340027069}
+  buttonCats: []
 --- !u!1 &1062760884
 GameObject:
   m_ObjectHideFlags: 0
@@ -4165,14 +4181,22 @@ MonoBehaviour:
   quitBtn: {fileID: 1211678077}
   settingbtn: {fileID: 408780951}
   backToLevel: {fileID: 1478932436}
-  backToMenu: {fileID: 1752853587}
+  backSettingToMenu: {fileID: 1752853587}
   backToLevelMenu: {fileID: 1062760888}
   pfButton: {fileID: 4320936356283709070, guid: c88aa1d245eefe849923ce6df51c0cac, type: 3}
   interstitialFrequency: 3
   rewardedButton: {fileID: 1062760888}
-  githubJsonUrl: 'https://raw.githubusercontent.com/Avin19/Dataloader/main/categories.json '
   webRequestTimeout: 10
-  categoryToLoad: 
+  categorySOs:
+  - {fileID: 11400000, guid: 36b8448fa2aeff84b822c50a7581b441, type: 2}
+  - {fileID: 11400000, guid: 66cb8d17cd9b1614d8c821d8ca0fbb3a, type: 2}
+  - {fileID: 11400000, guid: daeed146b7d2dc94389561cd5bcdbef2, type: 2}
+  - {fileID: 11400000, guid: 402d55d4bfb80a9499c964e86183b14b, type: 2}
+  - {fileID: 11400000, guid: 2a830ef15c176a14485181ba3cb7105e, type: 2}
+  - {fileID: 11400000, guid: 1b95d0763a52f2f4baf39603cc979c02, type: 2}
+  - {fileID: 11400000, guid: c6c55cead3dd77c458040b183998a514, type: 2}
+  - {fileID: 11400000, guid: ef287cfde5c41cf4987bff5fcef1a6cb, type: 2}
+  - {fileID: 11400000, guid: eb4697917cb49c840b4716b9294df6de, type: 2}
 --- !u!4 &1449044915
 Transform:
   m_ObjectHideFlags: 0
@@ -4404,7 +4428,6 @@ RectTransform:
   m_Children:
   - {fileID: 513141858}
   - {fileID: 1053736739}
-  - {fileID: 340027065}
   - {fileID: 744020736}
   - {fileID: 201449798}
   m_Father: {fileID: 0}
@@ -4651,7 +4674,7 @@ GameObject:
   - component: {fileID: 1752853588}
   - component: {fileID: 1752853587}
   m_Layer: 5
-  m_Name: BackToMenu
+  m_Name: SettingBacktoMenu
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
