@@ -840,12 +840,12 @@ TextureImporter:
       name: ChatGPT Image Mar 28, 2026, 10_26_01 PM_34
       rect:
         serializedVersion: 2
-        x: 241
+        x: 252
         y: 835
-        width: 566
+        width: 555
         height: 144
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -866,7 +866,7 @@ TextureImporter:
         width: 216
         height: 93
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
