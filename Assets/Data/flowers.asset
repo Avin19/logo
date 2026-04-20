@@ -40,8 +40,6 @@ MonoBehaviour:
     image: {fileID: 21300000, guid: 0e860ecf684fdc248b483e4ddf536943, type: 3}
   - name: tulip
     image: {fileID: 21300000, guid: 6442c33f591e8bf43ac3871dda85e15b, type: 3}
-  - name: vase
-    image: {fileID: 21300000, guid: 81a1736a45921d74d874cc9fd42e849d, type: 3}
   - name: viola
     image: {fileID: 21300000, guid: d3c04aed54535da4c8553cc439a90c78, type: 3}
   - name: white roses

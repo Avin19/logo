@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: architecture
+  m_EditorClassIdentifier: 
+  category: architecture
+  logos:
+  - name: bank
+    image: {fileID: 21300000, guid: 60e1da6b82687444ab54dccc25957ea5, type: 3}
+  - name: bollard
+    image: {fileID: 21300000, guid: 8f408c1cc3f0fd4428436e671943d934, type: 3}
+  - name: building
+    image: {fileID: 21300000, guid: af65f4ec7c89fb644834e25e027a6bf7, type: 3}
+  - name: eiffel tower
+    image: {fileID: 21300000, guid: 5286a44c80686984fae526c9efd30ce3, type: 3}
+  - name: fence
+    image: {fileID: 21300000, guid: cdd1e6992dd808347a897c2804d630a7, type: 3}
+  - name: fountain
+    image: {fileID: 21300000, guid: ab55942f61ff0d047984e549c084b2a3, type: 3}
+  - name: great sphinx of giza
+    image: {fileID: 21300000, guid: 02e68a7d016e56746b6119be5b3f8d8c, type: 3}
+  - name: igloo
+    image: {fileID: 21300000, guid: 97493c21d7065a649bb1d3d4f082d944, type: 3}
+  - name: lighthouse
+    image: {fileID: 21300000, guid: d0dbb00025636f84d9cbc1cbfc0f1de1, type: 3}
+  - name: manhole cover
+    image: {fileID: 21300000, guid: 79d3ef27660003e48bf7a2af2da92591, type: 3}
+  - name: statue of liberty
+    image: {fileID: 21300000, guid: 5c96ade9aca2da14da2628245b2c1a93, type: 3}
+  - name: tent
+    image: {fileID: 21300000, guid: 8386c9aa578f6824db657c05b6066467, type: 3}
