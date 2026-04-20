@@ -1,0 +1,86 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: furniture
+  m_EditorClassIdentifier: 
+  category: furniture
+  logos:
+  - name: aquarium
+    image: {fileID: 21300000, guid: 89004493fb7606e41a63d9028d8ab229, type: 3}
+  - name: armchair
+    image: {fileID: 21300000, guid: 5c0adbd42a437364aaca8893c58e0210, type: 3}
+  - name: bassinet
+    image: {fileID: 21300000, guid: 25ac8f21d1a7b3d40a9401a6c111c9b6, type: 3}
+  - name: bathtub
+    image: {fileID: 21300000, guid: 95f9a8a2c8113434c956d7f82df87ce8, type: 3}
+  - name: bed
+    image: {fileID: 21300000, guid: 01faca245d36faa438ab9bfbb8e6de21, type: 3}
+  - name: bench
+    image: {fileID: 21300000, guid: 0d4d57ac5de8c9f4b9365cc4837f8b4a, type: 3}
+  - name: blackboard
+    image: {fileID: 21300000, guid: 4c020f72de7b9ff42b9db1d95930e653, type: 3}
+  - name: bookshelf bookcase
+    image: {fileID: 21300000, guid: a56885d9e8b7afc4fa949588da31f3e4, type: 3}
+  - name: carpet rug
+    image: {fileID: 21300000, guid: 11956a5a5d0284943aebcbc97bdae096, type: 3}
+  - name: chair
+    image: {fileID: 21300000, guid: 1f93abda1ef52a4448d40e64ed0fcc27, type: 3}
+  - name: chandelier
+    image: {fileID: 21300000, guid: 96f73255d5744d14c90c111eb673d6ae, type: 3}
+  - name: cupboard closet
+    image: {fileID: 21300000, guid: 5c5d98d84794b5f4daaf5b129b859e81, type: 3}
+  - name: curtains
+    image: {fileID: 21300000, guid: 3b13159bb08ac4142b0907d068a56c03, type: 3}
+  - name: door
+    image: {fileID: 21300000, guid: 5018b035df10b0944bcb5ec7cdb84302, type: 3}
+  - name: door handle
+    image: {fileID: 21300000, guid: dc3a83c5b17cf2a458fc19f20e964c08, type: 3}
+  - name: dresser
+    image: {fileID: 21300000, guid: a4ec554afcfe89d46b752c93a94b06b6, type: 3}
+  - name: fireplace
+    image: {fileID: 21300000, guid: 7506855b2e1cba84189d7728e44190fc, type: 3}
+  - name: hammock
+    image: {fileID: 21300000, guid: e54ffafb06a7c6f438acf3d33b561e12, type: 3}
+  - name: infant bed crib
+    image: {fileID: 21300000, guid: dd0dd42747ad0474e952558ef69d8451, type: 3}
+  - name: mailbox postbox
+    image: {fileID: 21300000, guid: 41891f71ad89edc4bba395620a68951d, type: 3}
+  - name: mattresse
+    image: {fileID: 21300000, guid: ef1bc039f24ce024e8d528c3c13ec83b, type: 3}
+  - name: mirror
+    image: {fileID: 21300000, guid: 436907b8ee7d0e54ab41438b7ad1bf88, type: 3}
+  - name: piano
+    image: {fileID: 21300000, guid: 1cc090ff7230aa44ebb1306f483c9ddf, type: 3}
+  - name: piano keys
+    image: {fileID: 21300000, guid: e3fcf7f7676ba224da21af5e9874be20, type: 3}
+  - name: pillow
+    image: {fileID: 21300000, guid: 9665f5520e1a9994ea70eba7f85a1485, type: 3}
+  - name: red carpet
+    image: {fileID: 21300000, guid: d3da2b48c5e621944bd0b2e32a4c388c, type: 3}
+  - name: rocking chair
+    image: {fileID: 21300000, guid: dbad1018554b4c6499e48df1b100e599, type: 3}
+  - name: shower
+    image: {fileID: 21300000, guid: 3001dc00ce760ff4a9743b6448fc4997, type: 3}
+  - name: sink
+    image: {fileID: 21300000, guid: 6d90567ef191ec44999df78c1b46a515, type: 3}
+  - name: sofa
+    image: {fileID: 21300000, guid: e89cd72bea3d48c4090a25fa41c2e66d, type: 3}
+  - name: sun lounger
+    image: {fileID: 21300000, guid: 88fa473c62163be4885e27a30b1806c7, type: 3}
+  - name: swing
+    image: {fileID: 21300000, guid: b745259eb499a23438dce0dd7f3af2b5, type: 3}
+  - name: table
+    image: {fileID: 21300000, guid: c89395d9d78916f4a8fdb5ea190ae656, type: 3}
+  - name: toilet
+    image: {fileID: 21300000, guid: 146d325495c5c674a8b5b42ea2eacc4c, type: 3}
+  - name: window
+    image: {fileID: 21300000, guid: 5c55c3206bb9c9343942dfb098fb33d7, type: 3}

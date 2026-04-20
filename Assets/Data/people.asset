@@ -1,0 +1,178 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: people
+  m_EditorClassIdentifier: 
+  category: people
+  logos:
+  - name: american indian
+    image: {fileID: 21300000, guid: 6f1992fe53888164a9f5f9b95ef547bb, type: 3}
+  - name: anonymous mask
+    image: {fileID: 21300000, guid: 6ba7c2bd3f8e3ff4f9d6417081f38ca9, type: 3}
+  - name: astronaut
+    image: {fileID: 21300000, guid: d213201aa03429141919a06610f920eb, type: 3}
+  - name: baby
+    image: {fileID: 21300000, guid: 39dc1a70c72936040a65b364d4f67557, type: 3}
+  - name: ballet dancer
+    image: {fileID: 21300000, guid: 32586b62b0632134aabbecf41640c7ff, type: 3}
+  - name: barefoot
+    image: {fileID: 21300000, guid: 29d42e5b8274ad745bc1e77e9af9d373, type: 3}
+  - name: beard
+    image: {fileID: 21300000, guid: 733038e5694e03c4d929caf9d9004b11, type: 3}
+  - name: brain
+    image: {fileID: 21300000, guid: 5b55a0e0dfb735242a1942050a9481ba, type: 3}
+  - name: bride
+    image: {fileID: 21300000, guid: 404bb202aa31d5144bec80eed2da4a15, type: 3}
+  - name: businessman
+    image: {fileID: 21300000, guid: 3a15b49eafd96834f9373a9125407a45, type: 3}
+  - name: chef
+    image: {fileID: 21300000, guid: f154e0255b37a044e8d4db9a33fb5ce6, type: 3}
+  - name: children kids
+    image: {fileID: 21300000, guid: 58a248df2f7ecd64bae0e44f65c25931, type: 3}
+  - name: clapping hands
+    image: {fileID: 21300000, guid: dfa5c6c0431582043bafc1fdf6b8e53b, type: 3}
+  - name: clown
+    image: {fileID: 21300000, guid: f66d554ee078826438dc830b4e65e5b7, type: 3}
+  - name: cowboy
+    image: {fileID: 21300000, guid: 40bb440debe663d47884ef0028d471f6, type: 3}
+  - name: crowd
+    image: {fileID: 21300000, guid: a08a7b4c867eff84b9cc96b01420ed1e, type: 3}
+  - name: crusader
+    image: {fileID: 21300000, guid: 8b8264fbd7c66674dae895582731c340, type: 3}
+  - name: dancer
+    image: {fileID: 21300000, guid: 4aa08570468fc1944b5a185462c9cb7c, type: 3}
+  - name: disc jockey
+    image: {fileID: 21300000, guid: 67dca04c4e104d44f97d615d9502e8b0, type: 3}
+  - name: diver
+    image: {fileID: 21300000, guid: 1564c3bdc6ab836408d57f0974453f88, type: 3}
+  - name: doctors and nurses
+    image: {fileID: 21300000, guid: af15dfacc1589284da49af26a60f89ff, type: 3}
+  - name: ear
+    image: {fileID: 21300000, guid: 04257fff6d290b443a1e4eb36d91b517, type: 3}
+  - name: eyelash
+    image: {fileID: 21300000, guid: 402ccffffb4f6964085d2ebaedd0b66d, type: 3}
+  - name: eyes
+    image: {fileID: 21300000, guid: bac322af572ba344abc13cbf605c7e1a, type: 3}
+  - name: faces
+    image: {fileID: 21300000, guid: b784298d404d0474aa8f67d9830c23c7, type: 3}
+  - name: farmer
+    image: {fileID: 21300000, guid: c5c49e933964ead4eb961db34d2e7b49, type: 3}
+  - name: fingerprint
+    image: {fileID: 21300000, guid: 794d5b039101f0541b447f0a889ef50a, type: 3}
+  - name: fingers
+    image: {fileID: 21300000, guid: e1bac81452035de43a20fda26d1c8c33, type: 3}
+  - name: firefighter
+    image: {fileID: 21300000, guid: 126450f4596336f48bd373349ce7042f, type: 3}
+  - name: fist
+    image: {fileID: 21300000, guid: e422017054baedb4f9a98b85f73decfe, type: 3}
+  - name: footprints
+    image: {fileID: 21300000, guid: c3034db050b2bd340a46dff202e03259, type: 3}
+  - name: gangster
+    image: {fileID: 21300000, guid: 6403a3e19f6111f42980690cd40614a0, type: 3}
+  - name: girls
+    image: {fileID: 21300000, guid: bc2495ce28bc23244a5666f58bf1fdb5, type: 3}
+  - name: groom
+    image: {fileID: 21300000, guid: 565297b1aff98ca40a9f420ba36f7ed2, type: 3}
+  - name: guard security
+    image: {fileID: 21300000, guid: cce6c717dc93fc749b572b28e9e3480f, type: 3}
+  - name: hacker
+    image: {fileID: 21300000, guid: 00c4347de22afc14f83b0b17e1e601ac, type: 3}
+  - name: hair
+    image: {fileID: 21300000, guid: 4b61699f22689dc4187335aa0551bb39, type: 3}
+  - name: hands
+    image: {fileID: 21300000, guid: 116f8d8adcc5745458a5499a72a97cb9, type: 3}
+  - name: industrial workers and engineers
+    image: {fileID: 21300000, guid: c8dfbf832e0e4b84398f4cd1a9d9af57, type: 3}
+  - name: jester
+    image: {fileID: 21300000, guid: 34e3433748d825a44ad6c92beccaf028, type: 3}
+  - name: legs
+    image: {fileID: 21300000, guid: f4e46bd58c108994ea997e8d8c362331, type: 3}
+  - name: lips
+    image: {fileID: 21300000, guid: 0c3126be2fda75944bbfa85ddbfb4f6c, type: 3}
+  - name: lung
+    image: {fileID: 21300000, guid: 7e3d2d1071631c144ab975dbd20a8c01, type: 3}
+  - name: man
+    image: {fileID: 21300000, guid: 40c2c6982fcf4f146873c2191fa9a54a, type: 3}
+  - name: medieval knight
+    image: {fileID: 21300000, guid: 4e416771b8d2e514795dbdfb7a7bcd51, type: 3}
+  - name: moustache
+    image: {fileID: 21300000, guid: f41c5abd1176a9340af4228f7f9bff79, type: 3}
+  - name: mouth smile
+    image: {fileID: 21300000, guid: 2a5879c73c16a244386acf13736fd036, type: 3}
+  - name: muscle
+    image: {fileID: 21300000, guid: d9358ea5b60085f4a82b29e33b50a7b1, type: 3}
+  - name: nails
+    image: {fileID: 21300000, guid: 66dcbc35b2b194548bc1117e411c1f83, type: 3}
+  - name: ninja
+    image: {fileID: 21300000, guid: ea6897b02e56b334cb89a2b96e48fc8b, type: 3}
+  - name: nose
+    image: {fileID: 21300000, guid: a84a96d65dfae2b42908e99217066881, type: 3}
+  - name: party
+    image: {fileID: 21300000, guid: f928b8fdebfff5d4fb7e63ed0153387c, type: 3}
+  - name: pirate
+    image: {fileID: 21300000, guid: a784c3665efc6304e944533177d4af8b, type: 3}
+  - name: policeman
+    image: {fileID: 21300000, guid: 83ae1a67dcf5323439243b56e0221bfb, type: 3}
+  - name: postman
+    image: {fileID: 21300000, guid: 531dfcae1195bdd43bc06c2b270855b7, type: 3}
+  - name: prisoner
+    image: {fileID: 21300000, guid: 9b9d7432328e7e846afeffcebdb17fdf, type: 3}
+  - name: reporter
+    image: {fileID: 21300000, guid: 74e4e15960de40a4193253b03ec62038, type: 3}
+  - name: running man
+    image: {fileID: 21300000, guid: 1e1f94eefdfe6854f961dc4f07b4139c, type: 3}
+  - name: samurai
+    image: {fileID: 21300000, guid: 4742bf2b07e5ea84788da655d61d262a, type: 3}
+  - name: scars
+    image: {fileID: 21300000, guid: 32ce9c7aa8c094d4e870838dce6cf335, type: 3}
+  - name: scientist
+    image: {fileID: 21300000, guid: d3c08135d64b2374c9f0a4a7f3df1d68, type: 3}
+  - name: sitting man
+    image: {fileID: 21300000, guid: 81e0846bd1e709046b09a2f2e0ce6704, type: 3}
+  - name: skeleton
+    image: {fileID: 21300000, guid: 64523a4763a26c24eb058712cc188012, type: 3}
+  - name: skull
+    image: {fileID: 21300000, guid: 9d3ba878764c2104798bd392fa70ab28, type: 3}
+  - name: soldiers
+    image: {fileID: 21300000, guid: 5423334f4e779884fb827e731f7173d7, type: 3}
+  - name: spy
+    image: {fileID: 21300000, guid: 0b7cced316a682649ac2a73dd8c6da94, type: 3}
+  - name: stewardess
+    image: {fileID: 21300000, guid: 27f6403f8f05d9b4799eae4fff4551f2, type: 3}
+  - name: student
+    image: {fileID: 21300000, guid: 5e2dfeb0d606e7e4ba45929001c78bab, type: 3}
+  - name: swat
+    image: {fileID: 21300000, guid: 45b6528996fda1b4da7a85a8679248fc, type: 3}
+  - name: teacher
+    image: {fileID: 21300000, guid: f733cd70fba6705419a2863527a81d35, type: 3}
+  - name: tears
+    image: {fileID: 21300000, guid: ba44a18dfd8b8a94bb6b8b5c330a588a, type: 3}
+  - name: teeth
+    image: {fileID: 21300000, guid: 1957f82c3585778489c7cb4f3b125999, type: 3}
+  - name: terrorist
+    image: {fileID: 21300000, guid: 5a633f4b243a282488158c133530be19, type: 3}
+  - name: thief robber
+    image: {fileID: 21300000, guid: d3ea14081a23ed34bb096db9f404ae13, type: 3}
+  - name: thinking man
+    image: {fileID: 21300000, guid: cacee312115276b428b190dc4b3a2133, type: 3}
+  - name: thinking woman
+    image: {fileID: 21300000, guid: 647ef9168b0446b4abed2e32549b4e1c, type: 3}
+  - name: tongue
+    image: {fileID: 21300000, guid: 5cfd040a11a1e7f4aac242a3bca9c660, type: 3}
+  - name: viking
+    image: {fileID: 21300000, guid: 01009009cc1ddf04eabce8c2ef46ab30, type: 3}
+  - name: waiter
+    image: {fileID: 21300000, guid: 5f16f7951a747124ea30d302c8ae5988, type: 3}
+  - name: wig
+    image: {fileID: 21300000, guid: 5be0b0e6056ab0a4b96822a973261570, type: 3}
+  - name: wounds
+    image: {fileID: 21300000, guid: bf7358cfac3269a4aafae282cbac7358, type: 3}

@@ -1,0 +1,174 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: fantasy
+  m_EditorClassIdentifier: 
+  category: fantasy
+  logos:
+  - name: aladdin lamp
+    image: {fileID: 21300000, guid: a57177137d8e40147a4d06c1c0a01ae7, type: 3}
+  - name: alien
+    image: {fileID: 21300000, guid: f09b0aa34cb633b4b85ea90cbb0edd5e, type: 3}
+  - name: allah
+    image: {fileID: 21300000, guid: 336fdb69836b8f24aa2c3a592855d494, type: 3}
+  - name: angel
+    image: {fileID: 21300000, guid: 22b703f1a959a5d41a4863b6f14a6c26, type: 3}
+  - name: anime girl
+    image: {fileID: 21300000, guid: 660c9055e5d896a4ebb9d6250a05baeb, type: 3}
+  - name: casper ghost
+    image: {fileID: 21300000, guid: 172e0ba6c62a4784f941aa34b49ff750, type: 3}
+  - name: cauldron
+    image: {fileID: 21300000, guid: b1ba82b6167c430459bbc90e264a072e, type: 3}
+  - name: centaur
+    image: {fileID: 21300000, guid: 5fdadbac61fa1df4fb887222da5c4bb9, type: 3}
+  - name: chakra
+    image: {fileID: 21300000, guid: 1fb0ba297c40a604cadad53d66c3efd6, type: 3}
+  - name: christian cross
+    image: {fileID: 21300000, guid: fbc194ea8da90584bb12c4da531fd474, type: 3}
+  - name: church
+    image: {fileID: 21300000, guid: d0437b3d0556e8841ab7b30990b10292, type: 3}
+  - name: cyborg
+    image: {fileID: 21300000, guid: 62e08031cbea5b74fa0100120761d39d, type: 3}
+  - name: darth vader
+    image: {fileID: 21300000, guid: 8bd385594bc99ba4a80b96378479cc9e, type: 3}
+  - name: death
+    image: {fileID: 21300000, guid: 4fb0ce03933c23848b42a7a5eedb164d, type: 3}
+  - name: demon
+    image: {fileID: 21300000, guid: d2e60e3363954574b970691a1986c309, type: 3}
+  - name: devil
+    image: {fileID: 21300000, guid: 31766b1bb0401ba4ab1e94d3e4fd2fba, type: 3}
+  - name: diablo
+    image: {fileID: 21300000, guid: 5c332f2e7e18d5044999dee56b5876db, type: 3}
+  - name: dinosaur
+    image: {fileID: 21300000, guid: d968f31e0a032b646a033de8b3ea8e0e, type: 3}
+  - name: disneyland
+    image: {fileID: 21300000, guid: c35c5fcd3e956e0408b0663d8207d695, type: 3}
+  - name: dragon
+    image: {fileID: 21300000, guid: da5fff0839af21546b7b59c741b3bf43, type: 3}
+  - name: dreamcatcher
+    image: {fileID: 21300000, guid: 29f0f6f63c13d96409ad18ced3a3cf1b, type: 3}
+  - name: dwarf
+    image: {fileID: 21300000, guid: 2cf4d2345198b824892c4715936edf7f, type: 3}
+  - name: elf
+    image: {fileID: 21300000, guid: 3bc4fe93983c147429380bc53e679770, type: 3}
+  - name: fairy
+    image: {fileID: 21300000, guid: 66861dbe030a0f040b6b5733fd34677d, type: 3}
+  - name: ganesha
+    image: {fileID: 21300000, guid: f967ab414963eae4bbea63945a0f3216, type: 3}
+  - name: gautama buddha
+    image: {fileID: 21300000, guid: 0fc93dfb82ac90046a5a9568f8248f34, type: 3}
+  - name: ghost
+    image: {fileID: 21300000, guid: 866a45388b4de9c46b34f413f66efef1, type: 3}
+  - name: goblin
+    image: {fileID: 21300000, guid: ca260a75c3d6ed74eb8aa9f6c8f61f39, type: 3}
+  - name: god
+    image: {fileID: 21300000, guid: afbfcdf1a052a75478521693ab886923, type: 3}
+  - name: gravestone
+    image: {fileID: 21300000, guid: 739ca0fe6d0592849a4157541517b15a, type: 3}
+  - name: griffin
+    image: {fileID: 21300000, guid: 2162e6e360f145c41bd0932f657cc5a5, type: 3}
+  - name: grim reaper
+    image: {fileID: 21300000, guid: cb36142b2285996428aff5cd39510a0d, type: 3}
+  - name: groot
+    image: {fileID: 21300000, guid: 37f45184009bb1d4a86132593413e2fb, type: 3}
+  - name: hanukkah
+    image: {fileID: 21300000, guid: 5b50dccf79381ee48bba2c064cdae552, type: 3}
+  - name: hanukkah menorah
+    image: {fileID: 21300000, guid: b849f272154e5014987b2f2ddc98956f, type: 3}
+  - name: hanuman
+    image: {fileID: 21300000, guid: f03d7454a4f6cb44ab3722e57878f2a0, type: 3}
+  - name: hijab
+    image: {fileID: 21300000, guid: a71e35ff158df2e498c0975db4435a79, type: 3}
+  - name: holy bible
+    image: {fileID: 21300000, guid: 2eb7d6df14c8a9245b8519981ab50af3, type: 3}
+  - name: islam
+    image: {fileID: 21300000, guid: d80c8e7df22caae4585310a31b78c4b1, type: 3}
+  - name: jesus christ
+    image: {fileID: 21300000, guid: ffa2da42241634849a9099b7b8668cbf, type: 3}
+  - name: lord voldemort
+    image: {fileID: 21300000, guid: ac93e2b24811b4144b6e6b048249f17f, type: 3}
+  - name: magen david
+    image: {fileID: 21300000, guid: 1211061fcaf30914e9af44e886d21b02, type: 3}
+  - name: magic hat
+    image: {fileID: 21300000, guid: 9c243d202a01beb4388baf3e2ceadb5d, type: 3}
+  - name: magic wand
+    image: {fileID: 21300000, guid: 4f70a85f82c19e949bc1a723177d5ecc, type: 3}
+  - name: mermaid
+    image: {fileID: 21300000, guid: ca848ce60314ccc4e93dc829b73f0c9b, type: 3}
+  - name: mosque
+    image: {fileID: 21300000, guid: d77aa8f6a4a578141ab760d81742211b, type: 3}
+  - name: mummy
+    image: {fileID: 21300000, guid: 4060e2f1a2c431140911391aaff27768, type: 3}
+  - name: naruto
+    image: {fileID: 21300000, guid: 9fb82f420fa1ed04f9111ed5716ea957, type: 3}
+  - name: orc
+    image: {fileID: 21300000, guid: da155e200e286434abd62db810556361, type: 3}
+  - name: pegasus
+    image: {fileID: 21300000, guid: ba86366767c8690449ce41c072097d51, type: 3}
+  - name: pentacle
+    image: {fileID: 21300000, guid: bb4f8b0151bf0424aaa49c304ab21ff7, type: 3}
+  - name: pentagram
+    image: {fileID: 21300000, guid: 8b933e3ef72fa214ea63498811e5bee9, type: 3}
+  - name: pinocchio
+    image: {fileID: 21300000, guid: 68ee503edb59fe247a003b0c788f2677, type: 3}
+  - name: pokeball
+    image: {fileID: 21300000, guid: 0779f9cb512a333459037022c8d46a20, type: 3}
+  - name: pokemon
+    image: {fileID: 21300000, guid: f5392b5308d939043a984d77c8329c61, type: 3}
+  - name: praying hands
+    image: {fileID: 21300000, guid: c5725e74fea614a4fb6155590e43e941, type: 3}
+  - name: quran
+    image: {fileID: 21300000, guid: b19802e146c62d2408c1d27c72b03cdf, type: 3}
+  - name: shiva
+    image: {fileID: 21300000, guid: 762eb37a614e0b644aa8d2e66b948b18, type: 3}
+  - name: slender man
+    image: {fileID: 21300000, guid: 09cf286dfed029642b08e56eacc9c9ff, type: 3}
+  - name: sorting hat
+    image: {fileID: 21300000, guid: 6e979a77ee96e9d4d8f5e210530e30b3, type: 3}
+  - name: squid game
+    image: {fileID: 21300000, guid: 93ba9bd059ccc5243a812dc59143345c, type: 3}
+  - name: star wars
+    image: {fileID: 21300000, guid: edbad9e5d87db764b832aef510878ce1, type: 3}
+  - name: stormtrooper
+    image: {fileID: 21300000, guid: c00e2b5d8a5883e4e8b6e430a3858f59, type: 3}
+  - name: synagogue
+    image: {fileID: 21300000, guid: 09b510894e91eaf488ddc91c511ec75b, type: 3}
+  - name: tefillin
+    image: {fileID: 21300000, guid: ef1f27f7f5060fb41914cc5444f3e310, type: 3}
+  - name: torah
+    image: {fileID: 21300000, guid: bb87819841c214944be08752dd68330f, type: 3}
+  - name: transformers
+    image: {fileID: 21300000, guid: 391873db0fe390b45b7761a45035d0dd, type: 3}
+  - name: ufo
+    image: {fileID: 21300000, guid: 99e232abb285a9242b5a2608b76d5762, type: 3}
+  - name: unicorn
+    image: {fileID: 21300000, guid: 5c1e1d11e1b09ea41bd0a5966d06f6ed, type: 3}
+  - name: vampires
+    image: {fileID: 21300000, guid: c67961e8a140cb144a2669f7750fbd0e, type: 3}
+  - name: werewolf
+    image: {fileID: 21300000, guid: c0553595e16427541be9f6bf90eb14c7, type: 3}
+  - name: wings
+    image: {fileID: 21300000, guid: 92098f3ab18fc2e478e56772c009a2f2, type: 3}
+  - name: witch
+    image: {fileID: 21300000, guid: 0dbac6841e5f96047b946ab651dd1109, type: 3}
+  - name: wizard
+    image: {fileID: 21300000, guid: 180efeb6273ac7d41a2c376686268abe, type: 3}
+  - name: wolverine
+    image: {fileID: 21300000, guid: 033ca8d79793032489f06d9811ad107e, type: 3}
+  - name: xenomorph
+    image: {fileID: 21300000, guid: e908125c06469d14496e5c75d3c8a8d0, type: 3}
+  - name: yeti
+    image: {fileID: 21300000, guid: 7f754c06f34c6bc40ab6eb13b7dece3a, type: 3}
+  - name: yin and yang
+    image: {fileID: 21300000, guid: 989e418d73c966745a02ebdabfe57f9e, type: 3}
+  - name: zombie
+    image: {fileID: 21300000, guid: 2458dbad16125ec48903b58bdd386040, type: 3}

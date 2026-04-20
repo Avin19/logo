@@ -1,0 +1,154 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: cars
+  m_EditorClassIdentifier: 
+  category: cars
+  logos:
+  - name: acura
+    image: {fileID: 21300000, guid: bb6e83328b9367c4c8c9b23cde93380d, type: 3}
+  - name: alfa romeo
+    image: {fileID: 21300000, guid: d35cc65d2f11ce54a8040e053b9c4ac6, type: 3}
+  - name: ambulance
+    image: {fileID: 21300000, guid: aed4338c71001034fbb6951eed809f18, type: 3}
+  - name: aston martin
+    image: {fileID: 21300000, guid: 0e17c2b2d2e92044a806d61492a75d7a, type: 3}
+  - name: audi
+    image: {fileID: 21300000, guid: 274727a274def1d43872b794d5b03943, type: 3}
+  - name: bentley
+    image: {fileID: 21300000, guid: 2ae0018a8467bca44ada8f83df8baae2, type: 3}
+  - name: bmw
+    image: {fileID: 21300000, guid: 4231bb85b7625b148bee1198235edbc8, type: 3}
+  - name: bugatti
+    image: {fileID: 21300000, guid: 6d70758e72c69e145ac649df145ca349, type: 3}
+  - name: cadillac
+    image: {fileID: 21300000, guid: da1ce209f402a13438d280afc1233df8, type: 3}
+  - name: camaro
+    image: {fileID: 21300000, guid: 072682e250a6c3949a7b2eb188ea79c1, type: 3}
+  - name: cars logo brands
+    image: {fileID: 21300000, guid: baa1386b23c40be43835b6790acd927f, type: 3}
+  - name: car crash
+    image: {fileID: 21300000, guid: 0e73610fc916444479e9eed8722218f8, type: 3}
+  - name: chevrolet
+    image: {fileID: 21300000, guid: 10b8b917f86cca648b9939628b7b0bbd, type: 3}
+  - name: chrysler
+    image: {fileID: 21300000, guid: 0a6cbe89cf13b404794473d58776610c, type: 3}
+  - name: citroen
+    image: {fileID: 21300000, guid: 52f1fb6f007d7e84d91bbc926804f5c0, type: 3}
+  - name: daewoo
+    image: {fileID: 21300000, guid: ce7be6d911967dc4bb9e3cb2d98959c2, type: 3}
+  - name: dodge
+    image: {fileID: 21300000, guid: 7c8444698f34f98408f94cb20273497b, type: 3}
+  - name: engine
+    image: {fileID: 21300000, guid: 2df4d456fe1af014da2a7d04773d94d6, type: 3}
+  - name: ferrari
+    image: {fileID: 21300000, guid: 58dc61bf9f905854996dc1e0416bf64c, type: 3}
+  - name: fiat
+    image: {fileID: 21300000, guid: 300119dd6527a9149a592e5826dd3f2d, type: 3}
+  - name: fire truck
+    image: {fileID: 21300000, guid: 73417640e0503184fb1148016bddb989, type: 3}
+  - name: ford
+    image: {fileID: 21300000, guid: 3ff6c9347f31e09469782c0c82949197, type: 3}
+  - name: ford mustang
+    image: {fileID: 21300000, guid: e866b34ec14084d488c00639dcf31f15, type: 3}
+  - name: formula 1
+    image: {fileID: 21300000, guid: 8fe20d7bee3eeb34388e40f46ade4a99, type: 3}
+  - name: harley davidson
+    image: {fileID: 21300000, guid: 32bebf209cded2d46ace14e84d112c9d, type: 3}
+  - name: honda
+    image: {fileID: 21300000, guid: 7a111e0047203cc4c944009ea1bbeaad, type: 3}
+  - name: hummer
+    image: {fileID: 21300000, guid: cecd0edbc9fcde04f8170a738d4692ce, type: 3}
+  - name: hyundai
+    image: {fileID: 21300000, guid: 30fa7a6661dfef143b665a98cd76a1ea, type: 3}
+  - name: infiniti
+    image: {fileID: 21300000, guid: 5271bf9a6fcf1934c9d07f38373bf037, type: 3}
+  - name: isuzu
+    image: {fileID: 21300000, guid: 58e15761a1a3fac42a95b53980a475eb, type: 3}
+  - name: jeep
+    image: {fileID: 21300000, guid: d47a663be083ac74494e0139b724f6ab, type: 3}
+  - name: kamaz
+    image: {fileID: 21300000, guid: ba6b064c38e375f4193ceb6ca65751c3, type: 3}
+  - name: kia
+    image: {fileID: 21300000, guid: e87d4f0ce6dab424486c18b7772b0b74, type: 3}
+  - name: koenigsegg
+    image: {fileID: 21300000, guid: 7ed39db0250627445bd4073da354f4f7, type: 3}
+  - name: lada
+    image: {fileID: 21300000, guid: 825911dcb4c3cc34fb8fbc74bc3b7dce, type: 3}
+  - name: lamborghini
+    image: {fileID: 21300000, guid: cafcb9e1860d5ed4e99f44ec0b25776f, type: 3}
+  - name: land rover
+    image: {fileID: 21300000, guid: 5c5fcd39e27cc804391b22a30bc47365, type: 3}
+  - name: lexus
+    image: {fileID: 21300000, guid: b3361e8565fd29b4b8d7af4065fc8170, type: 3}
+  - name: lotus
+    image: {fileID: 21300000, guid: 3d7ea4079a08da64bb9b7a984f04410f, type: 3}
+  - name: maserati
+    image: {fileID: 21300000, guid: ce31f6d77f84ddf45bc1ac9afb2e120e, type: 3}
+  - name: mazda
+    image: {fileID: 21300000, guid: eff21429ba9ab23438fdb6cd45e25396, type: 3}
+  - name: mclaren
+    image: {fileID: 21300000, guid: bcd828b9062ea4a48a741eb7b1f745ea, type: 3}
+  - name: mercedes
+    image: {fileID: 21300000, guid: a20fca1be82f5e04c8f01981c8e84ab3, type: 3}
+  - name: mini
+    image: {fileID: 21300000, guid: 57f32bf4e99af1b4e868a13ece9b8b1a, type: 3}
+  - name: mitsubishi
+    image: {fileID: 21300000, guid: 7ec84b3a28d51a04c82f0f7c2a88c157, type: 3}
+  - name: motorcycle
+    image: {fileID: 21300000, guid: 1f270f8eec250034a9214cee346e35ce, type: 3}
+  - name: nissan
+    image: {fileID: 21300000, guid: 269d883de55f7a84da79287729f81bd8, type: 3}
+  - name: niva
+    image: {fileID: 21300000, guid: ccb57ebdd73a529418df2c189d903beb, type: 3}
+  - name: opel
+    image: {fileID: 21300000, guid: f32f5235dd002934bb40af937c1d6c3d, type: 3}
+  - name: peugeot
+    image: {fileID: 21300000, guid: b4e6de8b0fca78a478156dde5e879d4f, type: 3}
+  - name: pickup truck
+    image: {fileID: 21300000, guid: b816d28792e5b484294efbcd92ac87f7, type: 3}
+  - name: police car
+    image: {fileID: 21300000, guid: 4e11caf6f18f7a443b17c500d6df7b56, type: 3}
+  - name: porsche
+    image: {fileID: 21300000, guid: 628af4f5d20086248954b31a7b3597fa, type: 3}
+  - name: renault
+    image: {fileID: 21300000, guid: f9fdf36fe417df44ea3cfc436ff43efd, type: 3}
+  - name: rolls royce
+    image: {fileID: 21300000, guid: 9978b7af0fe491f4985fd50baaf8c11e, type: 3}
+  - name: scooter
+    image: {fileID: 21300000, guid: f075e51837a765547840d7e618149d58, type: 3}
+  - name: seat
+    image: {fileID: 21300000, guid: 8eb6596faedff4d4db1d1079ca10ce59, type: 3}
+  - name: skoda
+    image: {fileID: 21300000, guid: a51149d925391c04082e310e06ee4b2c, type: 3}
+  - name: subaru
+    image: {fileID: 21300000, guid: 108a20865dbf085479a4709dabac3b11, type: 3}
+  - name: suzuki
+    image: {fileID: 21300000, guid: cd97086f5e5fc8b4c899bd1fb242928c, type: 3}
+  - name: suzuki jimny
+    image: {fileID: 21300000, guid: 47557caf6ff61bc498dd0866ceecc247, type: 3}
+  - name: taxi
+    image: {fileID: 21300000, guid: c7cbf84413ae1714c9f46d21b36878ac, type: 3}
+  - name: tesla
+    image: {fileID: 21300000, guid: d79fb52d98b99d842965a275d6e505e4, type: 3}
+  - name: tesla cybertruck
+    image: {fileID: 21300000, guid: d8cc8f8440134ab4f873f672c4252c78, type: 3}
+  - name: toyota
+    image: {fileID: 21300000, guid: 8d247a03e87ca4446ba6f1c0d61d8658, type: 3}
+  - name: truck
+    image: {fileID: 21300000, guid: bb1eaa07485177346bbca16c3b81fc03, type: 3}
+  - name: uaz
+    image: {fileID: 21300000, guid: e53cdac30fba0684787524638c1b08eb, type: 3}
+  - name: volkswagen
+    image: {fileID: 21300000, guid: 59f98ae8133dc0a4fa0a962efdd2495e, type: 3}
+  - name: volvo
+    image: {fileID: 21300000, guid: 781b2292de716934d914179004f00f26, type: 3}

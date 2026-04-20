@@ -3,7 +3,8 @@ import time
 import requests
 from bs4 import BeautifulSoup
 from urllib.parse import urljoin
-from concurrent.futures import ThreadPoolExecutor
+from PIL import Image
+from io import BytesIO
 
 # ============================
 # CONFIG
@@ -11,10 +12,10 @@ from concurrent.futures import ThreadPoolExecutor
 BASE_URL = "https://pngimg.com/"
 BASE_DOMAIN = "pngimg.com"
 HEADERS = {"User-Agent": "Mozilla/5.0"}
-MAX_WORKERS = 5
 
 ROOT_FOLDER = "Assets/Sprites"
 
+MAX_SIZE = (256, 256)   # resize for mobile optimization
 
 # ============================
 # UTILS
@@ -24,13 +25,19 @@ def get_soup(url):
         res = requests.get(url, headers=HEADERS, timeout=10)
         res.raise_for_status()
         return BeautifulSoup(res.text, "html.parser")
-    except:
+    except Exception:
+        print(f"❌ Failed: {url}")
         return None
 
 
 def clean_name(name):
-    return name.lower().replace(" ", "_").replace(",", "").strip()
-
+    return (
+        name.lower()
+        .replace(" ", "_")
+        .replace(",", "")
+        .replace("-", "_")
+        .strip()
+    )
 
 # ============================
 # GET ALL SUBCATEGORIES
@@ -38,6 +45,9 @@ def clean_name(name):
 def get_all_subcategories():
     soup = get_soup(BASE_URL)
     data = []
+
+    if not soup:
+        return data
 
     for block in soup.select("li.catalog"):
         category = clean_name(block.select_one("div.category a").text)
@@ -52,7 +62,6 @@ def get_all_subcategories():
                 data.append((category, sub_name, full_url))
 
     return data
-
 
 # ============================
 # GET IMAGE PAGES
@@ -72,7 +81,6 @@ def get_image_pages(sub_url):
 
     return list(set(links))
 
-
 # ============================
 # GET PNG LINK
 # ============================
@@ -88,33 +96,39 @@ def get_png(img_page):
 
     return None
 
-
 # ============================
-# DOWNLOAD WORKER (RENAMED)
+# DOWNLOAD + COMPRESS
 # ============================
-def download_worker(img_page, folder, category, sub_name, index):
+def download_image(img_page, folder, sub_name):
     png_url = get_png(img_page)
 
     if not png_url:
         return
 
-    filename = f"{category}_{sub_name}_{index:03}.png"
+    filename = f"{sub_name}.png"
     path = os.path.join(folder, filename)
 
+    # Skip if already downloaded
     if os.path.exists(path):
+        print(f"⏩ Skipped {filename}")
         return
 
     try:
-        img_data = requests.get(png_url, headers=HEADERS, timeout=10).content
+        res = requests.get(png_url, headers=HEADERS, timeout=10)
 
-        with open(path, "wb") as f:
-            f.write(img_data)
+        # Load image
+        img = Image.open(BytesIO(res.content)).convert("RGBA")
+
+        # Resize (important)
+        img.thumbnail(MAX_SIZE)
+
+        # Save optimized PNG
+        img.save(path, format="PNG", optimize=True)
 
         print(f"✅ {filename}")
 
-    except:
-        print(f"❌ {png_url}")
-
+    except Exception as e:
+        print(f"❌ Error: {png_url} | {e}")
 
 # ============================
 # MAIN PIPELINE
@@ -126,27 +140,22 @@ def run():
     print(f"📦 Total subcategories: {len(data)}\n")
 
     for category, sub_name, sub_url in data:
-        folder = os.path.join(ROOT_FOLDER, category, sub_name)
+        folder = os.path.join(ROOT_FOLDER, category)
         os.makedirs(folder, exist_ok=True)
 
-        print(f"\n📂 {category}/{sub_name}")
+        print(f"\n📂 {category} → {sub_name}")
 
         image_pages = get_image_pages(sub_url)
-        print(f"   → {len(image_pages)} images")
 
-        with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
-            for i, img in enumerate(image_pages, start=1):
-                executor.submit(
-                    download_worker,
-                    img,
-                    folder,
-                    category,
-                    sub_name,
-                    i
-                )
+        if not image_pages:
+            continue
 
-        time.sleep(0.5)
+        # ✅ Take ONLY first image
+        first_image = image_pages[0]
 
+        download_image(first_image, folder, sub_name)
+
+        time.sleep(0.3)  # be polite to server
 
 # ============================
 # ENTRY

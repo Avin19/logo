@@ -1,0 +1,256 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: food
+  m_EditorClassIdentifier: 
+  category: food
+  logos:
+  - name: bacon
+    image: {fileID: 21300000, guid: 2ba9d27ffdc50634ab13be49d0c901c2, type: 3}
+  - name: bagel
+    image: {fileID: 21300000, guid: 86d2a00e3865ed9489f3243859a5a751, type: 3}
+  - name: baguette
+    image: {fileID: 21300000, guid: cbb32cf4ae197a64aabcc302b11dabfc, type: 3}
+  - name: barbecue
+    image: {fileID: 21300000, guid: 879fcea858ca69b4b87edc80f926da6c, type: 3}
+  - name: beef
+    image: {fileID: 21300000, guid: 35aeb1442a88f73419e3cff11be7324f, type: 3}
+  - name: beer
+    image: {fileID: 21300000, guid: 8907eab6c3f6e8b46ab8e0e640c8cd49, type: 3}
+  - name: biscuit
+    image: {fileID: 21300000, guid: 35d77fc2f802d2741b17adc390c7de9e, type: 3}
+  - name: black pepper
+    image: {fileID: 21300000, guid: 8e40d7da19ba9dd449d2d58c0891fc03, type: 3}
+  - name: bonbons
+    image: {fileID: 21300000, guid: 4b4a4067e1453a749ba03e3518ee77bc, type: 3}
+  - name: bread
+    image: {fileID: 21300000, guid: 5eb5799e9facc4745b3bba1a5ae7e3ac, type: 3}
+  - name: breakfast
+    image: {fileID: 21300000, guid: c1e3a468e7fa617468e96225918d8508, type: 3}
+  - name: broken bottle
+    image: {fileID: 21300000, guid: eb0a7a9d837768d42b580a3ee45e7bbe, type: 3}
+  - name: bun
+    image: {fileID: 21300000, guid: f11db88ebacff804f9e87808d2926733, type: 3}
+  - name: butter
+    image: {fileID: 21300000, guid: ec1766236ef1fdb4f9b36b1daee3fcca, type: 3}
+  - name: cake
+    image: {fileID: 21300000, guid: db653ad9c37a96f44a78f6f0261ffc66, type: 3}
+  - name: candy cane
+    image: {fileID: 21300000, guid: 7d869a1341d31cc4bac8253edea258d9, type: 3}
+  - name: cappuccino
+    image: {fileID: 21300000, guid: 03ccc981f96eccf408b675dd9fa2a560, type: 3}
+  - name: champagne
+    image: {fileID: 21300000, guid: d7daea27616ccec42af57706c647ea54, type: 3}
+  - name: cheese
+    image: {fileID: 21300000, guid: 5f2364b44dacf134cb85af59e786e0c5, type: 3}
+  - name: chewing gum
+    image: {fileID: 21300000, guid: 49379aa4412aa1e4387b44b13c0c9f15, type: 3}
+  - name: chocolate
+    image: {fileID: 21300000, guid: afd89172e310e37499c4630ed8af0d38, type: 3}
+  - name: chocolate cake
+    image: {fileID: 21300000, guid: bc1d61da0143dbc42bc35988f8f5fe06, type: 3}
+  - name: chupa chups
+    image: {fileID: 21300000, guid: 5c62a4b3bb4c4e345be39152df3ac344, type: 3}
+  - name: coca cola
+    image: {fileID: 21300000, guid: 3f0298af76adcd343bc3a8d0bc937277, type: 3}
+  - name: cocktail
+    image: {fileID: 21300000, guid: 8b8fb654e584fda4b8774d6ab8d0f339, type: 3}
+  - name: coffee beans
+    image: {fileID: 21300000, guid: 51ba11b2bd11e7f4aaf5018caf7bb745, type: 3}
+  - name: coffee capsules
+    image: {fileID: 21300000, guid: 281c73e14943c0f47a803c027c9fb2fc, type: 3}
+  - name: coffee jar
+    image: {fileID: 21300000, guid: f72b8fbc94cdbbd40bb3ffeb95434681, type: 3}
+  - name: cognac
+    image: {fileID: 21300000, guid: 0e6eaacaf5db18f4fbf4f79f2c4ca0ba, type: 3}
+  - name: cookie
+    image: {fileID: 21300000, guid: 8e26aaf13ead7a7449ebff7ec7ebc0a3, type: 3}
+  - name: cottage cheese
+    image: {fileID: 21300000, guid: 9a48dc80be583734e9d91f1eb08c7469, type: 3}
+  - name: croissant
+    image: {fileID: 21300000, guid: f8a3a5cf8366e9e4cb1729621357951d, type: 3}
+  - name: cup mug coffee
+    image: {fileID: 21300000, guid: 72a5f9e68d66d6d4195e98a9d05e3579, type: 3}
+  - name: cutlet
+    image: {fileID: 21300000, guid: cdbf61f9de3e42e44b4e60785eff24be, type: 3}
+  - name: donut
+    image: {fileID: 21300000, guid: 9c441228f060dff4fbdd339aa0c84f35, type: 3}
+  - name: doritos
+    image: {fileID: 21300000, guid: e3ec380ae1a63fd488095463ec8459d0, type: 3}
+  - name: dough
+    image: {fileID: 21300000, guid: 2331e1096a895c441a85f7af1584fbc9, type: 3}
+  - name: dumplings
+    image: {fileID: 21300000, guid: e82a63662b294ea479a6bf3b930ddbe7, type: 3}
+  - name: easter cake
+    image: {fileID: 21300000, guid: e2ce70f6a16c13e4aa29af1a7f48f2bb, type: 3}
+  - name: eggs
+    image: {fileID: 21300000, guid: 96ef3f3548f84184ab7fa7637efe66fb, type: 3}
+  - name: falafel
+    image: {fileID: 21300000, guid: f73225b4e24dd7e40b4c703f4521516d, type: 3}
+  - name: fanta
+    image: {fileID: 21300000, guid: 4fff849a72cf90a469f74a5e32da4d8e, type: 3}
+  - name: flour
+    image: {fileID: 21300000, guid: 2e675114d29a1324a8275fabe7845913, type: 3}
+  - name: fried chicken
+    image: {fileID: 21300000, guid: 73f27f63872acec46a6d1ea823479237, type: 3}
+  - name: fried egg
+    image: {fileID: 21300000, guid: 6fa4deeaa4cb20140ae847da120a4aea, type: 3}
+  - name: fries
+    image: {fileID: 21300000, guid: 2450d828fad869f4aa3f89d846c465fe, type: 3}
+  - name: halva
+    image: {fileID: 21300000, guid: 294b00c3bdb5ead42b87ce5d5458a128, type: 3}
+  - name: ham
+    image: {fileID: 21300000, guid: d52219e35febf8d41b61cc2025f575b4, type: 3}
+  - name: hamburger
+    image: {fileID: 21300000, guid: 63d4693c47fef5d4ea7f814a57a69a92, type: 3}
+  - name: honey
+    image: {fileID: 21300000, guid: 1ab687bcf5af61f45981a441539a7802, type: 3}
+  - name: hot dog
+    image: {fileID: 21300000, guid: 4351fa981a6a0a84d84040fb662a7870, type: 3}
+  - name: hummus
+    image: {fileID: 21300000, guid: 9912d3289c25dc14187afc2100cb38ee, type: 3}
+  - name: icebox
+    image: {fileID: 21300000, guid: cc84aa68524a38f46ab7cc4c598c1665, type: 3}
+  - name: ice cream
+    image: {fileID: 21300000, guid: 4904ecd1832e9b34cb2e654a5dc7f564, type: 3}
+  - name: jam
+    image: {fileID: 21300000, guid: e288c5dd7d715584e88f35e44f0b8474, type: 3}
+  - name: jamon
+    image: {fileID: 21300000, guid: 91401541b36deb343b259a7d1e868194, type: 3}
+  - name: jelly candies
+    image: {fileID: 21300000, guid: 3d79c64fb11ec08468df4adb9c610652, type: 3}
+  - name: kebab
+    image: {fileID: 21300000, guid: fd6301ae9a95d654ca92e2d43ff0883b, type: 3}
+  - name: ketchup
+    image: {fileID: 21300000, guid: ef6f6a6ad5ddb414888e893384162340, type: 3}
+  - name: kfc
+    image: {fileID: 21300000, guid: ac39f9ab6a844914da379e502ac85d6f, type: 3}
+  - name: khachapuri
+    image: {fileID: 21300000, guid: 652b570484db0264d9c16f99f174be3b, type: 3}
+  - name: kvass
+    image: {fileID: 21300000, guid: db0f94fbcac7fcd4ab2315bdf947f89b, type: 3}
+  - name: lemonade
+    image: {fileID: 21300000, guid: 6ea7ff5417f6bfb41a01041bd43f7ca3, type: 3}
+  - name: lollipop
+    image: {fileID: 21300000, guid: c10bb7cb5d4837d41891983e1289beda, type: 3}
+  - name: m&m's
+    image: {fileID: 21300000, guid: d745eeb2b5dbd7140a5e307d67935d24, type: 3}
+  - name: macaron
+    image: {fileID: 21300000, guid: 390a1700595b871488e695e20f712467, type: 3}
+  - name: mayonnaise
+    image: {fileID: 21300000, guid: 00ef26c89d1c3064cb966c12069b4325, type: 3}
+  - name: meat
+    image: {fileID: 21300000, guid: 4a66e9740c4f48e4da74a5303a26a7cd, type: 3}
+  - name: milk
+    image: {fileID: 21300000, guid: b2aef127efef4124287cd4e01bdde25b, type: 3}
+  - name: mince
+    image: {fileID: 21300000, guid: 9b2c6479b495bda45a3dd357a18e0146, type: 3}
+  - name: muffin
+    image: {fileID: 21300000, guid: 9855927b086ba6a458f64dde629bb2a5, type: 3}
+  - name: mussel
+    image: {fileID: 21300000, guid: 64ac70b86d0576645837a436feeabd85, type: 3}
+  - name: nachos
+    image: {fileID: 21300000, guid: d6eb9089d70fb974089ea7685a26bc7b, type: 3}
+  - name: noodle
+    image: {fileID: 21300000, guid: 1b15255ce5fc13f43844314be881dfd7, type: 3}
+  - name: olive oil
+    image: {fileID: 21300000, guid: aa94cf8fc35baca4281ccb9a0748f561, type: 3}
+  - name: omelette
+    image: {fileID: 21300000, guid: 01b8dfad8b21e434ab4617977b9759b2, type: 3}
+  - name: oreo
+    image: {fileID: 21300000, guid: ab7b45baedf18b047b12b377cb367a97, type: 3}
+  - name: pancake
+    image: {fileID: 21300000, guid: 45b29da94833d5f409efe55828e6830e, type: 3}
+  - name: pasta
+    image: {fileID: 21300000, guid: 6ab31f3c924dad04bae88df66585d300, type: 3}
+  - name: pepsi
+    image: {fileID: 21300000, guid: ba8b691241b33c843bd77048f1539cde, type: 3}
+  - name: pie
+    image: {fileID: 21300000, guid: 096725aa624ebeb4a9764b44bf2c8aec, type: 3}
+  - name: pierogi vareniki
+    image: {fileID: 21300000, guid: 1eec6e189c93c72409259f7aa1bf76bd, type: 3}
+  - name: pizza
+    image: {fileID: 21300000, guid: fb9b09b97d0c67e43b15bb5feea8226c, type: 3}
+  - name: popcorn
+    image: {fileID: 21300000, guid: f6b8894e5214c514885b67bb8affc029, type: 3}
+  - name: pork
+    image: {fileID: 21300000, guid: 237b512153d1d9149b4e4599dc550c6d, type: 3}
+  - name: porridge oatmeal
+    image: {fileID: 21300000, guid: 3863435a147916248a3e5b66583ba6f7, type: 3}
+  - name: potato chips
+    image: {fileID: 21300000, guid: 80cb6f7cad2d22b438c39bb276e5160c, type: 3}
+  - name: red bull
+    image: {fileID: 21300000, guid: 83c148d1a854863448111fbf02c23d0e, type: 3}
+  - name: rice
+    image: {fileID: 21300000, guid: 8aaa1f37ff2375846b3f3cfe758b6b61, type: 3}
+  - name: rusk
+    image: {fileID: 21300000, guid: d1ce84f318396154e98f78915f2afc7a, type: 3}
+  - name: salt
+    image: {fileID: 21300000, guid: 0922c6975596c86418f755f3a60295b0, type: 3}
+  - name: sandwich
+    image: {fileID: 21300000, guid: e34868fc6b5686d4a90372f3d724c546, type: 3}
+  - name: sauce
+    image: {fileID: 21300000, guid: 2265f62d5a7a711469d12ac69eb33678, type: 3}
+  - name: sausage
+    image: {fileID: 21300000, guid: b0c054759247af74e904ea46d222a97b, type: 3}
+  - name: schnitzel
+    image: {fileID: 21300000, guid: bb38616ed90f7da429e38c207dad1795, type: 3}
+  - name: shashlik
+    image: {fileID: 21300000, guid: 43f64daa0cb8d1c4a968fba2d1da288a, type: 3}
+  - name: shawarma
+    image: {fileID: 21300000, guid: c589d5c1f0b37e843aa96d990dd809e6, type: 3}
+  - name: skittles
+    image: {fileID: 21300000, guid: e2e38904ecd1441468977d6648231828, type: 3}
+  - name: snickers
+    image: {fileID: 21300000, guid: 463ec080dc554b842aab101b840da2d8, type: 3}
+  - name: soup
+    image: {fileID: 21300000, guid: a66eb14167cdb734a853f65f7717d70f, type: 3}
+  - name: spaghetti
+    image: {fileID: 21300000, guid: 478fbccdbded2aa479f02c41ff7f6a43, type: 3}
+  - name: sprite
+    image: {fileID: 21300000, guid: 346618bbfbd48384daea2dff0da559f1, type: 3}
+  - name: steak
+    image: {fileID: 21300000, guid: 54ca7a4f422449c459460c4961cb9c99, type: 3}
+  - name: sugar
+    image: {fileID: 21300000, guid: 3396b214516d175448e69e24c0828273, type: 3}
+  - name: sunflower oil
+    image: {fileID: 21300000, guid: 4386de355ad1df145af2f20adf6b2c41, type: 3}
+  - name: sushi
+    image: {fileID: 21300000, guid: 87a250b57328ffa40b16e1c1649a69b6, type: 3}
+  - name: tabasco
+    image: {fileID: 21300000, guid: cf260259214594c498521e44abaae673, type: 3}
+  - name: tea
+    image: {fileID: 21300000, guid: eb80a0b250d9617499ee2989806cf2a2, type: 3}
+  - name: tea bag
+    image: {fileID: 21300000, guid: b5a8eb6a30e98d047b489d3e2226834d, type: 3}
+  - name: tequila
+    image: {fileID: 21300000, guid: 3b8a3d6e68e61c24c8b18e75aaec857d, type: 3}
+  - name: toast
+    image: {fileID: 21300000, guid: e085e0e6884da614e994fc1069dc05aa, type: 3}
+  - name: turkey
+    image: {fileID: 21300000, guid: cb2f698ce9655944e9ed30d3f8561a99, type: 3}
+  - name: vodka
+    image: {fileID: 21300000, guid: 67361b71d6a8c23419abd07e59324e0e, type: 3}
+  - name: waffle
+    image: {fileID: 21300000, guid: af6dcacb5c2552d4e8d0ab83f1c811a3, type: 3}
+  - name: water bottle
+    image: {fileID: 21300000, guid: fb7096d78eba5d8428d65156488635e8, type: 3}
+  - name: water glass
+    image: {fileID: 21300000, guid: 84838ddd2d845fd43a089995a5b5b406, type: 3}
+  - name: wedding cake
+    image: {fileID: 21300000, guid: 460bfaac1b5ba23468215011993b71ef, type: 3}
+  - name: whisky
+    image: {fileID: 21300000, guid: b1dd325138489904b917798519e706a2, type: 3}
+  - name: wine
+    image: {fileID: 21300000, guid: 8d4570e9c341498429ea1a76bdbf2010, type: 3}
+  - name: yogurt
+    image: {fileID: 21300000, guid: 6c8fe7e37b3162e4b9064c68a081b103, type: 3}
