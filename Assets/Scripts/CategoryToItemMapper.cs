@@ -13,7 +13,7 @@ public static class CategoryToItemMapper
             var it = new ItemDetail
             {
                 Manufacturer = le.name ?? string.Empty,
-                LogoURL = le.imageUrl ?? string.Empty
+                LogoURL = le.image
             };
             list.Add(it);
         }

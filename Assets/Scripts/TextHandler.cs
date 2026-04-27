@@ -12,16 +12,15 @@ public class TextHandler : MonoBehaviour
     {
         txt = GetComponentInChildren<TextMeshProUGUI>();
         btn = GetComponent<Button>();
-        game = FindObjectOfType<GameInternal>();
+        game = FindFirstObjectByType<GameInternal>();
 
-        btn.onClick.AddListener(OnClick);
+        if (btn != null)
+            btn.onClick.AddListener(OnClick);
     }
 
     void OnClick()
     {
         if (game == null) return;
-
-        // forward THIS tile to GameInternal
         game.ButtonClicked(this);
     }
 
@@ -36,9 +35,8 @@ public class TextHandler : MonoBehaviour
         return txt != null ? txt.text : string.Empty;
     }
 
-    public void SetInteractable(bool state)
+    public void SetActive(bool state)
     {
-        if (btn != null)
-            btn.interactable = state;
+        gameObject.SetActive(state);
     }
 }

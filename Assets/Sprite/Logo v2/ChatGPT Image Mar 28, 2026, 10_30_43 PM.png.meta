@@ -399,13 +399,13 @@ TextureImporter:
       name: ChatGPT Image Mar 28, 2026, 10_30_43 PM_13
       rect:
         serializedVersion: 2
-        x: 44
-        y: 516
-        width: 472
-        height: 148
+        x: 54
+        y: 525
+        width: 455
+        height: 139
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
-      border: {x: 49, y: 59, z: 49, w: 26}
+      border: {x: 23, y: 26, z: 23, w: 20}
       outline: []
       physicsShape: []
       tessellationDetail: 0

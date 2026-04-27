@@ -1,13 +1,13 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
 
 public class GameInternal : MonoBehaviour
 {
+    [Header("Panel")]
+    [SerializeField] private RectTransform _winPanel, _lossPanel;
     [Header("Managers / UI")]
     [SerializeField] private Manager manager;
     [SerializeField] private Image logoImage;
@@ -19,13 +19,17 @@ public class GameInternal : MonoBehaviour
     [SerializeField] private GameObject userAnswer;
     [SerializeField] private GameObject randomAnwser;
 
-    [Header("Navigation")]
+    [Header("Buttons")]
     [SerializeField] private Button nextBtn;
-    [SerializeField] private Button preBtn;
+    [SerializeField] private Button clearBTn;
+    [SerializeField] private Button hintBtn;
+    [SerializeField] private Button removeWrongBtn;
+    [SerializeField] private Button revealBtn;
+    [SerializeField] private Button skipBtn;
     [SerializeField] private Button watchAdBtn;
-    [SerializeField] private Button eraseBtn;
+    [SerializeField] private Button nextWinBtn;
+    [SerializeField] private Button tryAgainBtn;
     [SerializeField] private TextMeshProUGUI hintText;
-
 
     [Header("Game Settings")]
     [SerializeField] private int randomLetterCount = 20;
@@ -43,284 +47,274 @@ public class GameInternal : MonoBehaviour
     private readonly List<TextHandler> randomLetterList = new();
     private readonly List<AnswerTexthandler> answerLetter = new();
 
-    private readonly Dictionary<string, Sprite> spriteCache = new(StringComparer.OrdinalIgnoreCase);
-
     #region UNITY
 
     private void OnEnable()
     {
-        if (nextBtn) nextBtn.onClick.AddListener(OnNext);
-        if (preBtn) preBtn.onClick.AddListener(OnPre);
-        if (eraseBtn) eraseBtn.onClick.AddListener(RemoveLastLetter);
-        if (watchAdBtn) watchAdBtn.onClick.AddListener(RequestHintAd);
+        nextBtn?.onClick.AddListener(SkipLevel);
+        clearBTn?.onClick.AddListener(RemoveLastLetter);
+        hintBtn?.onClick.AddListener(RevealLetter);
+        removeWrongBtn?.onClick.AddListener(RemoveWrongLetters);
+        revealBtn?.onClick.AddListener(RevealLetter);
+        skipBtn?.onClick.AddListener(SkipLevel);
+        watchAdBtn?.onClick.AddListener(RequestHintAd);
+        nextWinBtn?.onClick.AddListener(WinNextButton);
+        tryAgainBtn?.onClick.AddListener(LossTryAgainButton);
+    }
+
+    private void WinNextButton()
+    {
+        Debug.Log("Next button Clicked");
+        LoadNextDirect();
+        _winPanel.gameObject.SetActive(false);
+        _lossPanel.gameObject.SetActive(false);
+    }
+
+    private void LossTryAgainButton()
+    {
+        _winPanel.gameObject.SetActive(false);
+        _lossPanel.gameObject.SetActive(false);
+        LoadNextDirect();
     }
 
     private void OnDisable()
     {
-        if (nextBtn) nextBtn.onClick.RemoveListener(OnNext);
-        if (preBtn) preBtn.onClick.RemoveListener(OnPre);
-        if (eraseBtn) eraseBtn.onClick.RemoveListener(RemoveLastLetter);
-        if (watchAdBtn) watchAdBtn.onClick.RemoveListener(RequestHintAd);
+        nextBtn?.onClick.RemoveAllListeners();
+        hintBtn?.onClick.RemoveAllListeners();
+        removeWrongBtn?.onClick.RemoveAllListeners();
+        skipBtn?.onClick.RemoveAllListeners();
+        watchAdBtn?.onClick.RemoveAllListeners();
+        nextBtn?.onClick.RemoveAllListeners();
+        tryAgainBtn.onClick.RemoveAllListeners();
+        revealBtn.onClick.RemoveAllListeners();
     }
 
     private void Start()
     {
-        hintPoints = PlayerPrefs.GetInt(HINT_KEY, 0);
-        UpdateHintUI();
-
+        hintPoints = PlayerPrefs.GetInt(HINT_KEY, 5);
         score = PlayerPrefs.GetInt("Score", 0);
-        UpdateScoreText();
+        UpdateUI();
     }
 
     #endregion
 
-    #region CATEGORY LOAD
+    #region GAME FLOW
 
-    public void LoadCategoryById(CategorySO categoryId)
+    public void LoadCategoryById(CategorySO category)
     {
         Restart();
 
-        CategorySO cat = categoryId;
-        if (cat == null)
-        {
-            Debug.LogWarning($"[GameInternal] Category '{categoryId}' not found.");
-            return;
-        }
-
-        items = CategoryToItemMapper.Map(cat);
+        items = CategoryToItemMapper.Map(category);
         itemCount = 0;
-        fillIndex = 0;
 
         StartGame();
     }
 
-    #endregion
-    public void ButtonClicked(TextHandler textHandler)
-    {
-        if (textHandler == null)
-            return;
-
-        string letter = textHandler.GetText();
-        if (string.IsNullOrEmpty(letter))
-            return;
-
-        // Fill next empty answer slot
-        if (fillIndex < answerLetter.Count)
-        {
-            answerLetter[fillIndex].SetText(letter);
-            fillIndex++;
-        }
-
-        // If full -> check answer
-        if (fillIndex >= answerLetter.Count)
-        {
-            CheckAnswer();
-        }
-    }
-
-    #region GAME FLOW
-
     public void StartGame()
     {
-        if (items.Count == 0)
-        {
-            Debug.LogWarning("[GameInternal] No items loaded.");
-            return;
-        }
-
-        LoadGamedate();
+        if (items.Count == 0) return;
+        LoadGameData();
     }
 
-    private void LoadGamedate()
+    private void LoadGameData()
     {
-        ClearPreviousRound();
+        Restart();
 
-        int index = Mathf.Clamp(itemCount, 0, items.Count - 1);
-        ItemDetail chosen = items[index];
-        if (chosen == null) return;
+        var chosen = items[itemCount];
+        correctAnswer = chosen.Manufacturer.Trim().ToLower();
 
-        correctAnswer = chosen.Manufacturer?.Trim() ?? "";
-
-        // build answer slots
-        answerChars.Clear();
         foreach (char c in correctAnswer)
+        {
             answerChars.Add(c);
 
-        foreach (char c in answerChars)
-        {
             var go = Instantiate(pfCorrectAnwser, userAnswer.transform);
             var handler = go.GetComponent<AnswerTexthandler>();
             handler.SetText("");
             answerLetter.Add(handler);
         }
 
-        CreateRandomLetterSlots();
-
-        // load current logo
-        string url = chosen.LogoURL;
-
-        if (!string.IsNullOrEmpty(url))
-        {
-            if (spriteCache.TryGetValue(url, out Sprite cached))
-            {
-                logoImage.sprite = cached;
-                manager.LoadingScreen(false);
-            }
-            else
-            {
-                StartCoroutine(LoadImage(url));
-            }
-        }
+        CreateRandomLetters();
+        logoImage.sprite = chosen.LogoURL;
 
         fillIndex = 0;
-
-        // ✅ START PRELOADING NEXT LOGO
-        PreloadNextItem();
-    }
-
-    #endregion
-
-    #region IMAGE
-
-    private IEnumerator LoadImage(string url)
-    {
-        if (spriteCache.ContainsKey(url)) yield break;
-
-        using var uwr = UnityWebRequestTexture.GetTexture(url);
-        yield return uwr.SendWebRequest();
-
-        if (uwr.result != UnityWebRequest.Result.Success)
-        {
-            Debug.LogWarning("[GameInternal] Failed to load image: " + uwr.error);
-            yield break;
-        }
-
-        Texture2D tex = DownloadHandlerTexture.GetContent(uwr);
-        if (!tex) yield break;
-
-        Sprite s = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.one * 0.5f);
-        spriteCache[url] = s;
-        logoImage.sprite = s;
-
         manager.LoadingScreen(false);
     }
 
-    private IEnumerator PreloadImage(string url)
+    #endregion
+
+    #region INPUT
+
+    public void ButtonClicked(TextHandler th)
     {
-        if (spriteCache.ContainsKey(url)) yield break;
+        if (fillIndex >= answerLetter.Count) return;
 
-        using var uwr = UnityWebRequestTexture.GetTexture(url);
-        yield return uwr.SendWebRequest();
+        string letter = th.GetText();
+        if (string.IsNullOrEmpty(letter)) return;
 
-        if (uwr.result != UnityWebRequest.Result.Success) yield break;
+        answerLetter[fillIndex].SetText(letter);
+        th.gameObject.SetActive(false);
 
-        Texture2D tex = DownloadHandlerTexture.GetContent(uwr);
-        if (!tex) yield break;
+        fillIndex++;
 
-        Sprite s = Sprite.Create(tex, new Rect(0, 0, tex.width, tex.height), Vector2.one * 0.5f);
-        spriteCache[url] = s;
-    }
-
-    private void PreloadNextItem()
-    {
-        if (items.Count == 0) return;
-
-        int nextIndex = itemCount + 1 >= items.Count ? 0 : itemCount + 1;
-        string url = items[nextIndex]?.LogoURL;
-
-        if (!string.IsNullOrEmpty(url) && !spriteCache.ContainsKey(url))
-            StartCoroutine(PreloadImage(url));
+        if (fillIndex >= answerLetter.Count)
+            CheckAnswer();
     }
 
     #endregion
+
+    #region ANSWER CHECK
+
     private void CheckAnswer()
     {
-        bool allMatch = true;
+        bool correct = true;
 
         for (int i = 0; i < answerLetter.Count; i++)
         {
-            string user = answerLetter[i].GetText() ?? "";
-            char expected = (i < answerChars.Count) ? answerChars[i] : '\0';
-
-            if (char.IsWhiteSpace(expected))
+            if (answerLetter[i].GetText().ToLower() != answerChars[i].ToString())
             {
-                if (!string.IsNullOrWhiteSpace(user))
-                {
-                    allMatch = false;
-                    break;
-                }
-            }
-            else
-            {
-                if (!string.Equals(user, expected.ToString(), StringComparison.OrdinalIgnoreCase))
-                {
-                    allMatch = false;
-                    break;
-                }
+                correct = false;
+                break;
             }
         }
 
-        if (allMatch)
+        if (correct)
         {
-            if (SoundManager.Instance != null)
-                SoundManager.Instance.CorrectAnswer();
-
-            score++;
+            score += 10;
+            SoundManager.Instance?.CorrectAnswer();
+            _winPanel.gameObject.SetActive(true);
+            _lossPanel.gameObject.SetActive(false);
         }
         else
         {
-            if (SoundManager.Instance != null)
-                SoundManager.Instance.WrongAnswer();
-
-            if (score > 0)
-                score--;
+            score = Mathf.Max(0, score - 2);
+            SoundManager.Instance?.WrongAnswer();
+            _winPanel.gameObject.SetActive(false);
+            _lossPanel.gameObject.SetActive(true);
         }
 
-        UpdateScoreText();
         PlayerPrefs.SetInt("Score", score);
+        UpdateUI();
 
-        Restart();   // clear current letters
-
-        OnNext();   // load next logo (which should already be preloaded)
+        LoadNextDirect();
     }
 
-    #region NAVIGATION
+    #endregion
 
-    private void OnNext()
+    #region BUTTON FEATURES
+
+    public void RevealLetter()
+    {
+        if (hintPoints <= 0)
+        {
+            RequestHintAd();
+            return;
+        }
+
+        for (int i = 0; i < answerLetter.Count; i++)
+        {
+            if (answerLetter[i].GetText().ToLower() != answerChars[i].ToString())
+            {
+                hintPoints--;
+                answerLetter[i].SetText(answerChars[i].ToString());
+                fillIndex = i + 1;
+                break;
+            }
+        }
+
+        SaveHints();
+    }
+
+    public void RemoveLastLetter()
+    {
+        if (hintPoints <= 0)
+        {
+            RequestHintAd();
+            return;
+        }
+        for (int i = answerLetter.Count - 1; i >= 0; i--)
+        {
+            if (!string.IsNullOrEmpty(answerLetter[i].GetText()))
+            {
+                answerLetter[i].SetText("");
+                fillIndex = i;
+                break;
+            }
+        }
+    }
+
+    public void RemoveWrongLetters()
+    {
+        if (hintPoints < 2)
+        {
+            RequestHintAd();
+            return;
+        }
+
+        hintPoints -= 2;
+
+        foreach (var l in randomLetterList)
+        {
+            if (!answerChars.Contains(l.GetText().ToLower()[0]))
+                l.gameObject.SetActive(false);
+        }
+
+        SaveHints();
+    }
+
+    public void SkipLevel()
+    {
+        if (hintPoints >= 3)
+        {
+            hintPoints -= 3;
+            SaveHints();
+            LoadNextDirect();
+        }
+        else
+        {
+            AdMobManager.Instance.ShowRewarded(() =>
+            {
+                LoadNextDirect();
+            });
+        }
+    }
+
+    private void LoadNextDirect()
     {
         itemCount = (itemCount + 1) % items.Count;
-        LoadGamedate();
+        LoadGameData();
     }
 
-    private void OnPre()
+    #endregion
+
+    #region ADS / HINTS
+
+    public void RequestHintAd()
     {
-        itemCount--;
-        if (itemCount < 0) itemCount = items.Count - 1;
-        LoadGamedate();
+        AdMobManager.Instance.ShowRewarded(() =>
+        {
+            hintPoints += 5;
+            SaveHints();
+        });
+    }
+
+    private void SaveHints()
+    {
+        PlayerPrefs.SetInt(HINT_KEY, hintPoints);
+        UpdateUI();
     }
 
     #endregion
 
     #region RANDOM LETTERS
 
-    private void CreateRandomLetterSlots()
+    private void CreateRandomLetters()
     {
         foreach (var r in randomLetterList)
             Destroy(r.gameObject);
+
         randomLetterList.Clear();
 
-        for (int i = 0; i < randomLetterCount; i++)
-        {
-            GameObject go = Instantiate(pfRandomLetter, randomAnwser.transform);
-            var th = go.GetComponent<TextHandler>();
-            randomLetterList.Add(th);
-        }
-
-        List<char> pool = new();
-
-        foreach (char c in answerChars)
-            if (!char.IsWhiteSpace(c))
-                pool.Add(char.ToLower(c));
+        List<char> pool = new(answerChars);
 
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
         while (pool.Count < randomLetterCount)
@@ -329,58 +323,31 @@ public class GameInternal : MonoBehaviour
         Shuffle(pool);
 
         for (int i = 0; i < randomLetterCount; i++)
-            randomLetterList[i].SetText(pool[i].ToString());
+        {
+            var go = Instantiate(pfRandomLetter, randomAnwser.transform);
+            var th = go.GetComponent<TextHandler>();
+            th.SetText(pool[i].ToString());
+            randomLetterList.Add(th);
+        }
     }
 
     private void Shuffle<T>(IList<T> list)
     {
-        for (int i = 0; i < list.Count - 1; i++)
+        for (int i = 0; i < list.Count; i++)
         {
-            int j = UnityEngine.Random.Range(i, list.Count);
-            (list[i], list[j]) = (list[j], list[i]);
+            int r = UnityEngine.Random.Range(i, list.Count);
+            (list[i], list[r]) = (list[r], list[i]);
         }
     }
 
     #endregion
 
-    #region HINT SYSTEM
+    #region UI
 
-    public void RequestHintAd() => AdMobManager.Instance.ShowRewarded(() =>
-   { AddHintPoints(5); }
-    );
-
-    public void AddHintPoints(int amt)
-    {
-        hintPoints += amt;
-        PlayerPrefs.SetInt(HINT_KEY, hintPoints);
-        UpdateHintUI();
-    }
-
-    private void UpdateHintUI()
-    {
-        if (hintText)
-            hintText.text = hintPoints.ToString();
-    }
-
-    public void RemoveLastLetter()
-    {
-        if (hintPoints <= 0 || fillIndex <= 0) return;
-
-        hintPoints--;
-        PlayerPrefs.SetInt(HINT_KEY, hintPoints);
-        UpdateHintUI();
-
-        fillIndex--;
-        answerLetter[fillIndex].SetText("");
-    }
-
-    #endregion
-
-    #region SCORE
-
-    private void UpdateScoreText()
+    private void UpdateUI()
     {
         scoreText.text = score.ToString();
+        hintText.text = hintPoints.ToString();
     }
 
     #endregion
@@ -391,20 +358,17 @@ public class GameInternal : MonoBehaviour
     {
         foreach (var a in answerLetter)
             Destroy(a.gameObject);
-        answerLetter.Clear();
 
         foreach (var r in randomLetterList)
             Destroy(r.gameObject);
-        randomLetterList.Clear();
 
+        answerLetter.Clear();
+        randomLetterList.Clear();
         answerChars.Clear();
+
         fillIndex = 0;
     }
 
-    private void ClearPreviousRound()
-    {
-        Restart();
-    }
-
     #endregion
+
 }

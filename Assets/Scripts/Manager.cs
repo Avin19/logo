@@ -171,7 +171,7 @@ public class Manager : MonoBehaviour
         foreach (CategorySO categorySO in categorySOs)
         {
             GameObject catrgoryBtn = Instantiate(pfButton, levelHolder);
-            catrgoryBtn.GetComponent<ButtonCat>().SetTextToButton(categorySO.displayName);
+            catrgoryBtn.GetComponent<ButtonCat>().SetTextToButton(categorySO.category);
             catrgoryBtn.GetComponent<ButtonCat>().SetCategorySO(categorySO);
             catrgoryBtn.GetComponent<ButtonCat>().SetGameInternal(mainPanel.GetComponent<GameInternal>());
             catrgoryBtn.GetComponent<ButtonCat>().SetLoadingPanel(loadingPanel.gameObject);
