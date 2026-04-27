@@ -12,7 +12,7 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: MitSutdio
+  companyName: MbitStudio
   productName: ' LOGO QUIZ'
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
@@ -39,7 +39,9 @@ PlayerSettings:
     y: 0
     width: 1
     height: 1
-  m_SplashScreenLogos: []
+  m_SplashScreenLogos:
+  - logo: {fileID: 21300000, guid: 7cdcb93f498af1f4b8efdecfb4d4f0d0, type: 3}
+    duration: 2
   m_VirtualRealitySplashScreen: {fileID: 0}
   m_HolographicTrackingLossScreen: {fileID: 0}
   defaultScreenWidth: 1920
@@ -77,6 +79,7 @@ PlayerSettings:
   androidMinimumWindowHeight: 300
   androidFullscreenMode: 1
   androidAutoRotationBehavior: 1
+  androidPredictiveBackSupport: 1
   defaultIsNativeResolution: 1
   macRetinaSupport: 1
   runInBackground: 0
@@ -84,6 +87,7 @@ PlayerSettings:
   muteOtherAudioSources: 0
   Prepare IOS For Recording: 0
   Force IOS Speakers When Recording: 0
+  audioSpatialExperience: 0
   deferSystemGesturesMode: 0
   hideHomeButton: 0
   submitAnalytics: 1
@@ -139,7 +143,7 @@ PlayerSettings:
   loadStoreDebugModeEnabled: 0
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
-  bundleVersion: 2
+  bundleVersion: 3
   preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
@@ -161,15 +165,15 @@ PlayerSettings:
   androidSupportedAspectRatio: 1
   androidMaxAspectRatio: 2.1
   applicationIdentifier:
-    Android: com.MitSutdio.LOGOQUIZ
+    Android: com.MbitStudio.LOGOQUIZ
   buildNumber:
     Standalone: 0
     VisionOS: 0
     iPhone: 0
     tvOS: 0
   overrideDefaultApplicationIdentifier: 1
-  AndroidBundleVersionCode: 1
-  AndroidMinSdkVersion: 22
+  AndroidBundleVersionCode: 14
+  AndroidMinSdkVersion: 23
   AndroidTargetSdkVersion: 0
   AndroidPreferredInstallLocation: 1
   aotOptions: 
@@ -185,8 +189,10 @@ PlayerSettings:
   strictShaderVariantMatching: 0
   VertexChannelCompressionMask: 4054
   iPhoneSdkVersion: 988
+  iOSSimulatorArchitecture: 0
   iOSTargetOSVersionString: 12.0
   tvOSSdkVersion: 0
+  tvOSSimulatorArchitecture: 0
   tvOSRequireExtendedGameController: 0
   tvOSTargetOSVersionString: 12.0
   VisionOSSdkVersion: 0
@@ -233,6 +239,7 @@ PlayerSettings:
   iOSMetalForceHardShadows: 0
   metalEditorSupport: 1
   metalAPIValidation: 1
+  metalCompileShaderBinary: 0
   iOSRenderExtraFrameOnPause: 0
   iosCopyPluginsCodeInsteadOfSymlink: 0
   appleDeveloperTeamID: 
@@ -250,20 +257,20 @@ PlayerSettings:
   clonedFromGUID: c19f32bac17ee4170b3bf8a6a0333fb9
   templatePackageId: com.unity.template.universal-2d@2.1.2
   templateDefaultScene: Assets/Scenes/SampleScene.unity
-  useCustomMainManifest: 1
+  useCustomMainManifest: 0
   useCustomLauncherManifest: 0
   useCustomMainGradleTemplate: 1
   useCustomLauncherGradleManifest: 0
-  useCustomBaseGradleTemplate: 0
+  useCustomBaseGradleTemplate: 1
   useCustomGradlePropertiesTemplate: 1
-  useCustomGradleSettingsTemplate: 0
+  useCustomGradleSettingsTemplate: 1
   useCustomProguardFile: 0
-  AndroidTargetArchitectures: 1
+  AndroidTargetArchitectures: 2
   AndroidTargetDevices: 0
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: D:/AsteroidSpawnner.keystore
-  AndroidKeyaliasName: asteroid
+  AndroidKeystoreName: D:/KeyStore/user.keystore
+  AndroidKeyaliasName: mainkey
   AndroidEnableArmv9SecurityFeatures: 0
   AndroidBuildApkPerCpuArchitecture: 0
   AndroidTVCompatibility: 0
@@ -650,6 +657,7 @@ PlayerSettings:
   switchSocketBufferEfficiency: 4
   switchSocketInitializeEnabled: 1
   switchNetworkInterfaceManagerInitializeEnabled: 1
+  switchDisableHTCSPlayerConnection: 0
   switchUseNewStyleFilepaths: 0
   switchUseLegacyFmodPriorities: 0
   switchUseMicroSleepForYield: 1
@@ -759,7 +767,22 @@ PlayerSettings:
   webGLMemoryGeometricGrowthStep: 0.2
   webGLMemoryGeometricGrowthCap: 96
   webGLPowerPreference: 2
-  scriptingDefineSymbols: {}
+  scriptingDefineSymbols:
+    Android: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER;PLAYMAKER_TMPRO;PLAYMAKER_URP
+    EmbeddedLinux: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    GameCoreXboxOne: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    Nintendo Switch: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    PS4: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    PS5: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    QNX: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    Stadia: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    Standalone: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    VisionOS: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    WebGL: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    Windows Store Apps: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    XboxOne: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    iPhone: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
+    tvOS: PLAYMAKER;PLAYMAKER_1_9;PLAYMAKER_1_9_9;PLAYMAKER_1_8_OR_NEWER;PLAYMAKER_1_8_5_OR_NEWER;PLAYMAKER_1_9_OR_NEWER
   additionalCompilerArguments: {}
   platformArchitecture: {}
   scriptingBackend:
@@ -813,6 +836,7 @@ PlayerSettings:
   metroTileBackgroundColor: {r: 0.13333334, g: 0.17254902, b: 0.21568628, a: 0}
   metroSplashScreenBackgroundColor: {r: 0.12941177, g: 0.17254902, b: 0.21568628, a: 1}
   metroSplashScreenUseBackgroundColor: 0
+  syncCapabilities: 0
   platformCapabilities: {}
   metroTargetDeviceFamilies: {}
   metroFTAName: 

@@ -1,0 +1,296 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: animals
+  m_EditorClassIdentifier: 
+  category: animals
+  logos:
+  - name: anaconda
+    image: {fileID: 21300000, guid: e19db7a4bd239464daac781236a5c294, type: 3}
+  - name: arctic fox
+    image: {fileID: 21300000, guid: 605bdaa9e8cd8114fbb956bae86b3c94, type: 3}
+  - name: badger
+    image: {fileID: 21300000, guid: 58d34b8bdcd35194c9165d4cb61cfba0, type: 3}
+  - name: bat
+    image: {fileID: 21300000, guid: a60d76ce25de59b49aebb4178149f2fc, type: 3}
+  - name: bear
+    image: {fileID: 21300000, guid: 8f858409c3b1a8c4a81c358afbe8c00b, type: 3}
+  - name: beaver
+    image: {fileID: 21300000, guid: 68e7005f47a39324588df0f78132bee4, type: 3}
+  - name: beehive
+    image: {fileID: 21300000, guid: 62f78b9d08228334cb25055e45ca29e2, type: 3}
+  - name: birds
+    image: {fileID: 21300000, guid: cc325ae0665f17543a85b3e54c544364, type: 3}
+  - name: bison
+    image: {fileID: 21300000, guid: 885882585f78db84b867fb4f53d782d8, type: 3}
+  - name: boar
+    image: {fileID: 21300000, guid: afadd0528762c2c4b821afa6fd6c9589, type: 3}
+  - name: british shorthair
+    image: {fileID: 21300000, guid: c29e97c1692bae64c96411c0d3599cae, type: 3}
+  - name: bulldog
+    image: {fileID: 21300000, guid: 3628a12b6d06b5d4e989e810479419e1, type: 3}
+  - name: bullfinch
+    image: {fileID: 21300000, guid: b8eefdc9a78969746b8b71ef63f39793, type: 3}
+  - name: camel
+    image: {fileID: 21300000, guid: c87ab742abebdf94581e052ddd4ae537, type: 3}
+  - name: capybara
+    image: {fileID: 21300000, guid: 3222745fdb0c74048bdcef0e9b6ac664, type: 3}
+  - name: cats
+    image: {fileID: 21300000, guid: 88e3d6da95ead2f4ab37469fdd44055f, type: 3}
+  - name: chameleon
+    image: {fileID: 21300000, guid: 0f03b23cf67995f45848bfbbf3fbe9de, type: 3}
+  - name: cheetah
+    image: {fileID: 21300000, guid: 386173b9c9d0f024ca98eb1c67a24ba1, type: 3}
+  - name: chick
+    image: {fileID: 21300000, guid: 2ddec5a91d19d9a4bb73625e17d4eaea, type: 3}
+  - name: chicken
+    image: {fileID: 21300000, guid: 677076b93c6aa2a469397a6ffeefb121, type: 3}
+  - name: cobra
+    image: {fileID: 21300000, guid: b35200f97c8eb504aad339f7d3f6e8b4, type: 3}
+  - name: cock
+    image: {fileID: 21300000, guid: 6c3cbc0ad48973c4eb7ee350b6a7d31e, type: 3}
+  - name: cockatoo
+    image: {fileID: 21300000, guid: 48ba945b0b95d58469ec577b28db5682, type: 3}
+  - name: cow
+    image: {fileID: 21300000, guid: 2279360cff5b742479a6fb4296f3b7b6, type: 3}
+  - name: crab
+    image: {fileID: 21300000, guid: 03e8906fd5cea5444a38ce08cb2511ae, type: 3}
+  - name: crocodile
+    image: {fileID: 21300000, guid: a2ddaaf252c77f34a99f01d5650f1f4d, type: 3}
+  - name: crow
+    image: {fileID: 21300000, guid: ce4d79aa34cdfcd41bd5052c93269efb, type: 3}
+  - name: cuckoo
+    image: {fileID: 21300000, guid: 99a7e4af808fad9459954b8fb9180476, type: 3}
+  - name: dachshund
+    image: {fileID: 21300000, guid: 8994f93eafcc73248b3debcb0bceab43, type: 3}
+  - name: dalmatian
+    image: {fileID: 21300000, guid: 8d95f6277a2e7e249820edefd543901a, type: 3}
+  - name: deer
+    image: {fileID: 21300000, guid: d1e7231d62683fe41b305c999c6f6318, type: 3}
+  - name: dobermann
+    image: {fileID: 21300000, guid: db1e140af541e884090362c2f6b69f2b, type: 3}
+  - name: dogs
+    image: {fileID: 21300000, guid: 693cf34d56d811d44b6cb1ccaf197a2e, type: 3}
+  - name: dog collar
+    image: {fileID: 21300000, guid: d8a70e9103a81f7458422bf3e476b7f8, type: 3}
+  - name: dog food
+    image: {fileID: 21300000, guid: c73e4d80a78de6c4c970f59a71c3ed20, type: 3}
+  - name: dolphin
+    image: {fileID: 21300000, guid: 19c16340004a0484193f93d68c30d3c5, type: 3}
+  - name: donkey
+    image: {fileID: 21300000, guid: a111f1060e1158e41b0233218e3f872e, type: 3}
+  - name: duck
+    image: {fileID: 21300000, guid: 3ffed54c8973b13429a67f5e54343a95, type: 3}
+  - name: duckling
+    image: {fileID: 21300000, guid: e5c03a0c530190e4a8d84441febd6d41, type: 3}
+  - name: eagle
+    image: {fileID: 21300000, guid: 51a508dd2fa98f34da2819fa2704b88d, type: 3}
+  - name: elephants
+    image: {fileID: 21300000, guid: eb5c6d4aa55b1f043aa07125b913ad64, type: 3}
+  - name: falcon
+    image: {fileID: 21300000, guid: 948412bf47e4f014fb0d7a01aac4139e, type: 3}
+  - name: feather
+    image: {fileID: 21300000, guid: beef7df482380e143aecce111a340be2, type: 3}
+  - name: ferret
+    image: {fileID: 21300000, guid: 60dcaf483a460cf45adc0c74ed3cb250, type: 3}
+  - name: fish
+    image: {fileID: 21300000, guid: f47ed8bba2d8c294fb42ce306384d529, type: 3}
+  - name: flamingo
+    image: {fileID: 21300000, guid: faa7beac1510a4c4889a0e75f334b700, type: 3}
+  - name: fox
+    image: {fileID: 21300000, guid: 9d8488d6845f19045b7bd08100c1ea33, type: 3}
+  - name: frog
+    image: {fileID: 21300000, guid: 1d72b6c95d551af45934b9f3dbdf1659, type: 3}
+  - name: fur
+    image: {fileID: 21300000, guid: ff5bd9ae5106f8243b48207a6b37058b, type: 3}
+  - name: gecko
+    image: {fileID: 21300000, guid: 64b8fd2933e45664989b12ffc6f28dd6, type: 3}
+  - name: german shepherd
+    image: {fileID: 21300000, guid: 24c86d44d6883d2419e75390ca907350, type: 3}
+  - name: giraffe
+    image: {fileID: 21300000, guid: a922df2df7165344999e245d727743b1, type: 3}
+  - name: goat
+    image: {fileID: 21300000, guid: a054de510d822b54a81c01c8a4104f11, type: 3}
+  - name: golden retriever
+    image: {fileID: 21300000, guid: 31533028fd8561949bf5fc2eea55024a, type: 3}
+  - name: goldfish
+    image: {fileID: 21300000, guid: 6ff857db5a5a82e4fbe8800eb6bdb56e, type: 3}
+  - name: goose
+    image: {fileID: 21300000, guid: 50e1b64d447512a4e9c7f2d31c7803ff, type: 3}
+  - name: gorilla
+    image: {fileID: 21300000, guid: 4c7202c1b840a574a821c67e2bc280a2, type: 3}
+  - name: gull
+    image: {fileID: 21300000, guid: 4f6274e23fd680c4d92884b46887ca55, type: 3}
+  - name: hamster
+    image: {fileID: 21300000, guid: 14312b13c64cdeb47b35c77242a31f4b, type: 3}
+  - name: harbor seal
+    image: {fileID: 21300000, guid: 35280141da2ffa14e9770657cf85315f, type: 3}
+  - name: hedgehog
+    image: {fileID: 21300000, guid: dfbe53a416d186345ba3b017fa746f10, type: 3}
+  - name: heron
+    image: {fileID: 21300000, guid: 6cc19134d3120ef4f8e427e1f242bf31, type: 3}
+  - name: hippo
+    image: {fileID: 21300000, guid: b97b6af0d99640d4585e273fe520dc2b, type: 3}
+  - name: horse
+    image: {fileID: 21300000, guid: 504864db0485e8a44a9fa0c536f6239c, type: 3}
+  - name: hummingbird
+    image: {fileID: 21300000, guid: 10be263e802f7c946b0a674104caa6c3, type: 3}
+  - name: husky
+    image: {fileID: 21300000, guid: 5812638e81a29ee47ac0ebe3184b2673, type: 3}
+  - name: hyena
+    image: {fileID: 21300000, guid: d0baaa343567b7641b984c6db91c3a6a, type: 3}
+  - name: iguana
+    image: {fileID: 21300000, guid: 4e5a8362cb8920b49bb77c4aa5c58167, type: 3}
+  - name: jackal coyote
+    image: {fileID: 21300000, guid: 220ce2c7120961143847eab2ab4de13a, type: 3}
+  - name: jaguar
+    image: {fileID: 21300000, guid: 762e80a4469405b4781cee70558d0687, type: 3}
+  - name: jellyfish
+    image: {fileID: 21300000, guid: 3362a9f683d8c0a4d8ee6a5e54e259b9, type: 3}
+  - name: kangaroo
+    image: {fileID: 21300000, guid: c5cb63788b78e4c47a9931792a16c8ff, type: 3}
+  - name: killer whale
+    image: {fileID: 21300000, guid: caa78f6750eaa36448a41c85d4571f21, type: 3}
+  - name: kiwi bird
+    image: {fileID: 21300000, guid: 9db11758b83e8824aa9d56350d35c96c, type: 3}
+  - name: koala
+    image: {fileID: 21300000, guid: df8d0c2d35106124db6baa43f2e15217, type: 3}
+  - name: labrador retriever
+    image: {fileID: 21300000, guid: deb347f9fc3517c4a968c8abfd7e2492, type: 3}
+  - name: lemur
+    image: {fileID: 21300000, guid: 109a13490886d2f4ea8f54b6322aa74d, type: 3}
+  - name: leopard
+    image: {fileID: 21300000, guid: 77d6ddac66ef20c41aeb69bb73461fc1, type: 3}
+  - name: lion
+    image: {fileID: 21300000, guid: f4c91261be9e0424c9171f78574acc54, type: 3}
+  - name: lizard
+    image: {fileID: 21300000, guid: f82de0250fa83894db45a3b42941c220, type: 3}
+  - name: lobster
+    image: {fileID: 21300000, guid: 84f2f047bc9fb4f44962be27d96d0593, type: 3}
+  - name: lynx
+    image: {fileID: 21300000, guid: a7ac4c7eeb632124580d69e7e68d2544, type: 3}
+  - name: mammoth
+    image: {fileID: 21300000, guid: 4881efd816b38dd4da63c5f5e1fa4aa8, type: 3}
+  - name: mole
+    image: {fileID: 21300000, guid: 68bde7bb31115804496df04c87deccee, type: 3}
+  - name: monkey
+    image: {fileID: 21300000, guid: 44052d7a366b63a4cb0d5cef336de471, type: 3}
+  - name: moose elk
+    image: {fileID: 21300000, guid: 3d1d260210e4c0f4d9d39e3388c475d3, type: 3}
+  - name: nest box
+    image: {fileID: 21300000, guid: fb53fb91744d95548bb5694e22469b84, type: 3}
+  - name: newt
+    image: {fileID: 21300000, guid: ecfb5299b2e03dd4e9cc9eef25fb30a0, type: 3}
+  - name: octopus
+    image: {fileID: 21300000, guid: 704280978cfefcc418eb5091e0ffa5f0, type: 3}
+  - name: orangutan
+    image: {fileID: 21300000, guid: c6d8c2d7c2281d84fbaefe562c3f3106, type: 3}
+  - name: ostrich
+    image: {fileID: 21300000, guid: 8847341e134caec43ba0ffbb4a932ac2, type: 3}
+  - name: owls
+    image: {fileID: 21300000, guid: 5bc7120ba7e257c47acbf0a1a8e2bb30, type: 3}
+  - name: panda
+    image: {fileID: 21300000, guid: b7fba5806a5088846aa4d97f2a21b27e, type: 3}
+  - name: parrot
+    image: {fileID: 21300000, guid: e27fd4130d7e4f843a2eef0263a92e3d, type: 3}
+  - name: paw
+    image: {fileID: 21300000, guid: 45cbbb17df2b59349a4c2f14ac3a9ab8, type: 3}
+  - name: peacock
+    image: {fileID: 21300000, guid: 804b76e77f34c52469c511caca4950ec, type: 3}
+  - name: pelican
+    image: {fileID: 21300000, guid: 12a15fac747b8d148a32c23c29584c6e, type: 3}
+  - name: penguins
+    image: {fileID: 21300000, guid: 114c1e735b430f9479d24f170a16d55f, type: 3}
+  - name: pig
+    image: {fileID: 21300000, guid: 9507226273b415d4a9ec127980544ec6, type: 3}
+  - name: pigeon
+    image: {fileID: 21300000, guid: a3c7ae70bd84ed34884d80bec858eed5, type: 3}
+  - name: polar bear
+    image: {fileID: 21300000, guid: c206ce83f342c5b4f92cd5384a3c3c49, type: 3}
+  - name: pony
+    image: {fileID: 21300000, guid: 4eaeef5b832605841ac37e2072b41998, type: 3}
+  - name: porcupine
+    image: {fileID: 21300000, guid: 0b79b61b30beeee4b970debca773d3dc, type: 3}
+  - name: rabbit
+    image: {fileID: 21300000, guid: 8a516ddf06273974485ce74e564e855a, type: 3}
+  - name: raccoon
+    image: {fileID: 21300000, guid: b78f40e00c5c34d4f8e6c0e65bfcf009, type: 3}
+  - name: rat mouse
+    image: {fileID: 21300000, guid: 54fe5b563964d8d48869592fcb57ff5e, type: 3}
+  - name: raven
+    image: {fileID: 21300000, guid: 85b22fa723192c8489b5561395381c4d, type: 3}
+  - name: rhino
+    image: {fileID: 21300000, guid: 08f543cf2e1ac9b42b2a88ce3e745507, type: 3}
+  - name: samoyed dog
+    image: {fileID: 21300000, guid: 55e6b778c94be67449da45af63118dbb, type: 3}
+  - name: seahorse
+    image: {fileID: 21300000, guid: 4914025896d8ab94ab5b773717c65bda, type: 3}
+  - name: seashell
+    image: {fileID: 21300000, guid: faf917823f06960468855e336baee61d, type: 3}
+  - name: sharks
+    image: {fileID: 21300000, guid: 9f27ed02d501ff14d9e44da84da29dd5, type: 3}
+  - name: sheep
+    image: {fileID: 21300000, guid: 06eb510f1315a3b4fbf19337880e28a0, type: 3}
+  - name: shrimps
+    image: {fileID: 21300000, guid: e222de6b9bc36974bb49b7755751a69e, type: 3}
+  - name: skunk
+    image: {fileID: 21300000, guid: 330b5e25e2f3c3f48bfd1aee0ee468c2, type: 3}
+  - name: sloth
+    image: {fileID: 21300000, guid: f9be755a8c7346b4ba4d08fbb28f4c77, type: 3}
+  - name: snails
+    image: {fileID: 21300000, guid: 40c475fcdef76464b9248febbe125b07, type: 3}
+  - name: snake
+    image: {fileID: 21300000, guid: e9379bdc4e2d06c4199a0e4b410b04fc, type: 3}
+  - name: sparrow
+    image: {fileID: 21300000, guid: 6ae691ede857eeb4aabb9679d16bea4d, type: 3}
+  - name: sperm whale
+    image: {fileID: 21300000, guid: ba89704cdb8f5c045af09fdcbf17f4e9, type: 3}
+  - name: squid
+    image: {fileID: 21300000, guid: 3b7dd9de3c8e3154c9baa3fc63a61e99, type: 3}
+  - name: squirrel
+    image: {fileID: 21300000, guid: 06db9e288625d0240922be95a3ac1b65, type: 3}
+  - name: starfish
+    image: {fileID: 21300000, guid: 1e6fb777a7a1abd499f5a47e494a9983, type: 3}
+  - name: stingray
+    image: {fileID: 21300000, guid: 16094cc5d4937dc469adebe596fe7cea, type: 3}
+  - name: stork
+    image: {fileID: 21300000, guid: c46f9b6922327c7438c3687e216a4c54, type: 3}
+  - name: swallow
+    image: {fileID: 21300000, guid: 59ed3238ac9dd3d4fa5e817c75631399, type: 3}
+  - name: swan
+    image: {fileID: 21300000, guid: 66eba950967d71243937b33d260cac1e, type: 3}
+  - name: swordfish
+    image: {fileID: 21300000, guid: a1b59360fdddbf04787d7cc0ba4b5c27, type: 3}
+  - name: tiger
+    image: {fileID: 21300000, guid: 0048336d00a79594e9f3e50e9cbbaa4f, type: 3}
+  - name: turkey
+    image: {fileID: 21300000, guid: 59c4b79babd7f5e4fa29eff0705e616f, type: 3}
+  - name: turtle
+    image: {fileID: 21300000, guid: 7a246254f11d28c40b8210ed405184aa, type: 3}
+  - name: vizsla
+    image: {fileID: 21300000, guid: 34fb7172303555140bfa6b2afa2a4209, type: 3}
+  - name: vulture
+    image: {fileID: 21300000, guid: b35c7783ad2a2e14e937cf6e55defeda, type: 3}
+  - name: walrus
+    image: {fileID: 21300000, guid: 2683e5c0f2e45e847ba51cea69ce9206, type: 3}
+  - name: welsh corgi
+    image: {fileID: 21300000, guid: 172de98c0e76302439f76842eb06a315, type: 3}
+  - name: whale
+    image: {fileID: 21300000, guid: 1563e9b7c012d4f488c6a58fe22669f9, type: 3}
+  - name: white dove
+    image: {fileID: 21300000, guid: d2f7cf2bd4fb3ee4f983cec1548011d1, type: 3}
+  - name: wolf
+    image: {fileID: 21300000, guid: d07f80026c6e7c44f8667c33652ae6ae, type: 3}
+  - name: woodpecker
+    image: {fileID: 21300000, guid: 9d7bb42c116852940a5b57e4b46fc9bf, type: 3}
+  - name: zebra
+    image: {fileID: 21300000, guid: c5357874bae4ec54dbca9854bd661231, type: 3}

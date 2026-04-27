@@ -1,0 +1,46 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: flowers
+  m_EditorClassIdentifier: 
+  category: flowers
+  logos:
+  - name: bellflower
+    image: {fileID: 21300000, guid: 978fe88e11ba83242804ededd5d22d57, type: 3}
+  - name: bouquet of flowers
+    image: {fileID: 21300000, guid: 300104ec1777ad64db6b9eab1988c95e, type: 3}
+  - name: chamomile
+    image: {fileID: 21300000, guid: 9715ec007e10c6c4ba047d5b0aef5e39, type: 3}
+  - name: clover
+    image: {fileID: 21300000, guid: 78b555f752a6fcc43aed46e6e5ab7fed, type: 3}
+  - name: dandelion
+    image: {fileID: 21300000, guid: 16b4e9d577273c84c89701112c684fef, type: 3}
+  - name: floral frame
+    image: {fileID: 21300000, guid: e28efecc38adb134c8e330d0f6d4ffe3, type: 3}
+  - name: lilac
+    image: {fileID: 21300000, guid: c659514cbc0701049b88bad054510d7a, type: 3}
+  - name: lilium
+    image: {fileID: 21300000, guid: 6ffbb15243be54d489a862dd42d13d76, type: 3}
+  - name: lotus
+    image: {fileID: 21300000, guid: 58116c9f027bebf428c434b066b5f309, type: 3}
+  - name: poppy flower
+    image: {fileID: 21300000, guid: 72aa11e4934164540a5e9cbe3bd3d405, type: 3}
+  - name: rose
+    image: {fileID: 21300000, guid: bcc16b4df9cc4d74eb902ad816ae554e, type: 3}
+  - name: sunflower
+    image: {fileID: 21300000, guid: 0e860ecf684fdc248b483e4ddf536943, type: 3}
+  - name: tulip
+    image: {fileID: 21300000, guid: 6442c33f591e8bf43ac3871dda85e15b, type: 3}
+  - name: viola
+    image: {fileID: 21300000, guid: d3c04aed54535da4c8553cc439a90c78, type: 3}
+  - name: white roses
+    image: {fileID: 21300000, guid: d0a872786ff951d45baef8fc16eba911, type: 3}

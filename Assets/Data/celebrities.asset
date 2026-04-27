@@ -1,0 +1,106 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: celebrities
+  m_EditorClassIdentifier: 
+  category: celebrities
+  logos:
+  - name: 2pac
+    image: {fileID: 21300000, guid: 078d9f566321fd748b5b9831c1f8c05d, type: 3}
+  - name: abraham lincoln
+    image: {fileID: 21300000, guid: 4bf8ccf3143e47c488dcce4c0edbd754, type: 3}
+  - name: alexander lukashenko
+    image: {fileID: 21300000, guid: 7e5da78b48f1e294caa63e9c25adb692, type: 3}
+  - name: alexei navalny
+    image: {fileID: 21300000, guid: 7f6039074874ae84bb10190c8fad7cde, type: 3}
+  - name: angelina jolie
+    image: {fileID: 21300000, guid: ce45bb5eb5a53904bb333c5c0f6385c0, type: 3}
+  - name: avril lavigne
+    image: {fileID: 21300000, guid: e02033ff9103d0643a2908646f7e1806, type: 3}
+  - name: barack obama
+    image: {fileID: 21300000, guid: 123594cf81164774fa50916666d85bc6, type: 3}
+  - name: bashar al assad
+    image: {fileID: 21300000, guid: 7367538ea08fa39458c357a3ee41a034, type: 3}
+  - name: bill clinton
+    image: {fileID: 21300000, guid: 19bddb0b9cdcb8b4eaf45b1e7420842e, type: 3}
+  - name: bob marley
+    image: {fileID: 21300000, guid: 5d2a4a2e5c954b5408f2782914264a92, type: 3}
+  - name: brad pitt
+    image: {fileID: 21300000, guid: 52fc4ff4ca1753242b8240784d7eee6f, type: 3}
+  - name: bruce lee
+    image: {fileID: 21300000, guid: b4ebc02717e59d943a8dd2ce10a16452, type: 3}
+  - name: charlie chaplin
+    image: {fileID: 21300000, guid: 2373ba46081c27e4391ef34cf7464c41, type: 3}
+  - name: che guevara
+    image: {fileID: 21300000, guid: 804b54858c18464418d237d0391c2cb1, type: 3}
+  - name: chuck norris
+    image: {fileID: 21300000, guid: fb2a74deace096949a1365ba3cc3a690, type: 3}
+  - name: conor mcgregor
+    image: {fileID: 21300000, guid: d4068665313f94d45b3315d241a9d781, type: 3}
+  - name: donald trump
+    image: {fileID: 21300000, guid: 59d63f7c019190f4baeeb556547282df, type: 3}
+  - name: elon musk
+    image: {fileID: 21300000, guid: 78a852c479d239d46bd01eb052c5779f, type: 3}
+  - name: george bush
+    image: {fileID: 21300000, guid: 374bfd0a569c48749b8441b17350cfb3, type: 3}
+  - name: hillary clinton
+    image: {fileID: 21300000, guid: 134e9800493e06e408463744884ed95f, type: 3}
+  - name: hitler
+    image: {fileID: 21300000, guid: 405261488e5802a4aadb7398dbc56365, type: 3}
+  - name: joe biden
+    image: {fileID: 21300000, guid: 60b4619e15a42c54aaaccacc3cc95ace, type: 3}
+  - name: kamala harris
+    image: {fileID: 21300000, guid: a004886085b6c5e4ba894a65048d67a3, type: 3}
+  - name: khabib nurmagomedov
+    image: {fileID: 21300000, guid: 382359be72de32545bfa2d059a8ff87a, type: 3}
+  - name: kim jong un
+    image: {fileID: 21300000, guid: 474b6675324109140a72485d23ea0f8f, type: 3}
+  - name: kim kardashian
+    image: {fileID: 21300000, guid: aa36412c029973b429da4af8e30fa8cf, type: 3}
+  - name: lenin
+    image: {fileID: 21300000, guid: 3a953955e5638cf46a58dcc11622c0c4, type: 3}
+  - name: leonardo dicaprio
+    image: {fileID: 21300000, guid: 983ddb188e6ccbc4d835ac7ad195a3fd, type: 3}
+  - name: leonid brezhnev
+    image: {fileID: 21300000, guid: 67764f17fe631404f9279adb4cb436a6, type: 3}
+  - name: mahatma gandhi
+    image: {fileID: 21300000, guid: 8cf2ac641f4f5c2438f98e0cb5b00b44, type: 3}
+  - name: marilyn monroe
+    image: {fileID: 21300000, guid: 27cd95fbd87905c4ea5b5047e86f6c91, type: 3}
+  - name: mark zuckerberg
+    image: {fileID: 21300000, guid: 5c0e2bcde448eba498c2623199ad69ee, type: 3}
+  - name: michael jackson
+    image: {fileID: 21300000, guid: 39267b4b288192346bbec3482c398553, type: 3}
+  - name: mikhail gorbachev
+    image: {fileID: 21300000, guid: fed5b494086432147a80f5636e321d11, type: 3}
+  - name: napoleon
+    image: {fileID: 21300000, guid: 845b53fd85879194b87669abda97bf9d, type: 3}
+  - name: osama bin laden
+    image: {fileID: 21300000, guid: 746a37e8ad3525947a1e3b7756b3c74a, type: 3}
+  - name: snoop dogg
+    image: {fileID: 21300000, guid: d5e204935aeb5364f94230bb3295d63f, type: 3}
+  - name: stalin
+    image: {fileID: 21300000, guid: 9ed0760faa2d8ac4bb13966d5b8d0f46, type: 3}
+  - name: steve jobs
+    image: {fileID: 21300000, guid: 4deb415cec20a95499b085c76ed45850, type: 3}
+  - name: tom cruise
+    image: {fileID: 21300000, guid: 24acc97a05d64ea4ea7a64e15c4103f3, type: 3}
+  - name: vitali klitschko
+    image: {fileID: 21300000, guid: 5580908b8ebd6aa43bdf67d10f55d203, type: 3}
+  - name: vladimir putin
+    image: {fileID: 21300000, guid: e4d6793976c5f334ebbccc09dc2cb52a, type: 3}
+  - name: volodymyr zelenskyy
+    image: {fileID: 21300000, guid: f8d470e46d7a14f40a95691700b00806, type: 3}
+  - name: yevgeny prigozhin
+    image: {fileID: 21300000, guid: b8c051e2ff0e98d4a9de92e0daf1ca9b, type: 3}
+  - name: yuri gagarin
+    image: {fileID: 21300000, guid: bd0f682bbc30ea34ab87223c4d7edfed, type: 3}

@@ -1,0 +1,212 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: electronics
+  m_EditorClassIdentifier: 
+  category: electronics
+  logos:
+  - name: airpods
+    image: {fileID: 21300000, guid: a5c27afdecb10ec41902869a469847cc, type: 3}
+  - name: air conditioner
+    image: {fileID: 21300000, guid: 197abd26477453041b68bc0b286d5508, type: 3}
+  - name: antenna
+    image: {fileID: 21300000, guid: 1754fcfa7cb8c954c8577963a80af501, type: 3}
+  - name: apple watch
+    image: {fileID: 21300000, guid: 961b6b699cd3d1d418fcb8e4baa845d5, type: 3}
+  - name: audio speakers
+    image: {fileID: 21300000, guid: 177f143d021c7c04e8289ebdb27aa761, type: 3}
+  - name: bank chip
+    image: {fileID: 21300000, guid: 427891b65411313468c7e0f0e8e823ff, type: 3}
+  - name: battery
+    image: {fileID: 21300000, guid: 21d8fbcc7ab7b4a4aa6aa73513854bc5, type: 3}
+  - name: calculator
+    image: {fileID: 21300000, guid: dbdba718dfad5434caa8d9c0a45740a5, type: 3}
+  - name: camera lens
+    image: {fileID: 21300000, guid: 6cc41f524f2da304b99d43255a32b9d4, type: 3}
+  - name: cassette player
+    image: {fileID: 21300000, guid: cd3fd7a160b4c9540a41bf078ee8804c, type: 3}
+  - name: closed circuit television camera
+    image: {fileID: 21300000, guid: cfd877b78ee79764db98d086c4bab01c, type: 3}
+  - name: clothes iron
+    image: {fileID: 21300000, guid: 363cf5bff1e8dfc46913451b72d570f7, type: 3}
+  - name: coffee machine
+    image: {fileID: 21300000, guid: 432ba6a86a4382843bb5602a73b50658, type: 3}
+  - name: compact disk
+    image: {fileID: 21300000, guid: 96fe56e460083db4ea104ac71fec5f8a, type: 3}
+  - name: computer desktop pc
+    image: {fileID: 21300000, guid: 9fd802e06c8ad8242953ef281dbc17d7, type: 3}
+  - name: cpu processor
+    image: {fileID: 21300000, guid: 948bb824663fb424aa05a5ee3de73b37, type: 3}
+  - name: database
+    image: {fileID: 21300000, guid: bbe1372b31a5b6d4b89709fd97e807b2, type: 3}
+  - name: disco ball
+    image: {fileID: 21300000, guid: 432fe3aba0911d648a01968485061104, type: 3}
+  - name: dji mavic
+    image: {fileID: 21300000, guid: c7b0fb9ce8d9427429dc6fbefb40f081, type: 3}
+  - name: drone quadcopter
+    image: {fileID: 21300000, guid: 667ea87b1ddbc9048a987786ab48be00, type: 3}
+  - name: earphones
+    image: {fileID: 21300000, guid: a85e974a2c9abcd408db6002897e9010, type: 3}
+  - name: electric razor
+    image: {fileID: 21300000, guid: 71f0168259be3b54c8b5eec0f755d2fa, type: 3}
+  - name: flashlight
+    image: {fileID: 21300000, guid: 0f4dc5feb2ab94b429ab9dc69b02149e, type: 3}
+  - name: floppy disk
+    image: {fileID: 21300000, guid: 699a5ed3ce0f36649b7971724f64805e, type: 3}
+  - name: gamepad
+    image: {fileID: 21300000, guid: 2c01681359f5565498873a47b241313d, type: 3}
+  - name: garmin navigator
+    image: {fileID: 21300000, guid: 77d5f571ec1fa384bb5e5ba5dbe06dce, type: 3}
+  - name: generator
+    image: {fileID: 21300000, guid: 4c28b2476b11557408f138c665984447, type: 3}
+  - name: gopro cameras
+    image: {fileID: 21300000, guid: 2f96be09f2a440948ab5ed42b1fa3359, type: 3}
+  - name: gps navigator
+    image: {fileID: 21300000, guid: 7ea93b3ceb4b4a84fae71b16398643de, type: 3}
+  - name: hair dryer
+    image: {fileID: 21300000, guid: d734ff90c575d194ba9b1c6eb72222a8, type: 3}
+  - name: hard disc
+    image: {fileID: 21300000, guid: d1d7b353d7128634591202e78c78d688, type: 3}
+  - name: headphones
+    image: {fileID: 21300000, guid: 35b18fdaef05d2843973ddb93cc515eb, type: 3}
+  - name: heater
+    image: {fileID: 21300000, guid: b8f410e03c0614f408b679ef08333047, type: 3}
+  - name: integrated circuit
+    image: {fileID: 21300000, guid: e83911c1be0d62144a5c45400a27b5e1, type: 3}
+  - name: iphone 11
+    image: {fileID: 21300000, guid: 6c762b41e31f5984ab1634c51f847a3c, type: 3}
+  - name: iphone 12
+    image: {fileID: 21300000, guid: 862951c898fc1e44d9e984321327b812, type: 3}
+  - name: iphone 13
+    image: {fileID: 21300000, guid: 88eab9c1b1a695349ac9125661a4db0f, type: 3}
+  - name: iphone 14
+    image: {fileID: 21300000, guid: 3fa8b3b2ce45e67438065f3db9a832ae, type: 3}
+  - name: iphone 16
+    image: {fileID: 21300000, guid: 0650581cbca935e4595a9eb3afe9b229, type: 3}
+  - name: iphone 17
+    image: {fileID: 21300000, guid: d8acf7c8b7e87b044b5bd66df45e08d4, type: 3}
+  - name: iphone apple
+    image: {fileID: 21300000, guid: 930ff1281f0353f4c88c485e9cd24c43, type: 3}
+  - name: ipod
+    image: {fileID: 21300000, guid: d27de229009e79c4ea2da6d28a57ceaf, type: 3}
+  - name: joystick
+    image: {fileID: 21300000, guid: e11fa1b5719a12943978471d5e3c10c8, type: 3}
+  - name: keyboard
+    image: {fileID: 21300000, guid: 97ea709f11256284894df709bb6b5478, type: 3}
+  - name: laptops
+    image: {fileID: 21300000, guid: 9b7ec5e15a1a85143b9e007d5097471d, type: 3}
+  - name: laser beam
+    image: {fileID: 21300000, guid: 1e0dd973f08a1cf40885c506df9e4e78, type: 3}
+  - name: light beam
+    image: {fileID: 21300000, guid: b75327ed436c404419e90aa43a19105b, type: 3}
+  - name: macbook
+    image: {fileID: 21300000, guid: 170b263766240c849a3810b36ba5a007, type: 3}
+  - name: microcontroller
+    image: {fileID: 21300000, guid: 2e83d41c69be3d541acd8c32253fd41f, type: 3}
+  - name: microphone
+    image: {fileID: 21300000, guid: 8ff79c70bd291794493cacdae79bc343, type: 3}
+  - name: microwave oven
+    image: {fileID: 21300000, guid: 46ea2faced45fc64793aff306f69a07f, type: 3}
+  - name: monitors
+    image: {fileID: 21300000, guid: 4d7e13c8404dc1d448ed4f3dad6ddf8f, type: 3}
+  - name: motherboard
+    image: {fileID: 21300000, guid: 5b5f47a6a726b214ab20fd48a9556787, type: 3}
+  - name: nintendo
+    image: {fileID: 21300000, guid: 02a0c97b527cbb04abc33f4025748d93, type: 3}
+  - name: oil heater
+    image: {fileID: 21300000, guid: b44dcf5e5bd400143968482483d355d7, type: 3}
+  - name: pager
+    image: {fileID: 21300000, guid: 9d41dbb029dd87d49a621df76c1c3e6c, type: 3}
+  - name: pc mouse
+    image: {fileID: 21300000, guid: 6198ffa375a6aff4ca75007c94ad3cff, type: 3}
+  - name: phone in hand
+    image: {fileID: 21300000, guid: 440e714ec13bc6849a7b12682d611e7d, type: 3}
+  - name: photo cameras
+    image: {fileID: 21300000, guid: df2732041b0489d438914de202f41eae, type: 3}
+  - name: power electric plug
+    image: {fileID: 21300000, guid: 3e62a7e6b6b9bef4ebf095babefd9c49, type: 3}
+  - name: power socket
+    image: {fileID: 21300000, guid: f6e5de63b90fe0f419ee82215fcb9471, type: 3}
+  - name: printer
+    image: {fileID: 21300000, guid: edec6f8499b74114b9568443ef06b760, type: 3}
+  - name: radio
+    image: {fileID: 21300000, guid: 410b06d5665a62d40afd41822e8af0a4, type: 3}
+  - name: record player
+    image: {fileID: 21300000, guid: 8baf4115a3f66fa4d8cf6b15e886d804, type: 3}
+  - name: refrigerator
+    image: {fileID: 21300000, guid: 3a16191319c45084eb9eed0661f0d0e6, type: 3}
+  - name: robot
+    image: {fileID: 21300000, guid: e1446b5447dd8694597bb691d1f9d98c, type: 3}
+  - name: robotic arm
+    image: {fileID: 21300000, guid: 66b5d81a46926694aba354ec3528005a, type: 3}
+  - name: robotic vacuum cleaner
+    image: {fileID: 21300000, guid: 9669753d98b240740a4530f4d20e5ccb, type: 3}
+  - name: satellite dish
+    image: {fileID: 21300000, guid: 2f538f210dbe3174ab52942eab3ddaca, type: 3}
+  - name: scanner
+    image: {fileID: 21300000, guid: 42d95afaca5f75c4e8d60775a861496a, type: 3}
+  - name: secure digital
+    image: {fileID: 21300000, guid: e902c5d208324f947838c82d1b0e612a, type: 3}
+  - name: selfie stick
+    image: {fileID: 21300000, guid: e256ff748218744479b0bb3d4ce16dec, type: 3}
+  - name: server
+    image: {fileID: 21300000, guid: 83ed907e6f3c12546b3568fbb4140130, type: 3}
+  - name: sewing machine
+    image: {fileID: 21300000, guid: 766f98fea2c93bc4081c43f2860d1829, type: 3}
+  - name: sim cards
+    image: {fileID: 21300000, guid: 37f6a49e587d28043b3ca998e3f571fa, type: 3}
+  - name: smartphone
+    image: {fileID: 21300000, guid: 4e8b3f7e8f0885e4587ebf8518bd5904, type: 3}
+  - name: solar panel
+    image: {fileID: 21300000, guid: 232afd579f69c4c4ea3256e9c77348da, type: 3}
+  - name: sony playstation
+    image: {fileID: 21300000, guid: 59ea1f96273ab594795935c5a6c33e74, type: 3}
+  - name: starlink
+    image: {fileID: 21300000, guid: 847dce12dadbe954481a25d3a12e6f34, type: 3}
+  - name: stopwatch
+    image: {fileID: 21300000, guid: aec514b7977416449bcae30ae71accf5, type: 3}
+  - name: tablet
+    image: {fileID: 21300000, guid: d6e931b7f19a34c469a0f67cf4e21462, type: 3}
+  - name: table lamp
+    image: {fileID: 21300000, guid: 2b0940ec81e328c4aad3e50b08092366, type: 3}
+  - name: telescope
+    image: {fileID: 21300000, guid: ed0eb78511e1ce84d9c457415deb5f2f, type: 3}
+  - name: toaster
+    image: {fileID: 21300000, guid: 0a46678bb67c9d948a2f4a807bda3971, type: 3}
+  - name: tripod
+    image: {fileID: 21300000, guid: 0def30868561e0f4dbb16b7d92fa0a12, type: 3}
+  - name: usb cable
+    image: {fileID: 21300000, guid: 350c6ae2387502e4c9264285be956691, type: 3}
+  - name: usb flash
+    image: {fileID: 21300000, guid: 87c3c63c916f13a44a1cb729f749a3c5, type: 3}
+  - name: vacuum cleaner
+    image: {fileID: 21300000, guid: e619bf7b47a20704dbb41c4ba36f0963, type: 3}
+  - name: video camera
+    image: {fileID: 21300000, guid: 32717912c73dba143b61ce22caa0d5c3, type: 3}
+  - name: walkie talkie
+    image: {fileID: 21300000, guid: a9aea44be6450234e979e4fbb69875cd, type: 3}
+  - name: washing machine
+    image: {fileID: 21300000, guid: a00b2f92dd9aa214da31adc2365316fb, type: 3}
+  - name: watches
+    image: {fileID: 21300000, guid: 98212fa23d79c7d48b864b261cad47f6, type: 3}
+  - name: web camera
+    image: {fileID: 21300000, guid: 145f2579b27c0ff4080ee9bb91b5c1cf, type: 3}
+  - name: weight scale
+    image: {fileID: 21300000, guid: fb16254015db74143a2f6934a260bbd2, type: 3}
+  - name: wireless router
+    image: {fileID: 21300000, guid: d89ae4da5e5f4d646b333a107d6144dd, type: 3}
+  - name: wireless speaker
+    image: {fileID: 21300000, guid: ee61c9df2597b8d4d9865f368f29386d, type: 3}
+  - name: xbox
+    image: {fileID: 21300000, guid: dfac6150c678e5040b2c0911dcbb2ba8, type: 3}
+  - name: x ray
+    image: {fileID: 21300000, guid: 717d878358ff9234290207527fd1c316, type: 3}

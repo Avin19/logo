@@ -1,0 +1,97 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: countries
+  m_EditorClassIdentifier: 
+  id: countries
+  displayName: Countries
+  logos:
+  - name: Afghanistan
+    imageUrl: https://flagcdn.com/w320/af.png
+  - name: Albania
+    imageUrl: https://flagcdn.com/w320/al.png
+  - name: Algeria
+    imageUrl: https://flagcdn.com/w320/dz.png
+  - name: Andorra
+    imageUrl: https://flagcdn.com/w320/ad.png
+  - name: Angola
+    imageUrl: https://flagcdn.com/w320/ao.png
+  - name: Argentina
+    imageUrl: https://flagcdn.com/w320/ar.png
+  - name: Armenia
+    imageUrl: https://flagcdn.com/w320/am.png
+  - name: Australia
+    imageUrl: https://flagcdn.com/w320/au.png
+  - name: Austria
+    imageUrl: https://flagcdn.com/w320/at.png
+  - name: Azerbaijan
+    imageUrl: https://flagcdn.com/w320/az.png
+  - name: Bahamas
+    imageUrl: https://flagcdn.com/w320/bs.png
+  - name: Bahrain
+    imageUrl: https://flagcdn.com/w320/bh.png
+  - name: Bangladesh
+    imageUrl: https://flagcdn.com/w320/bd.png
+  - name: Belgium
+    imageUrl: https://flagcdn.com/w320/be.png
+  - name: Bhutan
+    imageUrl: https://flagcdn.com/w320/bt.png
+  - name: Bolivia
+    imageUrl: https://flagcdn.com/w320/bo.png
+  - name: Bosnia
+    imageUrl: https://flagcdn.com/w320/ba.png
+  - name: Botswana
+    imageUrl: https://flagcdn.com/w320/bw.png
+  - name: Brazil
+    imageUrl: https://flagcdn.com/w320/br.png
+  - name: Bulgaria
+    imageUrl: https://flagcdn.com/w320/bg.png
+  - name: Cambodia
+    imageUrl: https://flagcdn.com/w320/kh.png
+  - name: Cameroon
+    imageUrl: https://flagcdn.com/w320/cm.png
+  - name: Canada
+    imageUrl: https://flagcdn.com/w320/ca.png
+  - name: Chile
+    imageUrl: https://flagcdn.com/w320/cl.png
+  - name: China
+    imageUrl: https://flagcdn.com/w320/cn.png
+  - name: Colombia
+    imageUrl: https://flagcdn.com/w320/co.png
+  - name: Costa Rica
+    imageUrl: https://flagcdn.com/w320/cr.png
+  - name: Croatia
+    imageUrl: https://flagcdn.com/w320/hr.png
+  - name: Cuba
+    imageUrl: https://flagcdn.com/w320/cu.png
+  - name: Cyprus
+    imageUrl: https://flagcdn.com/w320/cy.png
+  - name: Czech Republic
+    imageUrl: https://flagcdn.com/w320/cz.png
+  - name: Denmark
+    imageUrl: https://flagcdn.com/w320/dk.png
+  - name: Dominican Republic
+    imageUrl: https://flagcdn.com/w320/do.png
+  - name: Ecuador
+    imageUrl: https://flagcdn.com/w320/ec.png
+  - name: Egypt
+    imageUrl: https://flagcdn.com/w320/eg.png
+  - name: El Salvador
+    imageUrl: https://flagcdn.com/w320/sv.png
+  - name: Estonia
+    imageUrl: https://flagcdn.com/w320/ee.png
+  - name: Ethiopia
+    imageUrl: https://flagcdn.com/w320/et.png
+  - name: Finland
+    imageUrl: https://flagcdn.com/w320/fi.png
+  - name: France
+    imageUrl: https://flagcdn.com/w320/fr.png
