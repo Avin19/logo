@@ -1,0 +1,67 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: fruits
+  m_EditorClassIdentifier: 
+  id: fruits
+  displayName: Fruits
+  logos:
+  - name: Apple
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/1/15/Red_Apple.jpg
+  - name: Banana
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/8/8a/Banana-Single.jpg
+  - name: Orange
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/c/c4/Orange-Fruit-Pieces.jpg
+  - name: Pineapple
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/c/cb/Pineapple_and_cross_section.jpg
+  - name: Grapes
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/b/bb/Table_grapes_on_white.jpg
+  - name: Strawberry
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/2/29/PerfectStrawberry.jpg
+  - name: Watermelon
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/e/ee/Watermelon_cross_BNC.jpg
+  - name: Mango
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/9/90/Hapus_Mango.jpg
+  - name: Papaya
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/0/0f/Papaya_cross_section.jpg
+  - name: Peach
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/9/9f/Ripe_peach.jpg
+  - name: Cherry
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/b/bb/Cherry_Stella_Fruit.JPG
+  - name: Blueberry
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/1/1e/Blueberries.jpg
+  - name: Blackberry
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/0/02/Blackberries_in_a_bowl.jpg
+  - name: Guava
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/4/47/Guava_idyll.jpg
+  - name: Lemon
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/7/7b/Lemon.jpg
+  - name: Lime
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/7/71/Lime.jpg
+  - name: Kiwi
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/d/d3/Kiwi_Whole_%26_Sliced.jpg
+  - name: Plum
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/4/49/Plums.jpg
+  - name: Pomegranate
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/0/0f/Pomegranate.jpg
+  - name: Fig
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/3/38/Raw_fig.jpg
+  - name: Lychee
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/a/a8/Lychee_fruits.jpg
+  - name: Coconut
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/2/2c/Coconut.jpg
+  - name: Dragonfruit
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/e/e5/Pitaya_cross_section.jpg
+  - name: Pear
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/d/d5/Pear_ripe.jpg
+  - name: Raspberry
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/8/88/Raspberry.jpg

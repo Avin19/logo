@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: landmarks
+  m_EditorClassIdentifier: 
+  id: landmarks
+  displayName: Landmarks
+  logos:
+  - name: EiffelTower
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg/500px-Tour_Eiffel_Wikimedia_Commons_%28cropped%29.jpg
+  - name: TajMahal
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Taj_Mahal_%28Edited%29.jpeg/1280px-Taj_Mahal_%28Edited%29.jpeg
+  - name: StatueofLiberty
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/8/89/Front_view_of_Statue_of_Liberty_%28cropped%29.jpg/500px-Front_view_of_Statue_of_Liberty_%28cropped%29.jpg
+  - name: BigBen
+    imageUrl: https://en.wikipedia.org/wiki/File:Elizabeth_Tower,_June_2022.jpg
+  - name: Colosseum
+    imageUrl: https://en.wikipedia.org/wiki/File:Colosseo_2020.jpg
+  - name: GreatWall
+    imageUrl: https://en.wikipedia.org/wiki/File:The_Great_Wall_of_China_at_Jinshanling-edit.jpg
+  - name: BurjKhalifa
+    imageUrl: https://upload.wikimedia.org/wikipedia/en/thumb/9/93/Burj_Khalifa.jpg/500px-Burj_Khalifa.jpg

@@ -1,261 +1,374 @@
-using System.Collections;
+using System;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
 using TMPro;
-using System;
-
-
-
-// Get all the item from the LevelManger
-// display the image url 
-// maintain score and hint 
-// check user Input
-
 
 public class GameInternal : MonoBehaviour
 {
-    [SerializeField] private LevelManager levelManager;
+    [Header("Panel")]
+    [SerializeField] private RectTransform _winPanel, _lossPanel;
+    [Header("Managers / UI")]
+    [SerializeField] private Manager manager;
     [SerializeField] private Image logoImage;
-    [SerializeField] private TextMeshProUGUI logoText;
-
-    private List<ItemDetail> items = new List<ItemDetail>();
-
     [SerializeField] private TextMeshProUGUI scoreText;
 
-    [Header(" Button ")]
-    [SerializeField] private Button nextBtn;
-    [SerializeField] private Button preBtn;
-    [SerializeField] private int itemCount = 0;
-    [SerializeField] private Manager manager;
-    [SerializeField] private string correctAnswer;
+    [Header("Prefabs & Parents")]
     [SerializeField] private GameObject pfCorrectAnwser;
     [SerializeField] private GameObject pfRandomLetter;
-
     [SerializeField] private GameObject userAnswer;
     [SerializeField] private GameObject randomAnwser;
 
+    [Header("Buttons")]
+    [SerializeField] private Button nextBtn;
+    [SerializeField] private Button clearBTn;
+    [SerializeField] private Button hintBtn;
+    [SerializeField] private Button removeWrongBtn;
+    [SerializeField] private Button revealBtn;
+    [SerializeField] private Button skipBtn;
+    [SerializeField] private Button watchAdBtn;
+    [SerializeField] private Button nextWinBtn;
+    [SerializeField] private Button tryAgainBtn;
+    [SerializeField] private TextMeshProUGUI hintText;
 
-    [SerializeField] private int score;
+    [Header("Game Settings")]
+    [SerializeField] private int randomLetterCount = 20;
 
-    // Can use queue in place of List . 
-    [SerializeField] private List<char> chars = new List<Char>();
-    private List<TextHandler> randomLetterList = new List<TextHandler>();
-    [SerializeField] private List<AnswerTexthandler> answerLetter = new List<AnswerTexthandler>();
-    [SerializeField] private List<char> randomChars = new List<Char>();
-    [SerializeField] private int count = 0;
-    #region  Listener
+    private const string HINT_KEY = "HintPoints";
+    private int hintPoints;
+
+    private List<ItemDetail> items = new();
+    private int itemCount = 0;
+    private string correctAnswer = "";
+    private int score = 0;
+    private int fillIndex = 0;
+
+    private readonly List<char> answerChars = new();
+    private readonly List<TextHandler> randomLetterList = new();
+    private readonly List<AnswerTexthandler> answerLetter = new();
+
+    #region UNITY
+
     private void OnEnable()
     {
-        nextBtn.onClick.AddListener(OnNext);
-        preBtn.onClick.AddListener(OnPre);
-        StartGame();
+        nextBtn?.onClick.AddListener(SkipLevel);
+        clearBTn?.onClick.AddListener(RemoveLastLetter);
+        hintBtn?.onClick.AddListener(RevealLetter);
+        removeWrongBtn?.onClick.AddListener(RemoveWrongLetters);
+        revealBtn?.onClick.AddListener(RevealLetter);
+        skipBtn?.onClick.AddListener(SkipLevel);
+        watchAdBtn?.onClick.AddListener(RequestHintAd);
+        nextWinBtn?.onClick.AddListener(WinNextButton);
+        tryAgainBtn?.onClick.AddListener(LossTryAgainButton);
     }
+
+    private void WinNextButton()
+    {
+        Debug.Log("Next button Clicked");
+        LoadNextDirect();
+        _winPanel.gameObject.SetActive(false);
+        _lossPanel.gameObject.SetActive(false);
+    }
+
+    private void LossTryAgainButton()
+    {
+        _winPanel.gameObject.SetActive(false);
+        _lossPanel.gameObject.SetActive(false);
+        LoadNextDirect();
+    }
+
     private void OnDisable()
     {
-        nextBtn.onClick.RemoveListener(OnNext);
-        preBtn.onClick.RemoveListener(OnPre);
+        nextBtn?.onClick.RemoveAllListeners();
+        hintBtn?.onClick.RemoveAllListeners();
+        removeWrongBtn?.onClick.RemoveAllListeners();
+        skipBtn?.onClick.RemoveAllListeners();
+        watchAdBtn?.onClick.RemoveAllListeners();
+        nextBtn?.onClick.RemoveAllListeners();
+        tryAgainBtn.onClick.RemoveAllListeners();
+        revealBtn.onClick.RemoveAllListeners();
     }
+
     private void Start()
     {
-        if (PlayerPrefs.HasKey("Score"))
-        {
-            Debug.Log(PlayerPrefs.GetInt("Score"));
-            score = PlayerPrefs.GetInt("Score");
-        }
-        else
-        {
-            score = 0;
-            PlayerPrefs.SetInt("Score", score);
-        }
-        scoreText.text = score.ToString();
+        hintPoints = PlayerPrefs.GetInt(HINT_KEY, 5);
+        score = PlayerPrefs.GetInt("Score", 0);
+        UpdateUI();
     }
-    private void OnPre()
-    {
-        if (itemCount == 0)
-        {
-            itemCount = items.Count - 1;
-        }
-        else
-        {
-            itemCount -= 1;
-        }
-        LoadGamedate();
-    }
-    private void OnNext()
-    {
-        if (itemCount == items.Count - 1)
-        {
-            itemCount = 0;
-        }
-        else
-        {
-            itemCount += 1;
-        }
-        LoadGamedate();
-    }
+
     #endregion
 
-    private void LoadGamedate()
+    #region GAME FLOW
+
+    public void LoadCategoryById(CategorySO category)
     {
+        Restart();
 
-        chars.Clear();
+        items = CategoryToItemMapper.Map(category);
+        itemCount = 0;
 
-        int randomNumber = UnityEngine.Random.Range(0, items.Count);
-        StartCoroutine(LoadImage(items[randomNumber].LogoURL.ToString()));
-        correctAnswer = items[randomNumber].Manufacturer.ToString();
+        StartGame();
+    }
 
-        answerLetter.Clear();
+    public void StartGame()
+    {
+        if (items.Count == 0) return;
+        LoadGameData();
+    }
+
+    private void LoadGameData()
+    {
+        Restart();
+
+        var chosen = items[itemCount];
+        correctAnswer = chosen.Manufacturer.Trim().ToLower();
 
         foreach (char c in correctAnswer)
         {
-            chars.Add(c);
-            GameObject answer = Instantiate(pfCorrectAnwser, userAnswer.transform);
-            answerLetter.Add(answer.GetComponent<AnswerTexthandler>());
-        }
-        LetterGenerator();
+            answerChars.Add(c);
 
+            var go = Instantiate(pfCorrectAnwser, userAnswer.transform);
+            var handler = go.GetComponent<AnswerTexthandler>();
+            handler.SetText("");
+            answerLetter.Add(handler);
+        }
+
+        CreateRandomLetters();
+        logoImage.sprite = chosen.LogoURL;
+
+        fillIndex = 0;
+        manager.LoadingScreen(false);
     }
-    private void LetterGenerator()
+
+    #endregion
+
+    #region INPUT
+
+    public void ButtonClicked(TextHandler th)
     {
-        randomLetterList.Clear();
-        if (correctAnswer.Length > 20)
-        {
-            LoadGamedate();
-            Debug.Log("correctAnswer is greater then capacity");
-            return;
+        if (fillIndex >= answerLetter.Count) return;
 
-        }
-        for (int i = 0; i < 20; i++)
-        {
-            GameObject letters = Instantiate(pfRandomLetter, randomAnwser.transform);
-            randomLetterList.Add(letters.GetComponent<TextHandler>());
+        string letter = th.GetText();
+        if (string.IsNullOrEmpty(letter)) return;
 
-        }
-        RandomLetter();
-        for (int i = 0; i < randomLetterList.Count; i++)
-        {
+        answerLetter[fillIndex].SetText(letter);
+        th.gameObject.SetActive(false);
 
-            int index = UnityEngine.Random.Range(0, randomChars.Count);
-            randomLetterList[i].SetText(randomChars[index].ToString());
-            randomChars.RemoveAt(index);
+        fillIndex++;
 
-        }
-
+        if (fillIndex >= answerLetter.Count)
+            CheckAnswer();
     }
-    private void RandomLetter()
+
+    #endregion
+
+    #region ANSWER CHECK
+
+    private void CheckAnswer()
     {
-        char[] alphabet = { 'a', 'b', 'c', 'd', 'e', 'f', 'g',
-                        'h', 'i', 'j', 'k', 'l', 'm', 'n',
-                        'o', 'p', 'q', 'r', 's', 't', 'u',
-                        'v', 'w', 'x', 'y', 'z' };
-        for (int i = 0; i < randomLetterList.Count; i++)
+        bool correct = true;
+
+        for (int i = 0; i < answerLetter.Count; i++)
         {
-            if (i < chars.Count)
+            if (answerLetter[i].GetText().ToLower() != answerChars[i].ToString())
             {
-                randomChars.Add(chars[i]);
-            }
-            else
-            {
-                randomChars.Add(alphabet[UnityEngine.Random.Range(0, alphabet.Length)]);
+                correct = false;
+                break;
             }
         }
 
-
-    }
-
-
-    private IEnumerator LoadImage(string url)
-    {
-        UnityWebRequest request = UnityWebRequestTexture.GetTexture(url);
-
-        yield return request.SendWebRequest();
-
-        if (request.result != UnityWebRequest.Result.Success)
+        if (correct)
         {
-            Debug.LogError("failed to load Iamge" + request.error);
+            score += 10;
+            SoundManager.Instance?.CorrectAnswer();
+            _winPanel.gameObject.SetActive(true);
+            _lossPanel.gameObject.SetActive(false);
         }
         else
         {
-            Texture2D texture = DownloadHandlerTexture.GetContent(request);
-
-            Sprite sprite = Sprite.Create(texture, new Rect(0, 0, texture.width, texture.height), Vector2.one * 0.5f);
-
-            logoImage.sprite = sprite;
-            manager.LoadingScreen(false);
+            score = Mathf.Max(0, score - 2);
+            SoundManager.Instance?.WrongAnswer();
+            _winPanel.gameObject.SetActive(false);
+            _lossPanel.gameObject.SetActive(true);
         }
+
+        PlayerPrefs.SetInt("Score", score);
+        UpdateUI();
+
+        LoadNextDirect();
     }
 
-    public void ButtonClicked(TextHandler textHandler)
+    #endregion
+
+    #region BUTTON FEATURES
+
+    public void RevealLetter()
     {
-
-        if (count < answerLetter.Count)
+        if (hintPoints <= 0)
         {
-            answerLetter[count].GetComponent<AnswerTexthandler>().SetText(textHandler.GetText());
-            count++;
-        }
-        if (count == answerLetter.Count)
-        {
-            Debug.Log("Checking Answers Now ! ");
-            bool check = false;
-            for (int i = 0; i < answerLetter.Count; i++)
-            {
-                if (chars[i].ToString() == answerLetter[i].GetText())
-                {
-                    check = true;
-                }
-                else
-                {
-                    check = false;
-                }
-            }
-            if (check)
-            {
-                SoundManager.Instance.CorrectAnswer();
-                score++;
-
-            }
-            else
-            {
-                SoundManager.Instance.WrongAnswer();
-                if (score > 0)
-                {
-                    score--;
-                }
-            }
-            scoreText.text = score.ToString();
-            PlayerPrefs.SetInt("Score", score);
-            Restart();
-            StartGame();
-            //reload the game with new 
-
+            RequestHintAd();
+            return;
         }
 
+        for (int i = 0; i < answerLetter.Count; i++)
+        {
+            if (answerLetter[i].GetText().ToLower() != answerChars[i].ToString())
+            {
+                hintPoints--;
+                answerLetter[i].SetText(answerChars[i].ToString());
+                fillIndex = i + 1;
+                break;
+            }
+        }
 
+        SaveHints();
     }
+
+    public void RemoveLastLetter()
+    {
+        if (hintPoints <= 0)
+        {
+            RequestHintAd();
+            return;
+        }
+        for (int i = answerLetter.Count - 1; i >= 0; i--)
+        {
+            if (!string.IsNullOrEmpty(answerLetter[i].GetText()))
+            {
+                answerLetter[i].SetText("");
+                fillIndex = i;
+                break;
+            }
+        }
+    }
+
+    public void RemoveWrongLetters()
+    {
+        if (hintPoints < 2)
+        {
+            RequestHintAd();
+            return;
+        }
+
+        hintPoints -= 2;
+
+        foreach (var l in randomLetterList)
+        {
+            if (!answerChars.Contains(l.GetText().ToLower()[0]))
+                l.gameObject.SetActive(false);
+        }
+
+        SaveHints();
+    }
+
+    public void SkipLevel()
+    {
+        if (hintPoints >= 3)
+        {
+            hintPoints -= 3;
+            SaveHints();
+            LoadNextDirect();
+        }
+        else
+        {
+            AdMobManager.Instance.ShowRewarded(() =>
+            {
+                LoadNextDirect();
+            });
+        }
+    }
+
+    private void LoadNextDirect()
+    {
+        itemCount = (itemCount + 1) % items.Count;
+        LoadGameData();
+    }
+
+    #endregion
+
+    #region ADS / HINTS
+
+    public void RequestHintAd()
+    {
+        AdMobManager.Instance.ShowRewarded(() =>
+        {
+            hintPoints += 5;
+            SaveHints();
+        });
+    }
+
+    private void SaveHints()
+    {
+        PlayerPrefs.SetInt(HINT_KEY, hintPoints);
+        UpdateUI();
+    }
+
+    #endregion
+
+    #region RANDOM LETTERS
+
+    private void CreateRandomLetters()
+    {
+        foreach (var r in randomLetterList)
+            Destroy(r.gameObject);
+
+        randomLetterList.Clear();
+
+        List<char> pool = new(answerChars);
+
+        char[] alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
+        while (pool.Count < randomLetterCount)
+            pool.Add(alphabet[UnityEngine.Random.Range(0, alphabet.Length)]);
+
+        Shuffle(pool);
+
+        for (int i = 0; i < randomLetterCount; i++)
+        {
+            var go = Instantiate(pfRandomLetter, randomAnwser.transform);
+            var th = go.GetComponent<TextHandler>();
+            th.SetText(pool[i].ToString());
+            randomLetterList.Add(th);
+        }
+    }
+
+    private void Shuffle<T>(IList<T> list)
+    {
+        for (int i = 0; i < list.Count; i++)
+        {
+            int r = UnityEngine.Random.Range(i, list.Count);
+            (list[i], list[r]) = (list[r], list[i]);
+        }
+    }
+
+    #endregion
+
+    #region UI
+
+    private void UpdateUI()
+    {
+        scoreText.text = score.ToString();
+        hintText.text = hintPoints.ToString();
+    }
+
+    #endregion
+
+    #region CLEANUP
+
     public void Restart()
     {
-        foreach (AnswerTexthandler o in answerLetter)
-        {
-            Destroy(o.gameObject);
-        }
-        foreach (TextHandler o in randomLetterList)
-        {
-            Destroy(o.gameObject);
-        }
+        foreach (var a in answerLetter)
+            Destroy(a.gameObject);
 
-    }
-    public void StartGame()
-    {
-        logoText.text = levelManager.Name + " QUIZ ";
-        items = levelManager.GetItems();
-        count = 0;
-        manager.LoadingScreen(true);
-        LoadGamedate();
+        foreach (var r in randomLetterList)
+            Destroy(r.gameObject);
+
+        answerLetter.Clear();
+        randomLetterList.Clear();
+        answerChars.Clear();
+
+        fillIndex = 0;
     }
 
+    #endregion
 
 }
-
-

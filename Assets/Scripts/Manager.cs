@@ -1,157 +1,204 @@
+using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.IO;
+using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
-using Newtonsoft.Json;
 using TMPro;
-using System;
 
 
-// Work on setting panel is remaining 
 public class Manager : MonoBehaviour
 {
     [Header("Manager")]
-    [SerializeField] private GameInternal gameInternal;
+
     [SerializeField] private Transform levelHolder;
 
-    [Header("  UI Panels")]
+    [Header("UI Panels")]
     [SerializeField] private Transform mainPanel;
     [SerializeField] private Transform welcomePanel;
     [SerializeField] private Transform levelPanel;
     [SerializeField] private Transform loadingPanel;
     [SerializeField] private Transform settingPanel;
 
-    [Header("Buttons")]
+    [Header("Buttons / Prefabs")]
     [SerializeField] private Button startBtn;
     [SerializeField] private Button quitBtn;
     [SerializeField] private Button settingbtn;
     [SerializeField] private Button backToLevel;
-    [SerializeField] private Button backToMenu;
+    [SerializeField] private Button backSettingToMenu;
     [SerializeField] private Button backToLevelMenu;
     [SerializeField] private GameObject pfButton;
+
+    [Header("Ads Settings")]
+    [Tooltip("Show interstitial every N times Start button is pressed")]
+    [SerializeField] private int interstitialFrequency = 3;
+    [Tooltip("Optional - wire a button in the Inspector to this for rewarded ad")]
+    [SerializeField] private Button rewardedButton;
+
+    [SerializeField] private int webRequestTimeout = 10;
+
+    [SerializeField] private List<CategorySO> categorySOs;
+
+    private const string INTERSTITIAL_COUNT_KEY = "interstitial_count";
+
+    // store listeners so we can remove them
 
 
 
     private void OnEnable()
     {
-        startBtn.onClick.AddListener(StartButton);
-        quitBtn.onClick.AddListener(() =>
-        {
-            SoundManager.Instance.ButtonClick();
-            Application.Quit();
-        });
+
+        startBtn.onClick.AddListener(StartButtonClick);
         settingbtn.onClick.AddListener(SettingButton);
-        backToLevel.onClick.AddListener(BackToLevel);
-        backToMenu.onClick.AddListener(BackToMenu);
+        backSettingToMenu.onClick.AddListener(BackToMenu);
         backToLevelMenu.onClick.AddListener(BackToMenu);
+        backToLevel.onClick.AddListener(BackToLevel);
+        rewardedButton.onClick.AddListener(ShowRewardedFromUI);
+        quitBtn.onClick.AddListener(() => Application.Quit());
+
+
     }
 
-    private void BackToMenu()
+    private void StartButtonClick()
     {
-        SoundManager.Instance.ButtonClick();
-        SetAllThePanelFalse();
-        welcomePanel.gameObject.SetActive(true);
+        StartButton();
     }
 
     private void OnDisable()
     {
-        startBtn.onClick.RemoveListener(StartButton);
-        settingbtn.onClick.RemoveListener(SettingButton);
-        backToLevel.onClick.RemoveListener(BackToLevel);
-        backToMenu.onClick.RemoveListener(BackToMenu);
-        backToLevel.onClick.RemoveListener(BackToMenu);
+        rewardedButton.onClick.RemoveListener(ShowRewardedFromUI);
+
+
     }
+
+    private void Start()
+    {
+        SetAllThePanelFalse();
+        if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
+    }
+
+
+    private void BackToMenu()
+    {
+        if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
+        SetAllThePanelFalse();
+        if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
+
+        AdMobManager.Instance.TryShowInterstitial();
+
+    }
+
     private void SettingButton()
     {
-        SoundManager.Instance.ButtonClick();
-
+        if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
         SetAllThePanelFalse();
-        settingPanel.gameObject.SetActive(true);
-
+        if (settingPanel != null) settingPanel.gameObject.SetActive(true);
     }
 
     private void BackToLevel()
     {
-        SoundManager.Instance.ButtonClick();
-        gameInternal.Restart();
+        if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
+        // noop, just keep
         SetAllThePanelFalse();
-        levelPanel.gameObject.SetActive(true);
+        if (levelPanel != null) levelPanel.gameObject.SetActive(true);
+
+
+
     }
+
+
     public void LoadingData()
     {
         SetAllThePanelFalse();
-        loadingPanel.gameObject.SetActive(true);
-    }
-    private void StartButton()
-    {
-        SoundManager.Instance.ButtonClick();
-
-        LoadingData();
-        StartCoroutine(LoadCatgories());
-
+        if (loadingPanel != null) loadingPanel.gameObject.SetActive(true);
     }
 
-
-    private IEnumerator LoadCatgories()
-    {
-        UnityWebRequest request = UnityWebRequest.Get("https://sheets.googleapis.com/v4/spreadsheets/1pYU1mu9NBDYt3Ls_IYxMtbnaNrJ_t2jZxy7MYGFLjEA/values/Sheet1?key=AIzaSyAA23WLN6TWfFj_J1VXvYPUOCIMSXGo254");
-        yield return request.SendWebRequest();
-
-        if (request.result != UnityWebRequest.Result.Success)
-        {
-            Debug.LogError("Offline");
-        }
-        else
-        {
-            string data = request.downloadHandler.text;
-
-            RootObject c = JsonConvert.DeserializeObject<RootObject>(data);
-            // Debug.Log(c.values[0].Length);
-            if (c.values[0].Length == levelHolder.childCount)
-            {
-
-            }
-            else
-            {
-                foreach (string cat in c.values[0])
-                {
-                    GameObject Button = Instantiate(pfButton, levelHolder);
-                    Button.transform.GetComponentInChildren<TextMeshProUGUI>().text = cat;
-                }
-            }
-            LevelLoaded();
-        }
-    }
-    private void Start()
-    {
-        SetAllThePanelFalse();
-        welcomePanel.gameObject.SetActive(true);
-    }
     public void StartGame()
     {
         SetAllThePanelFalse();
-        mainPanel.gameObject.SetActive(true);
+        if (mainPanel != null) mainPanel.gameObject.SetActive(true);
+
 
     }
+
 
     public void SetAllThePanelFalse()
     {
-        welcomePanel.gameObject.SetActive(false);
-        mainPanel.gameObject.SetActive(false);
-        levelPanel.gameObject.SetActive(false);
-        settingPanel.gameObject.SetActive(false);
-        loadingPanel.gameObject.SetActive(false);
+        if (welcomePanel != null) welcomePanel.gameObject.SetActive(false);
+        if (mainPanel != null) mainPanel.gameObject.SetActive(false);
+        if (levelPanel != null) levelPanel.gameObject.SetActive(false);
+        if (settingPanel != null) settingPanel.gameObject.SetActive(false);
+        if (loadingPanel != null) loadingPanel.gameObject.SetActive(false);
     }
+
     public void LevelLoaded()
     {
         SetAllThePanelFalse();
-        levelPanel.gameObject.SetActive(true);
-    }
-    public void LoadingScreen(bool set)
-    {
-        loadingPanel.gameObject.SetActive(set);
+        if (levelPanel != null) levelPanel.gameObject.SetActive(true);
+        LoadCategoeries();
+
     }
 
+    public void LoadingScreen(bool set)
+    {
+        if (loadingPanel != null) loadingPanel.gameObject.SetActive(set);
+    }
+
+    private void StartButton()
+    {
+        if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
+
+        int count = PlayerPrefs.GetInt(INTERSTITIAL_COUNT_KEY, 0) + 1;
+        PlayerPrefs.SetInt(INTERSTITIAL_COUNT_KEY, count);
+        PlayerPrefs.Save();
+
+        bool shouldShowInterstitial = interstitialFrequency > 0 && (count % interstitialFrequency == 0);
+        LoadingData();
+        Invoke(nameof(LevelLoaded), 2f);
+
+    }
+
+
+    public void ShowRewardedFromUI()
+    {
+
+
+    }
+    private void LoadCategoeries()
+    {
+        foreach (CategorySO categorySO in categorySOs)
+        {
+            GameObject catrgoryBtn = Instantiate(pfButton, levelHolder);
+            catrgoryBtn.GetComponent<ButtonCat>().SetTextToButton(categorySO.category);
+            catrgoryBtn.GetComponent<ButtonCat>().SetCategorySO(categorySO);
+            catrgoryBtn.GetComponent<ButtonCat>().SetGameInternal(mainPanel.GetComponent<GameInternal>());
+            catrgoryBtn.GetComponent<ButtonCat>().SetLoadingPanel(loadingPanel.gameObject);
+        }
+
+    }
+
+
+    private List<string> GetTopLevelKeys(string json)
+    {
+        var keys = new List<string>();
+
+        try
+        {
+            var root = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
+            foreach (var kvp in root)
+            {
+                keys.Add(kvp.Key);  // "cars", "countries"
+            }
+        }
+        catch (Exception ex)
+        {
+            Debug.LogError("[Manager] Failed to read top-level keys: " + ex.Message);
+        }
+
+        return keys;
+    }
 
 
 

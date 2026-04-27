@@ -1,0 +1,37 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4cd51981f75b7845a1e707e0a016201, type: 3}
+  m_Name: logobrands
+  m_EditorClassIdentifier: 
+  id: logobrands
+  displayName: Logo
+  logos:
+  - name: Apple
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/f/fa/Apple_logo_black.svg/512px-Apple_logo_black.svg.png
+  - name: Google
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Google_2015_logo.svg/512px-Google_2015_logo.svg.png
+  - name: Microsoft
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/4/44/Microsoft_logo.svg/512px-Microsoft_logo.svg.png
+  - name: Amazon
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/a/a9/Amazon_logo.svg/512px-Amazon_logo.svg.png
+  - name: Netflix
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/0/08/Netflix_2015_logo.svg/512px-Netflix_2015_logo.svg.png
+  - name: Facebook
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Facebook-icon-1.svg/512px-Facebook-icon-1.svg.png
+  - name: Instagram
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/e/e7/Instagram_logo_2016.svg/512px-Instagram_logo_2016.svg.png
+  - name: Twitter
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Twitter_logo.svg/512px-Twitter_logo.svg.png
+  - name: YouTube
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/512px-YouTube_Logo_2017.svg.png
+  - name: Spotify
+    imageUrl: https://upload.wikimedia.org/wikipedia/commons/thumb/2/26/Spotify_logo_with_text.svg/512px-Spotify_logo_with_text.svg.png
