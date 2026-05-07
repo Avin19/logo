@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -91,9 +90,10 @@ public class GameInternal : MonoBehaviour
 
     private void Start()
     {
-        hintPoints = PlayerPrefs.GetInt(HINT_KEY, 5);
-        score = PlayerPrefs.GetInt("Score", 0);
+        hintPoints = PlayerDataManager.Instance.Hint;
+        score = PlayerDataManager.Instance.Hint;
         UpdateUI();
+        AdMobManager.Instance.ShowBanner();
     }
 
     #endregion
@@ -120,7 +120,7 @@ public class GameInternal : MonoBehaviour
     {
         Restart();
 
-        var chosen = items[itemCount];
+        var chosen = items[Random.Range(0, items.Count)];
         correctAnswer = chosen.Manufacturer.Trim().ToLower();
 
         foreach (char c in correctAnswer)
@@ -179,10 +179,11 @@ public class GameInternal : MonoBehaviour
 
         if (correct)
         {
-            score += 10;
+
             SoundManager.Instance?.CorrectAnswer();
             _winPanel.gameObject.SetActive(true);
             _lossPanel.gameObject.SetActive(false);
+            AdMobManager.Instance.ShowRewarded(() => PlayerDataManager.Instance.data.Coins += 10);
         }
         else
         {
@@ -190,9 +191,10 @@ public class GameInternal : MonoBehaviour
             SoundManager.Instance?.WrongAnswer();
             _winPanel.gameObject.SetActive(false);
             _lossPanel.gameObject.SetActive(true);
+            AdMobManager.Instance.ShowRewarded(() => PlayerDataManager.Instance.data.Coins -= score);
         }
 
-        PlayerPrefs.SetInt("Score", score);
+        PlayerDataManager.Instance.data.Coins = score;
         UpdateUI();
 
         LoadNextDirect();
@@ -222,6 +224,7 @@ public class GameInternal : MonoBehaviour
         }
 
         SaveHints();
+        AdMobManager.Instance.TryShowInterstitial();
     }
 
     public void RemoveLastLetter()
@@ -240,6 +243,7 @@ public class GameInternal : MonoBehaviour
                 break;
             }
         }
+        AdMobManager.Instance.TryShowInterstitial();
     }
 
     public void RemoveWrongLetters()
@@ -259,6 +263,7 @@ public class GameInternal : MonoBehaviour
         }
 
         SaveHints();
+        AdMobManager.Instance.TryShowInterstitial();
     }
 
     public void SkipLevel()
@@ -276,6 +281,7 @@ public class GameInternal : MonoBehaviour
                 LoadNextDirect();
             });
         }
+        AdMobManager.Instance.TryShowInterstitial();
     }
 
     private void LoadNextDirect()
@@ -299,7 +305,8 @@ public class GameInternal : MonoBehaviour
 
     private void SaveHints()
     {
-        PlayerPrefs.SetInt(HINT_KEY, hintPoints);
+        PlayerDataManager.Instance.data.hint = hintPoints;
+        //PlayerPrefs.SetInt(HINT_KEY, hintPoints);
         UpdateUI();
     }
 
@@ -335,7 +342,7 @@ public class GameInternal : MonoBehaviour
     {
         for (int i = 0; i < list.Count; i++)
         {
-            int r = UnityEngine.Random.Range(i, list.Count);
+            int r = Random.Range(i, list.Count);
             (list[i], list[r]) = (list[r], list[i]);
         }
     }
@@ -346,8 +353,8 @@ public class GameInternal : MonoBehaviour
 
     private void UpdateUI()
     {
-        scoreText.text = score.ToString();
-        hintText.text = hintPoints.ToString();
+        scoreText.text = PlayerDataManager.Instance.data.Coins.ToString();
+        hintText.text = PlayerDataManager.Instance.data.hint.ToString();
     }
 
     #endregion
