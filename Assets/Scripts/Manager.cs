@@ -29,6 +29,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private Button backToLevel;
     [SerializeField] private Button backSettingToMenu;
     [SerializeField] private Button backToLevelMenu;
+    [SerializeField] private Button categoryBtn;
     [SerializeField] private GameObject pfButton;
 
     [Header("Ads Settings")]
@@ -37,11 +38,10 @@ public class Manager : MonoBehaviour
     [Tooltip("Optional - wire a button in the Inspector to this for rewarded ad")]
     [SerializeField] private Button rewardedButton;
 
-    [SerializeField] private int webRequestTimeout = 10;
 
     [SerializeField] private List<CategorySO> categorySOs;
 
-    private const string INTERSTITIAL_COUNT_KEY = "interstitial_count";
+    [SerializeField] private GameInternal gameInternal;
 
     // store listeners so we can remove them
 
@@ -56,11 +56,16 @@ public class Manager : MonoBehaviour
         backToLevelMenu.onClick.AddListener(BackToMenu);
         backToLevel.onClick.AddListener(BackToLevel);
         rewardedButton.onClick.AddListener(ShowRewardedFromUI);
+        categoryBtn?.onClick.AddListener(CategoryPanel);
         quitBtn.onClick.AddListener(() => Application.Quit());
 
 
     }
 
+    private void CategoryPanel()
+    {
+        RandomLoadCategories();
+    }
 
     private void StartButtonClick()
     {
@@ -152,12 +157,6 @@ public class Manager : MonoBehaviour
     private void StartButton()
     {
         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
-
-        int count = PlayerPrefs.GetInt(INTERSTITIAL_COUNT_KEY, 0) + 1;
-        PlayerPrefs.SetInt(INTERSTITIAL_COUNT_KEY, count);
-        PlayerPrefs.Save();
-
-        bool shouldShowInterstitial = interstitialFrequency > 0 && (count % interstitialFrequency == 0);
         LoadingData();
         Invoke(nameof(LevelLoaded), 2f);
 
@@ -181,27 +180,14 @@ public class Manager : MonoBehaviour
         }
 
     }
-
-
-    private List<string> GetTopLevelKeys(string json)
+    private void RandomLoadCategories()
     {
-        var keys = new List<string>();
-
-        try
-        {
-            var root = JsonConvert.DeserializeObject<Dictionary<string, object>>(json);
-            foreach (var kvp in root)
-            {
-                keys.Add(kvp.Key);  // "cars", "countries"
-            }
-        }
-        catch (Exception ex)
-        {
-            Debug.LogError("[Manager] Failed to read top-level keys: " + ex.Message);
-        }
-
-        return keys;
+        gameInternal.gameObject.SetActive(true);
+        gameInternal.LoadCategoryById(categorySOs[UnityEngine.Random.Range(0, categorySOs.Count)]);
     }
+
+
+
 
 
 
