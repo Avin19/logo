@@ -6,12 +6,12 @@ using System.Collections.Generic;
 public class PlayerData
 {
     // Profile
-    public string PlayerName = " Player";
-    public string PlayerID = "";
+    public string PlayerName;
+    public string PlayerID;
 
     // Currency 
     public int Coins = 0;
-    public int Gems = 0;
+    public int hint = 0;
 
     //Progress 
     public int CurrentLevel = 1;

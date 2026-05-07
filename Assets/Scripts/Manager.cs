@@ -61,8 +61,10 @@ public class Manager : MonoBehaviour
 
     }
 
+
     private void StartButtonClick()
     {
+
         StartButton();
     }
 
@@ -77,6 +79,7 @@ public class Manager : MonoBehaviour
     {
         SetAllThePanelFalse();
         if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
+        PlayerDataManager.Instance.Load();
     }
 
 

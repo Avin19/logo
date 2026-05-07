@@ -5,7 +5,13 @@ public class PlayerDataManager : MonoBehaviour
 {
     public static PlayerDataManager Instance;
 
-    public PlayerData playerData;
+    public PlayerData data;
+    public int Coins => data.Coins;
+    public int Hint => data.hint;
+    public bool SFX => data.SoundEnabled;
+    public bool Music => data.MusicEnabled;
+    public bool Haptic => data.Haptic;
+    public string PlayerId => data.PlayerID;
     private string saveData;
 
     void Awake()
@@ -16,6 +22,7 @@ public class PlayerDataManager : MonoBehaviour
             DontDestroyOnLoad(gameObject);
 
             saveData = Path.Combine(Application.persistentDataPath, "/player.json");
+            Load();
         }
         else
         {
@@ -26,7 +33,7 @@ public class PlayerDataManager : MonoBehaviour
 
     public void Save()
     {
-        string json = JsonUtility.ToJson(playerData, true);
+        string json = JsonUtility.ToJson(data, true);
         File.WriteAllText(saveData, json);
 
         Debug.Log(" Game Saved ");
@@ -40,7 +47,7 @@ public class PlayerDataManager : MonoBehaviour
         if (File.Exists(saveData))
         {
             string json = File.ReadAllText(saveData);
-            playerData = JsonUtility.FromJson<PlayerData>(json);
+            data = JsonUtility.FromJson<PlayerData>(json);
 
             Debug.Log("Save Loaded");
 
@@ -49,27 +56,40 @@ public class PlayerDataManager : MonoBehaviour
         {
             CreateNewSave();
         }
+        if (string.IsNullOrEmpty(data.PlayerID))
+        {
+            data.PlayerID = GenerateUniqueID();
+            Debug.Log("Generated Player ID: " + data.PlayerID);
+            Save();
+        }
+        if (string.IsNullOrEmpty(data.PlayerName))
+        {
+            data.PlayerName = GenerateRandomName();
+            Debug.Log("Generated Username: " + data.PlayerName);
+            Save();
+        }
 
     }
 
     private void CreateNewSave()
     {
-        playerData = new PlayerData();
+        data = new PlayerData();
 
-        if (string.IsNullOrEmpty(playerData.PlayerID))
+        if (string.IsNullOrEmpty(data.PlayerID))
         {
-            playerData.PlayerID = GenerateUniqueID();
-            Debug.Log("Generated Player ID: " + playerData.PlayerID);
+            data.PlayerID = GenerateUniqueID();
+            Debug.Log("Generated Player ID: " + data.PlayerID);
             Save();
         }
-        if (string.IsNullOrEmpty(playerData.PlayerName))
+        if (string.IsNullOrEmpty(data.PlayerName))
         {
-            playerData.PlayerName = GenerateRandomName();
-            Debug.Log("Generated Username: " + playerData.PlayerName);
+            data.PlayerName = GenerateRandomName();
+            Debug.Log("Generated Username: " + data.PlayerName);
             Save();
         }
 
         Save();
+        Debug.Log("New Player Data Created");
     }
 
     string GenerateUniqueID()
@@ -92,15 +112,15 @@ public class PlayerDataManager : MonoBehaviour
 
     public void AddCoins(int amount)
     {
-        playerData.Coins += amount;
+        data.Coins += amount;
         Save();
     }
 
     public bool SpendCoins(int amount)
     {
-        if (playerData.Coins >= amount)
+        if (data.Coins >= amount)
         {
-            playerData.Coins -= amount;
+            data.Coins -= amount;
             Save();
             return true;
         }
@@ -113,9 +133,9 @@ public class PlayerDataManager : MonoBehaviour
 
     public void CompleteLevel(int level)
     {
-        if (level >= playerData.HighestUnlockedLevel)
+        if (level >= data.HighestUnlockedLevel)
         {
-            playerData.HighestUnlockedLevel = level + 1;
+            data.HighestUnlockedLevel = level + 1;
         }
 
         Save();
