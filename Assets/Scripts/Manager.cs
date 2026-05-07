@@ -42,7 +42,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private List<CategorySO> categorySOs;
 
     [SerializeField] private GameInternal gameInternal;
-
+    [SerializeField] private List<GameObject> pfBtns = new List<GameObject>();
     // store listeners so we can remove them
 
 
@@ -85,6 +85,7 @@ public class Manager : MonoBehaviour
         SetAllThePanelFalse();
         if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
         PlayerDataManager.Instance.Load();
+        // pfBtns.Clear();
     }
 
 
@@ -93,6 +94,10 @@ public class Manager : MonoBehaviour
         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
         SetAllThePanelFalse();
         if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
+        for (int i = 0; i < levelHolder.childCount; i++)
+        {
+            Destroy(levelHolder.GetChild(i).gameObject);
+        }
 
         AdMobManager.Instance.TryShowInterstitial();
 
@@ -173,6 +178,7 @@ public class Manager : MonoBehaviour
         foreach (CategorySO categorySO in categorySOs)
         {
             GameObject catrgoryBtn = Instantiate(pfButton, levelHolder);
+            // pfBtns.Add(categoryBtn.gameObject);
             catrgoryBtn.GetComponent<ButtonCat>().SetTextToButton(categorySO.category);
             catrgoryBtn.GetComponent<ButtonCat>().SetCategorySO(categorySO);
             catrgoryBtn.GetComponent<ButtonCat>().SetGameInternal(mainPanel.GetComponent<GameInternal>());

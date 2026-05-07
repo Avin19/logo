@@ -1,20 +1,22 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 
 
 public class LevelHolder : MonoBehaviour
 {
     // Purpose of this script to put gameinternal reference to the buttonCat
-    [SerializeField] private GameInternal gameInternal;
-    [SerializeField] private List<ButtonCat> buttonCats;
+    [SerializeField] private RectTransform level;
 
-    public void SetButtonListItem(ButtonCat _buttonCat)
-    {
-        buttonCats.Add(_buttonCat);
-    }
     public void ClearButtonList()
     {
-        buttonCats.Clear();
+
+        for (int i = 0; i <= level.gameObject.GetComponentCount(); i++)
+        {
+            Destroy(level.GetChild(i));
+        }
+
+
     }
 }

@@ -14,7 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bannerId: ca-app-pub-1779486678797596/1979417804
   interstitialId: ca-app-pub-1779486678797596/3390085285
+  rewardedInterstitialId: ca-app-pub-1779486678797596/8413559676
   rewardedId: ca-app-pub-1779486678797596/5142150652
+  nativeAdvancedId: ca-app-pub-1779486678797596/4357168706
+  appOpenId: ca-app-pub-1779486678797596/9417923694
+  testBannerId: ca-app-pub-3940256099942544/6300978111
+  testInterstitialId: ca-app-pub-3940256099942544/1033173712
+  testRewardedInterstitialId: ca-app-pub-3940256099942544/5354046379
+  testRewardedId: ca-app-pub-3940256099942544/5224354917
+  testNativeAdvancedId: ca-app-pub-3940256099942544/2247696110
+  testAppOpenId: ca-app-pub-3940256099942544/9257395921
   enableGdprConsent: 0
   requestConsentOnStartup: 0
   loadBannerOnStart: 1
@@ -23,5 +32,14 @@ MonoBehaviour:
   bannerRetryMaxDelay: 300
   interstitialEveryNEvents: 2
   interstitialCooldownSeconds: 30
+  interstitialRetryDelaySeconds: 10
   preloadRewarded: 1
+  rewardedRetryDelaySeconds: 5
+  preloadRewardedInterstitial: 1
+  rewardedInterstitialRetryDelaySeconds: 5
+  loadNativeOnStart: 0
+  nativeRetryDelaySeconds: 10
+  loadAppOpenOnStart: 1
+  appOpenRetryDelaySeconds: 10
+  appOpenMinIntervalSeconds: 30
   useTestAds: 0
