@@ -67,6 +67,7 @@ public class GameInternal : MonoBehaviour
         LoadNextDirect();
         _winPanel.gameObject.SetActive(false);
         _lossPanel.gameObject.SetActive(false);
+        HapticManager.Instance.MediumImpact();
     }
 
     private void LossTryAgainButton()
@@ -74,6 +75,7 @@ public class GameInternal : MonoBehaviour
         _winPanel.gameObject.SetActive(false);
         _lossPanel.gameObject.SetActive(false);
         LoadNextDirect();
+        HapticManager.Instance.MediumImpact();
     }
 
     private void OnDisable()
@@ -158,6 +160,7 @@ public class GameInternal : MonoBehaviour
 
         if (fillIndex >= answerLetter.Count)
             CheckAnswer();
+        HapticManager.Instance.LightImpact();
     }
 
     #endregion
@@ -225,6 +228,8 @@ public class GameInternal : MonoBehaviour
 
         SaveHints();
         AdMobManager.Instance.TryShowInterstitial();
+        HapticManager.Instance.MediumImpact();
+
     }
 
     public void RemoveLastLetter()
@@ -244,6 +249,8 @@ public class GameInternal : MonoBehaviour
             }
         }
         AdMobManager.Instance.TryShowInterstitial();
+        HapticManager.Instance.MediumImpact();
+
     }
 
     public void RemoveWrongLetters()
@@ -264,6 +271,8 @@ public class GameInternal : MonoBehaviour
 
         SaveHints();
         AdMobManager.Instance.TryShowInterstitial();
+        HapticManager.Instance.MediumImpact();
+
     }
 
     public void SkipLevel()
@@ -282,6 +291,8 @@ public class GameInternal : MonoBehaviour
             });
         }
         AdMobManager.Instance.TryShowInterstitial();
+        HapticManager.Instance.MediumImpact();
+
     }
 
     private void LoadNextDirect()
