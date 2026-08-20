@@ -918,10 +918,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fdd4e0902101a4a4eb6c145ace57ac9d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  logo: {fileID: 1206355432}
   loadingSlider: {fileID: 2110001154}
   loadingText: {fileID: 2005532100}
   percentageText: {fileID: 1988843140}
   totalLoadingDuration: 5
+  logoStartScale: 0.8
+  logoTargetScale: 1
+  logoIntroDuration: 0.7
+  logoBreathScale: 1.025
+  logoBreathDuration: 1.2
+  textAnimationDuration: 0.2
 --- !u!1 &1890472062
 GameObject:
   m_ObjectHideFlags: 0

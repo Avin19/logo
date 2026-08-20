@@ -1,6 +1,5 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
+
 
 [Serializable]
 public class PlayerData
@@ -8,11 +7,12 @@ public class PlayerData
     // Profile
     public string PlayerName;
     public string PlayerID;
-
+    public PlayerType playerType;
     // Currency 
     public int Coins = 0;
     public int hint = 0;
-
+    public int DailyStreak = 0;
+    public string LastDailyStreakDate = "";
     //Progress 
     public int CurrentLevel = 1;
     public int HighestUnlockedLevel = 1;
@@ -27,5 +27,16 @@ public class PlayerData
     // Rewards 
     public string LastDailyRewardDate = "";
     public int DailyRewardStreak = 0;
+
+}
+
+public enum PlayerType
+{
+    Beginner,
+    Explorer,
+    LogoHunter,
+    BrandExpert,
+    LogoMaster,
+    UltimateQuizzer,
 
 }

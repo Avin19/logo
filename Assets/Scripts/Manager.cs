@@ -57,7 +57,7 @@ public class Manager : MonoBehaviour
         backToLevel.onClick.AddListener(BackToLevel);
         rewardedButton.onClick.AddListener(ShowRewardedFromUI);
         categoryBtn?.onClick.AddListener(CategoryPanel);
-        quitBtn.onClick.AddListener(() => Application.Quit());
+       
 
 
     }
