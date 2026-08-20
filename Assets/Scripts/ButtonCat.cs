@@ -2,45 +2,75 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
 public class ButtonCat : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] private TextMeshProUGUI buttonText;
-    private Button onbutton;
 
+    [Header("Category")]
     [SerializeField] private CategorySO categorySO;
-    [SerializeField] private GameInternal gameInternal;
-    [SerializeField] private GameObject loadingpanel;
+
+    private Button onButton;
+    private GameInternal gameInternal;
 
     private void Awake()
     {
-        onbutton = GetComponent<Button>();
+        onButton = GetComponent<Button>();
     }
-    public void SetCategorySO(CategorySO _categorySO)
+
+    private void OnEnable()
     {
-        categorySO = _categorySO;
+        if (onButton != null)
+            onButton.onClick.AddListener(OnButtonClick);
     }
-    public void SetTextToButton(string _buttonText)
+
+    private void OnDisable()
     {
-        buttonText.text = _buttonText;
+        if (onButton != null)
+            onButton.onClick.RemoveListener(OnButtonClick);
     }
-    void OnEnable()
+
+    public void SetCategorySO(CategorySO category)
     {
-        onbutton.onClick.AddListener(OnButtonClick);
+        categorySO = category;
     }
-    public void SetGameInternal(GameInternal _gameInternal)
+
+    public void SetTextToButton(string text)
     {
-        gameInternal = _gameInternal;
+        if (buttonText != null)
+            buttonText.text = text;
     }
-    public void SetLoadingPanel(GameObject _loadingpanel)
+
+    public void SetGameInternal(GameInternal internalManager)
     {
-        loadingpanel = _loadingpanel;
+        gameInternal = internalManager;
     }
+
     private void OnButtonClick()
     {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
+
+        if (gameInternal == null)
+        {
+            Debug.LogError(
+                $"GameInternal is not assigned for {gameObject.name}"
+            );
+
+            return;
+        }
+
+        if (categorySO == null)
+        {
+            Debug.LogError(
+                $"CategorySO is not assigned for {gameObject.name}"
+            );
+
+            return;
+        }
+
         gameInternal.gameObject.SetActive(true);
-        loadingpanel.SetActive(true);
+
         gameInternal.LoadCategoryById(categorySO);
     }
 }

@@ -19,12 +19,11 @@ public class Manager : MonoBehaviour
     [SerializeField] private Transform mainPanel;
     [SerializeField] private Transform welcomePanel;
     [SerializeField] private Transform levelPanel;
-    [SerializeField] private Transform loadingPanel;
     [SerializeField] private Transform settingPanel;
 
     [Header("Buttons / Prefabs")]
     [SerializeField] private Button startBtn;
-    [SerializeField] private Button quitBtn;
+    [SerializeField] private Button cateBtn;
     [SerializeField] private Button settingbtn;
     [SerializeField] private Button backToLevel;
     [SerializeField] private Button backSettingToMenu;
@@ -49,19 +48,43 @@ public class Manager : MonoBehaviour
 
     private void OnEnable()
     {
-
         startBtn.onClick.AddListener(StartButtonClick);
+        cateBtn.onClick.AddListener(StartButtonClick);
         settingbtn.onClick.AddListener(SettingButton);
-        backSettingToMenu.onClick.AddListener(BackToMenu);
+        backSettingToMenu.onClick.AddListener(CloseSettings);
         backToLevelMenu.onClick.AddListener(BackToMenu);
         backToLevel.onClick.AddListener(BackToLevel);
-        rewardedButton.onClick.AddListener(ShowRewardedFromUI);
-        categoryBtn?.onClick.AddListener(CategoryPanel);
-       
 
+        if (rewardedButton != null)
+            rewardedButton.onClick.AddListener(
+                ShowRewardedFromUI
+            );
 
+        if (categoryBtn != null)
+            categoryBtn.onClick.AddListener(
+                CategoryPanel
+            );
     }
 
+    private void OnDisable()
+    {
+        startBtn.onClick.RemoveListener(StartButtonClick);
+        cateBtn.onClick.RemoveListener(StartButtonClick);
+        settingbtn.onClick.RemoveListener(SettingButton);
+        backSettingToMenu.onClick.RemoveListener(BackToMenu);
+        backToLevelMenu.onClick.RemoveListener(BackToMenu);
+        backToLevel.onClick.RemoveListener(BackToLevel);
+
+        if (rewardedButton != null)
+            rewardedButton.onClick.RemoveListener(
+                ShowRewardedFromUI
+            );
+
+        if (categoryBtn != null)
+            categoryBtn.onClick.RemoveListener(
+                CategoryPanel
+            );
+    }
     private void CategoryPanel()
     {
         RandomLoadCategories();
@@ -73,12 +96,7 @@ public class Manager : MonoBehaviour
         StartButton();
     }
 
-    private void OnDisable()
-    {
-        rewardedButton.onClick.RemoveListener(ShowRewardedFromUI);
 
-
-    }
 
     private void Start()
     {
@@ -102,14 +120,52 @@ public class Manager : MonoBehaviour
         AdMobManager.Instance.TryShowInterstitial();
 
     }
-
     private void SettingButton()
     {
-        if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
-        SetAllThePanelFalse();
-        if (settingPanel != null) settingPanel.gameObject.SetActive(true);
-    }
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
 
+        SetAllThePanelFalse();
+
+        if (settingPanel != null)
+        {
+            settingPanel.gameObject.SetActive(true);
+
+            SettingsPanelAnimation animation =
+                settingPanel.GetComponent<SettingsPanelAnimation>();
+
+            if (animation != null)
+            {
+                animation.PlayOpenAnimation();
+            }
+        }
+    }
+    public void CloseSettings()
+    {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
+
+        SettingsPanelAnimation animation =
+            settingPanel.GetComponent<SettingsPanelAnimation>();
+
+        if (animation != null)
+        {
+            animation.PlayCloseAnimation(() =>
+            {
+                settingPanel.gameObject.SetActive(false);
+
+                if (welcomePanel != null)
+                    welcomePanel.gameObject.SetActive(true);
+            });
+        }
+        else
+        {
+            settingPanel.gameObject.SetActive(false);
+
+            if (welcomePanel != null)
+                welcomePanel.gameObject.SetActive(true);
+        }
+    }
     private void BackToLevel()
     {
         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
@@ -125,7 +181,6 @@ public class Manager : MonoBehaviour
     public void LoadingData()
     {
         SetAllThePanelFalse();
-        if (loadingPanel != null) loadingPanel.gameObject.SetActive(true);
     }
 
     public void StartGame()
@@ -143,7 +198,6 @@ public class Manager : MonoBehaviour
         if (mainPanel != null) mainPanel.gameObject.SetActive(false);
         if (levelPanel != null) levelPanel.gameObject.SetActive(false);
         if (settingPanel != null) settingPanel.gameObject.SetActive(false);
-        if (loadingPanel != null) loadingPanel.gameObject.SetActive(false);
     }
 
     public void LevelLoaded()
@@ -154,16 +208,12 @@ public class Manager : MonoBehaviour
 
     }
 
-    public void LoadingScreen(bool set)
-    {
-        if (loadingPanel != null) loadingPanel.gameObject.SetActive(set);
-    }
 
     private void StartButton()
     {
         if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
         LoadingData();
-        Invoke(nameof(LevelLoaded), 2f);
+        LevelLoaded();
 
     }
 
@@ -175,16 +225,56 @@ public class Manager : MonoBehaviour
     }
     private void LoadCategoeries()
     {
-        foreach (CategorySO categorySO in categorySOs)
+        // Clear previous category buttons
+        for (int i = levelHolder.childCount - 1; i >= 0; i--)
         {
-            GameObject catrgoryBtn = Instantiate(pfButton, levelHolder);
-            // pfBtns.Add(categoryBtn.gameObject);
-            catrgoryBtn.GetComponent<ButtonCat>().SetTextToButton(categorySO.category);
-            catrgoryBtn.GetComponent<ButtonCat>().SetCategorySO(categorySO);
-            catrgoryBtn.GetComponent<ButtonCat>().SetGameInternal(mainPanel.GetComponent<GameInternal>());
-            catrgoryBtn.GetComponent<ButtonCat>().SetLoadingPanel(loadingPanel.gameObject);
+            Destroy(levelHolder.GetChild(i).gameObject);
         }
 
+        for (int i = 0; i < categorySOs.Count; i++)
+        {
+            CategorySO categorySO = categorySOs[i];
+
+            GameObject categoryButton =
+                Instantiate(pfButton, levelHolder);
+
+            // --------------------------------
+            // Setup category data
+            // --------------------------------
+
+            ButtonCat buttonCat =
+                categoryButton.GetComponent<ButtonCat>();
+
+            buttonCat.SetTextToButton(
+                categorySO.category
+            );
+
+            buttonCat.SetCategorySO(
+                categorySO
+            );
+
+            buttonCat.SetGameInternal(
+                mainPanel.GetComponent<GameInternal>()
+            );
+
+            // --------------------------------
+            // DOTween animation
+            // --------------------------------
+
+            CategoryButtonAnimation animation =
+                categoryButton.GetComponent<CategoryButtonAnimation>();
+
+            if (animation != null)
+            {
+                int row = i / 2;
+
+                float delay =
+                    0.1f +
+                    row * 0.12f;
+
+                animation.PlayEntrance(delay);
+            }
+        }
     }
     private void RandomLoadCategories()
     {

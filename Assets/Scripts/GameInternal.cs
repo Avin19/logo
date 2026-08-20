@@ -139,7 +139,6 @@ public class GameInternal : MonoBehaviour
         logoImage.sprite = chosen.LogoURL;
 
         fillIndex = 0;
-        manager.LoadingScreen(false);
     }
 
     #endregion
