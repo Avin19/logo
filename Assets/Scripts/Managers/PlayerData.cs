@@ -24,6 +24,8 @@ public class PlayerData
     // Category Progress
     public List<CategoryProgress> CategoryProgress =
         new List<CategoryProgress>();
+    public List<AchievementProgress> Achievements =
+new List<AchievementProgress>();
 
     // Settings
     public bool SoundEnabled = true;
@@ -55,4 +57,12 @@ public class CategoryProgress
         new List<string>();
 
     public int TotalCount;
+}
+[Serializable]
+public class AchievementProgress
+{
+    public string AchievementId;
+    public int Progress;
+    public bool Unlocked;
+    public string UnlockedDate;
 }

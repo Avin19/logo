@@ -127,16 +127,70 @@ public class PlayerDataManager : MonoBehaviour
 
         int total = 0;
 
-        foreach (CategoryProgress category in data.CategoryProgress)
+        foreach (CategoryProgress category
+                 in data.CategoryProgress)
         {
             if (category.SolvedQuestionIds != null)
             {
-                total += category.SolvedQuestionIds.Count;
+                total +=
+                    category.SolvedQuestionIds.Count;
             }
         }
 
         return total;
     }
+    public int GetCompletedCategoryCount()
+    {
+        if (data == null ||
+            data.CategoryProgress == null)
+            return 0;
+
+        int completed = 0;
+
+        foreach (CategoryProgress category
+                 in data.CategoryProgress)
+        {
+            if (category.SolvedQuestionIds != null &&
+                category.TotalCount > 0 &&
+                category.SolvedQuestionIds.Count >=
+                category.TotalCount)
+            {
+                completed++;
+            }
+        }
+
+        return completed;
+    }
+    #region CURRENCY
+
+    public void AddCoins(int amount)
+    {
+        if (amount <= 0)
+            return;
+
+        data.Coins += amount;
+
+        Save();
+
+        Debug.Log($"Coins Added: +{amount} | Total: {data.Coins}");
+    }
+
+    public bool SpendCoins(int amount)
+    {
+        if (amount <= 0)
+            return false;
+
+        if (data.Coins < amount)
+            return false;
+
+        data.Coins -= amount;
+
+        Save();
+
+        return true;
+    }
+
+    #endregion
     public CategoryProgress GetCategoryProgress(
         string categoryId,
         int totalCount)

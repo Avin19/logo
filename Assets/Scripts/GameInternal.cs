@@ -229,16 +229,32 @@ public class GameInternal : MonoBehaviour
         {
             SoundManager.Instance?.CorrectAnswer();
 
-            // ----------------------------------------
-            // SAVE CATEGORY PROGRESS
-            // ----------------------------------------
+            PlayerDataManager.Instance.CompleteCategoryQuestion(
+                currentCategory.category,
+                currentQuestionId,
+                items.Count
+            );
 
-            PlayerDataManager.Instance
-                .CompleteCategoryQuestion(
-                    currentCategory.category,
-                    currentQuestionId,
-                    items.Count
-                );
+            // Achievement progress
+            AchievementManager.Instance?.AddProgress(
+                "first_guess"
+            );
+
+            AchievementManager.Instance?.AddProgress(
+                "logo_hunter"
+            );
+
+            AchievementManager.Instance?.AddProgress(
+                "brand_spotter"
+            );
+
+            AchievementManager.Instance?.AddProgress(
+                "logo_learner"
+            );
+
+            AchievementManager.Instance?.AddProgress(
+                "logo_expert"
+            );
 
             resultPanelAnimation.ShowWin();
         }
