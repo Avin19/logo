@@ -40,7 +40,9 @@ public class Manager : MonoBehaviour
     [SerializeField] private List<GameObject> pfBtns = new List<GameObject>();
     // store listeners so we can remove them
 
-
+    [SerializeField] private Transform achievementPanel;
+    [SerializeField] private Button achievementButton;
+    [SerializeField] private Button closeAchievementButton;
 
     private void OnEnable()
     {
@@ -50,6 +52,8 @@ public class Manager : MonoBehaviour
         backSettingToMenu.onClick.AddListener(CloseSettings);
         backToLevelMenu.onClick.AddListener(BackToMenu);
         backToLevel.onClick.AddListener(BackToLevel);
+        achievementButton.onClick.AddListener(OpenAchievements);
+        closeAchievementButton.onClick.AddListener(CloseAchievements);
 
         if (rewardedButton != null)
             rewardedButton.onClick.AddListener(
@@ -70,6 +74,9 @@ public class Manager : MonoBehaviour
         backSettingToMenu.onClick.RemoveListener(BackToMenu);
         backToLevelMenu.onClick.RemoveListener(BackToMenu);
         backToLevel.onClick.RemoveListener(BackToLevel);
+
+        achievementButton.onClick.RemoveListener(OpenAchievements);
+        closeAchievementButton.onClick.RemoveListener(CloseAchievements);
 
         if (rewardedButton != null)
             rewardedButton.onClick.RemoveListener(
@@ -101,8 +108,39 @@ public class Manager : MonoBehaviour
         PlayerDataManager.Instance.Load();
         // pfBtns.Clear();
     }
+    private void OpenAchievements()
+    {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
 
+        achievementPanel.gameObject.SetActive(true);
 
+        AchievementPanelAnimation animation =
+            achievementPanel.GetComponent<AchievementPanelAnimation>();
+
+        if (animation != null)
+            animation.PlayOpenAnimation();
+    }
+    private void CloseAchievements()
+    {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
+
+        AchievementPanelAnimation animation =
+            achievementPanel.GetComponent<AchievementPanelAnimation>();
+
+        if (animation != null)
+        {
+            animation.PlayCloseAnimation(() =>
+            {
+                achievementPanel.gameObject.SetActive(false);
+            });
+        }
+        else
+        {
+            achievementPanel.gameObject.SetActive(false);
+        }
+    }
     private void BackToMenu()
     {
         if (SoundManager.Instance != null)

@@ -117,7 +117,26 @@ public class PlayerDataManager : MonoBehaviour
     #endregion
     #region CURRENCY
     #region CATEGORY PROGRESS
+    public int GetTotalSolvedLogos()
+    {
+        if (data == null ||
+            data.CategoryProgress == null)
+        {
+            return 0;
+        }
 
+        int total = 0;
+
+        foreach (CategoryProgress category in data.CategoryProgress)
+        {
+            if (category.SolvedQuestionIds != null)
+            {
+                total += category.SolvedQuestionIds.Count;
+            }
+        }
+
+        return total;
+    }
     public CategoryProgress GetCategoryProgress(
         string categoryId,
         int totalCount)
