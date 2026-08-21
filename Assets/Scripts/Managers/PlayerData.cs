@@ -47,7 +47,7 @@ public enum PlayerType
     UltimateQuizzer,
 
 }
-
+[Serializable]
 public class CategoryProgress
 {
     public string CategoryId;

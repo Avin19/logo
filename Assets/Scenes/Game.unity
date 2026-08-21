@@ -1006,7 +1006,7 @@ MonoBehaviour:
   hintText: {fileID: 386706451}
   randomLetterCount: 20
   questionsBeforeInterstitial: 5
-  resultPanelAnimation: {fileID: 0}
+  resultPanelAnimation: {fileID: 1950749009}
 --- !u!114 &340027070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4563,7 +4563,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
+  m_SizeDelta: {x: 75, y: 75}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1120096728
 MonoBehaviour:
@@ -4578,14 +4578,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: cac9f704575bbe744b68791d16b1806a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6143,6 +6143,7 @@ MonoBehaviour:
     LastDailyStreakDate: 
     CurrentLevel: 1
     HighestUnlockedLevel: 1
+    CategoryProgress: []
     SoundEnabled: 1
     MusicEnabled: 1
     MusicVolume: 100
@@ -8178,6 +8179,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1950749008}
+  - component: {fileID: 1950749009}
   m_Layer: 5
   m_Name: ResultPanel
   m_TagString: Untagged
@@ -8206,6 +8208,22 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 500, y: 600}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1950749009
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1950749007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0923b9c4407cb6740b94641e2fc814bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winPanel: {fileID: 846174804}
+  lossPanel: {fileID: 1417802183}
+  slideDistance: 700
+  duration: 0.45
 --- !u!1 &1993523337
 GameObject:
   m_ObjectHideFlags: 0
@@ -9111,6 +9129,7 @@ GameObject:
   - component: {fileID: 2108952029}
   - component: {fileID: 2108952031}
   - component: {fileID: 2108952032}
+  - component: {fileID: 2108952033}
   m_Layer: 5
   m_Name: BG
   m_TagString: Untagged
@@ -9176,6 +9195,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2108952033
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2108952028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 12060c1520d2b2b4a902ced591a44369, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  levelTxt: {fileID: 236335352}
+  playerTxt: {fileID: 1131842370}
 --- !u!1 &2135544019
 GameObject:
   m_ObjectHideFlags: 0
