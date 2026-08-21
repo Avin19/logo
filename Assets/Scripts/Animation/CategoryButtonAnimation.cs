@@ -38,6 +38,28 @@ public class CategoryButtonAnimation : MonoBehaviour,
             .SetDelay(delay)
             .SetEase(Ease.OutBack);
     }
+    public void PlayExit(float delay = 0f)
+    {
+        rectTransform.DOKill();
+
+        Vector2 startPosition = rectTransform.anchoredPosition;
+
+        rectTransform
+            .DOAnchorPos(
+                startPosition + Vector2.down * 250f,
+                0.3f
+            )
+            .SetDelay(delay)
+            .SetEase(Ease.InCubic);
+
+        rectTransform
+            .DOScale(
+                originalScale * 0.85f,
+                0.25f
+            )
+            .SetDelay(delay)
+            .SetEase(Ease.InBack);
+    }
 
     public void OnPointerDown(
         PointerEventData eventData)

@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.IO;
 using System;
+using System.Collections.Generic;
 
 
 public class PlayerDataManager : MonoBehaviour
@@ -115,23 +116,164 @@ public class PlayerDataManager : MonoBehaviour
     }
     #endregion
     #region CURRENCY
+    #region CATEGORY PROGRESS
 
-    public void AddCoins(int amount)
+    public CategoryProgress GetCategoryProgress(
+        string categoryId,
+        int totalCount)
     {
-        data.Coins += amount;
-        Save();
-    }
-
-    public bool SpendCoins(int amount)
-    {
-        if (data.Coins >= amount)
+        if (data.CategoryProgress == null)
         {
-            data.Coins -= amount;
-            Save();
-            return true;
+            data.CategoryProgress =
+                new List<CategoryProgress>();
         }
 
-        return false;
+        CategoryProgress progress =
+            data.CategoryProgress.Find(
+                x => x.CategoryId == categoryId
+            );
+
+        if (progress == null)
+        {
+            progress = new CategoryProgress
+            {
+                CategoryId = categoryId,
+                TotalCount = totalCount
+            };
+
+            data.CategoryProgress.Add(progress);
+
+            Save();
+        }
+        else
+        {
+            // Update total if category data changes
+            progress.TotalCount = totalCount;
+        }
+
+        return progress;
+    }
+
+
+    /// <summary>
+    /// Returns number of unique questions solved
+    /// in a category.
+    /// </summary>
+    public int GetCategorySolvedCount(
+        string categoryId)
+    {
+        if (data.CategoryProgress == null)
+            return 0;
+
+        CategoryProgress progress =
+            data.CategoryProgress.Find(
+                x => x.CategoryId == categoryId
+            );
+
+        if (progress == null ||
+            progress.SolvedQuestionIds == null)
+        {
+            return 0;
+        }
+
+        return progress.SolvedQuestionIds.Count;
+    }
+
+
+    /// <summary>
+    /// Marks a specific question as solved.
+    /// The same question cannot be counted twice.
+    /// </summary>
+    public void CompleteCategoryQuestion(
+        string categoryId,
+        string questionId,
+        int totalCount)
+    {
+        CategoryProgress progress =
+            GetCategoryProgress(
+                categoryId,
+                totalCount
+            );
+
+        if (progress.SolvedQuestionIds == null)
+        {
+            progress.SolvedQuestionIds =
+                new List<string>();
+        }
+
+        // Already solved
+        if (progress.SolvedQuestionIds.Contains(questionId))
+        {
+            Debug.Log(
+                $"Question already solved: {questionId}"
+            );
+
+            return;
+        }
+
+        // Add unique question
+        progress.SolvedQuestionIds.Add(
+            questionId
+        );
+
+        Save();
+
+        Debug.Log(
+            $"Category [{categoryId}] Progress: " +
+            $"{progress.SolvedQuestionIds.Count}/" +
+            $"{progress.TotalCount}"
+        );
+    }
+
+
+    /// <summary>
+    /// Returns true when every question in
+    /// the category has been solved.
+    /// </summary>
+    public bool IsCategoryCompleted(
+        string categoryId)
+    {
+        if (data.CategoryProgress == null)
+            return false;
+
+        CategoryProgress progress =
+            data.CategoryProgress.Find(
+                x => x.CategoryId == categoryId
+            );
+
+        if (progress == null ||
+            progress.SolvedQuestionIds == null)
+        {
+            return false;
+        }
+
+        return progress.SolvedQuestionIds.Count >=
+               progress.TotalCount;
+    }
+
+
+    /// <summary>
+    /// Returns completion percentage from 0-1.
+    /// </summary>
+    public float GetCategoryProgressPercent(
+        string categoryId)
+    {
+        if (data.CategoryProgress == null)
+            return 0f;
+
+        CategoryProgress progress =
+            data.CategoryProgress.Find(
+                x => x.CategoryId == categoryId
+            );
+
+        if (progress == null ||
+            progress.TotalCount <= 0)
+        {
+            return 0f;
+        }
+
+        return (float)progress.SolvedQuestionIds.Count /
+               progress.TotalCount;
     }
 
     #endregion
@@ -277,6 +419,7 @@ public class PlayerDataManager : MonoBehaviour
         );
     }
 
+    #endregion
     #endregion
 
 }

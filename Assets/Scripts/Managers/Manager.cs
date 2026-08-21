@@ -1,12 +1,8 @@
 using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.IO;
-using Newtonsoft.Json;
 using UnityEngine;
-using UnityEngine.Networking;
 using UnityEngine.UI;
-using TMPro;
+using DG.Tweening;
 
 
 public class Manager : MonoBehaviour
@@ -109,16 +105,25 @@ public class Manager : MonoBehaviour
 
     private void BackToMenu()
     {
-        if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
-        SetAllThePanelFalse();
-        if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
-        for (int i = 0; i < levelHolder.childCount; i++)
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
+
+        AnimateCategoryExit(() =>
         {
-            Destroy(levelHolder.GetChild(i).gameObject);
-        }
+            // Hide category panel
+            if (levelPanel != null)
+                levelPanel.gameObject.SetActive(false);
 
-        AdMobManager.Instance.TryShowInterstitial();
+            // Show main menu
+            if (welcomePanel != null)
+                welcomePanel.gameObject.SetActive(true);
 
+            // Remove category buttons
+            for (int i = levelHolder.childCount - 1; i >= 0; i--)
+            {
+                Destroy(levelHolder.GetChild(i).gameObject);
+            }
+        });
     }
     private void SettingButton()
     {
@@ -139,6 +144,48 @@ public class Manager : MonoBehaviour
                 animation.PlayOpenAnimation();
             }
         }
+    }
+    private void AnimateCategoryExit(
+    Action onComplete)
+    {
+        int count = levelHolder.childCount;
+
+        if (count == 0)
+        {
+            onComplete?.Invoke();
+            return;
+        }
+
+        int completed = 0;
+
+        for (int i = 0; i < count; i++)
+        {
+            CategoryButtonAnimation animation =
+                levelHolder
+                    .GetChild(i)
+                    .GetComponent<CategoryButtonAnimation>();
+
+            if (animation == null)
+            {
+                completed++;
+                continue;
+            }
+
+            int index = i;
+
+            animation.PlayExit(
+                index * 0.04f
+            );
+        }
+
+        // Give the animation enough time to finish
+        DOVirtual.DelayedCall(
+            0.35f + count * 0.04f,
+            () =>
+            {
+                onComplete?.Invoke();
+            }
+        );
     }
     public void CloseSettings()
     {
@@ -256,6 +303,7 @@ public class Manager : MonoBehaviour
             buttonCat.SetGameInternal(
                 mainPanel.GetComponent<GameInternal>()
             );
+            buttonCat.SetLevelPanel(levelPanel);
 
             // --------------------------------
             // DOTween animation

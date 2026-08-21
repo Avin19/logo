@@ -5,6 +5,8 @@ using TMPro;
 
 public class GameInternal : MonoBehaviour
 {
+    [Header("Animation")]
+    [SerializeField] private GamePanelAnimation gamePanelAnimation;
     [Header("Panel")]
     [SerializeField] private RectTransform _winPanel, _lossPanel;
     [Header("Managers / UI")]
@@ -41,6 +43,17 @@ public class GameInternal : MonoBehaviour
     private string correctAnswer = "";
     private int score = 0;
     private int fillIndex = 0;
+    private bool firstQuestion = true;
+    private CategorySO currentCategory;
+    private string currentQuestionId;
+    [Header("Ads")]
+    [SerializeField] private int questionsBeforeInterstitial = 2;
+    [Header("Result Animation")]
+    [SerializeField] private ResultPanelAnimation resultPanelAnimation;
+
+    private int questionsCompletedSinceAd = 0;
+    private bool rewardedAdWasShown = false;
+
 
     private readonly List<char> answerChars = new();
     private readonly List<TextHandler> randomLetterList = new();
@@ -60,24 +73,27 @@ public class GameInternal : MonoBehaviour
         nextWinBtn?.onClick.AddListener(WinNextButton);
         tryAgainBtn?.onClick.AddListener(LossTryAgainButton);
     }
-
     private void WinNextButton()
     {
         Debug.Log("Next button Clicked");
-        LoadNextDirect();
-        _winPanel.gameObject.SetActive(false);
-        _lossPanel.gameObject.SetActive(false);
+
+        resultPanelAnimation.HideResultPanels(() =>
+        {
+            LoadNextDirect();
+        });
+
         HapticManager.Instance.MediumImpact();
     }
 
     private void LossTryAgainButton()
     {
-        _winPanel.gameObject.SetActive(false);
-        _lossPanel.gameObject.SetActive(false);
-        LoadNextDirect();
+        resultPanelAnimation.HideResultPanels(() =>
+        {
+            LoadNextDirect();
+        });
+
         HapticManager.Instance.MediumImpact();
     }
-
     private void OnDisable()
     {
         nextBtn?.onClick.RemoveAllListeners();
@@ -93,7 +109,7 @@ public class GameInternal : MonoBehaviour
     private void Start()
     {
         hintPoints = PlayerDataManager.Instance.Hint;
-        score = PlayerDataManager.Instance.Hint;
+        score = PlayerDataManager.Instance.Coins;
         UpdateUI();
         AdMobManager.Instance.ShowBanner();
     }
@@ -104,14 +120,17 @@ public class GameInternal : MonoBehaviour
 
     public void LoadCategoryById(CategorySO category)
     {
+        currentCategory = category;
+
         Restart();
 
         items = CategoryToItemMapper.Map(category);
         itemCount = 0;
 
+        firstQuestion = true;
+
         StartGame();
     }
-
     public void StartGame()
     {
         if (items.Count == 0) return;
@@ -122,23 +141,49 @@ public class GameInternal : MonoBehaviour
     {
         Restart();
 
-        var chosen = items[Random.Range(0, items.Count)];
-        correctAnswer = chosen.Manufacturer.Trim().ToLower();
+        var chosen =
+            items[Random.Range(0, items.Count)];
+
+        // Unique ID for this question
+        currentQuestionId =
+            chosen.Manufacturer.Trim().ToLower();
+
+        correctAnswer =
+            chosen.Manufacturer.Trim().ToLower();
 
         foreach (char c in correctAnswer)
         {
             answerChars.Add(c);
 
-            var go = Instantiate(pfCorrectAnwser, userAnswer.transform);
-            var handler = go.GetComponent<AnswerTexthandler>();
+            var go = Instantiate(
+                pfCorrectAnwser,
+                userAnswer.transform
+            );
+
+            var handler =
+                go.GetComponent<AnswerTexthandler>();
+
             handler.SetText("");
+
             answerLetter.Add(handler);
         }
 
         CreateRandomLetters();
+
         logoImage.sprite = chosen.LogoURL;
 
         fillIndex = 0;
+
+        if (firstQuestion)
+        {
+            gamePanelAnimation?.PlayOpenAnimation();
+
+            firstQuestion = false;
+        }
+        else
+        {
+            gamePanelAnimation?.AnimateNewQuestion();
+        }
     }
 
     #endregion
@@ -172,7 +217,8 @@ public class GameInternal : MonoBehaviour
 
         for (int i = 0; i < answerLetter.Count; i++)
         {
-            if (answerLetter[i].GetText().ToLower() != answerChars[i].ToString())
+            if (answerLetter[i].GetText().ToLower()
+                != answerChars[i].ToString())
             {
                 correct = false;
                 break;
@@ -181,25 +227,35 @@ public class GameInternal : MonoBehaviour
 
         if (correct)
         {
-
             SoundManager.Instance?.CorrectAnswer();
-            _winPanel.gameObject.SetActive(true);
-            _lossPanel.gameObject.SetActive(false);
-            AdMobManager.Instance.ShowRewarded(() => PlayerDataManager.Instance.data.Coins += 10);
+
+            // ----------------------------------------
+            // SAVE CATEGORY PROGRESS
+            // ----------------------------------------
+
+            PlayerDataManager.Instance
+                .CompleteCategoryQuestion(
+                    currentCategory.category,
+                    currentQuestionId,
+                    items.Count
+                );
+
+            resultPanelAnimation.ShowWin();
         }
         else
         {
             score = Mathf.Max(0, score - 2);
+
             SoundManager.Instance?.WrongAnswer();
-            _winPanel.gameObject.SetActive(false);
-            _lossPanel.gameObject.SetActive(true);
-            AdMobManager.Instance.ShowRewarded(() => PlayerDataManager.Instance.data.Coins -= score);
+
+            resultPanelAnimation.ShowLoss();
         }
 
         PlayerDataManager.Instance.data.Coins = score;
+
         UpdateUI();
 
-        LoadNextDirect();
+        TryShowGameplayInterstitial();
     }
 
     #endregion
@@ -226,7 +282,7 @@ public class GameInternal : MonoBehaviour
         }
 
         SaveHints();
-        AdMobManager.Instance.TryShowInterstitial();
+        // AdMobManager.Instance.TryShowInterstitial();
         HapticManager.Instance.MediumImpact();
 
     }
@@ -247,7 +303,8 @@ public class GameInternal : MonoBehaviour
                 break;
             }
         }
-        AdMobManager.Instance.TryShowInterstitial();
+        // AdMobManager.Instance.TryShowInterstitial();
+        SaveHints();
         HapticManager.Instance.MediumImpact();
 
     }
@@ -269,7 +326,7 @@ public class GameInternal : MonoBehaviour
         }
 
         SaveHints();
-        AdMobManager.Instance.TryShowInterstitial();
+        // AdMobManager.Instance.TryShowInterstitial();
         HapticManager.Instance.MediumImpact();
 
     }
@@ -279,7 +336,9 @@ public class GameInternal : MonoBehaviour
         if (hintPoints >= 3)
         {
             hintPoints -= 3;
+
             SaveHints();
+
             LoadNextDirect();
         }
         else
@@ -289,9 +348,8 @@ public class GameInternal : MonoBehaviour
                 LoadNextDirect();
             });
         }
-        AdMobManager.Instance.TryShowInterstitial();
-        HapticManager.Instance.MediumImpact();
 
+        HapticManager.Instance.MediumImpact();
     }
 
     private void LoadNextDirect()
@@ -318,6 +376,17 @@ public class GameInternal : MonoBehaviour
         PlayerDataManager.Instance.data.hint = hintPoints;
         //PlayerPrefs.SetInt(HINT_KEY, hintPoints);
         UpdateUI();
+    }
+    private void TryShowGameplayInterstitial()
+    {
+        questionsCompletedSinceAd++;
+
+        if (questionsCompletedSinceAd >= questionsBeforeInterstitial)
+        {
+            questionsCompletedSinceAd = 0;
+
+            AdMobManager.Instance.TryShowInterstitial();
+        }
     }
 
     #endregion

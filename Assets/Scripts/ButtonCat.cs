@@ -6,9 +6,12 @@ public class ButtonCat : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private TextMeshProUGUI buttonText;
+    [SerializeField] private TextMeshProUGUI progressText;
+
 
     [Header("Category")]
     [SerializeField] private CategorySO categorySO;
+    [SerializeField] private Transform levelPanel;
 
     private Button onButton;
     private GameInternal gameInternal;
@@ -30,9 +33,31 @@ public class ButtonCat : MonoBehaviour
             onButton.onClick.RemoveListener(OnButtonClick);
     }
 
-    public void SetCategorySO(CategorySO category)
+    public void SetCategorySO(CategorySO _categorySO)
     {
-        categorySO = category;
+        categorySO = _categorySO;
+
+        UpdateProgress();
+    }
+    private void UpdateProgress()
+    {
+        if (categorySO == null)
+            return;
+
+        int solved =
+            PlayerDataManager.Instance
+                .GetCategorySolvedCount(
+                    categorySO.category
+                );
+
+        int total =
+            categorySO.logos.Length;
+
+        if (progressText != null)
+        {
+            progressText.text =
+                $"{solved}/{total}";
+        }
     }
 
     public void SetTextToButton(string text)
@@ -45,7 +70,10 @@ public class ButtonCat : MonoBehaviour
     {
         gameInternal = internalManager;
     }
-
+    public void SetLevelPanel(Transform _levelPanel)
+    {
+        levelPanel = _levelPanel;
+    }
     private void OnButtonClick()
     {
         if (SoundManager.Instance != null)
@@ -70,7 +98,7 @@ public class ButtonCat : MonoBehaviour
         }
 
         gameInternal.gameObject.SetActive(true);
-
+        levelPanel.gameObject.SetActive(false);
         gameInternal.LoadCategoryById(categorySO);
     }
 }
