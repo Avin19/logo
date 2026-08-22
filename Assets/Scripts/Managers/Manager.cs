@@ -99,7 +99,10 @@ public class Manager : MonoBehaviour
         StartButton();
     }
 
-
+    public void BackToLevelFromGame()
+    {
+        BackToLevel();
+    }
 
     private void Start()
     {

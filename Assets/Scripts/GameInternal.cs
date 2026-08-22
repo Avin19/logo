@@ -28,12 +28,17 @@ public class GameInternal : MonoBehaviour
     [SerializeField] private Button revealBtn;
     [SerializeField] private Button skipBtn;
     [SerializeField] private Button watchAdBtn;
-    [SerializeField] private Button nextWinBtn;
-    [SerializeField] private Button tryAgainBtn;
     [SerializeField] private TextMeshProUGUI hintText;
 
     [Header("Game Settings")]
     [SerializeField] private int randomLetterCount = 20;
+    [Header("Result Buttons")]
+    [SerializeField] private Button claimWinBtn;
+    [SerializeField] private Button watchAdWinBtn;
+
+    [SerializeField] private Button homeLossBtn;
+    [SerializeField] private Button tryAgainBtn;
+    [SerializeField] private Button watchAdLossBtn;
 
     private const string HINT_KEY = "HintPoints";
     private int hintPoints;
@@ -53,11 +58,13 @@ public class GameInternal : MonoBehaviour
 
     private int questionsCompletedSinceAd = 0;
     private bool rewardedAdWasShown = false;
+    [SerializeField] private int levelReward = 10;
 
 
     private readonly List<char> answerChars = new();
     private readonly List<TextHandler> randomLetterList = new();
     private readonly List<AnswerTexthandler> answerLetter = new();
+    private ItemDetail currentItem;
 
     #region UNITY
 
@@ -70,8 +77,140 @@ public class GameInternal : MonoBehaviour
         revealBtn?.onClick.AddListener(RevealLetter);
         skipBtn?.onClick.AddListener(SkipLevel);
         watchAdBtn?.onClick.AddListener(RequestHintAd);
-        nextWinBtn?.onClick.AddListener(WinNextButton);
+        // WIN
+        claimWinBtn?.onClick.AddListener(ClaimWin);
+        watchAdWinBtn?.onClick.AddListener(WatchAdForDoubleReward);
+
+        // LOSS
+        homeLossBtn?.onClick.AddListener(LossHomeButton);
         tryAgainBtn?.onClick.AddListener(LossTryAgainButton);
+        watchAdLossBtn?.onClick.AddListener(LossWatchAdButton);
+    }
+    private void OnDisable()
+    {
+        nextBtn?.onClick.RemoveListener(SkipLevel);
+        clearBTn?.onClick.RemoveListener(RemoveLastLetter);
+        hintBtn?.onClick.RemoveListener(RevealLetter);
+        removeWrongBtn?.onClick.RemoveListener(RemoveWrongLetters);
+        revealBtn?.onClick.RemoveListener(RevealLetter);
+        skipBtn?.onClick.RemoveListener(SkipLevel);
+
+        watchAdBtn?.onClick.RemoveListener(RequestHintAd);
+
+        // WIN
+        claimWinBtn?.onClick.RemoveListener(ClaimWin);
+        watchAdWinBtn?.onClick.RemoveListener(WatchAdForDoubleReward);
+
+        // LOSS
+        homeLossBtn?.onClick.RemoveListener(LossHomeButton);
+        tryAgainBtn?.onClick.RemoveListener(LossTryAgainButton);
+        watchAdLossBtn?.onClick.RemoveListener(LossWatchAdButton);
+    }
+    private void ClaimWin()
+    {
+        SoundManager.Instance?.ButtonClick();
+        HapticManager.Instance?.MediumImpact();
+
+        int reward = 100;
+
+        PlayerDataManager.Instance.AddCoins(reward);
+        score += reward;
+
+        UpdateUI();
+
+        resultPanelAnimation.HideResultPanels(() =>
+        {
+            LoadNextDirect();
+        });
+    }
+    private void WatchAdForDoubleReward()
+    {
+        SoundManager.Instance?.ButtonClick();
+
+        AdMobManager.Instance.ShowRewarded(() =>
+        {
+            int bonusReward = 100;
+
+            PlayerDataManager.Instance.AddCoins(bonusReward);
+
+            score += bonusReward;
+
+            UpdateUI();
+
+            HapticManager.Instance?.HeavyImpact();
+
+            resultPanelAnimation.HideResultPanels(() =>
+            {
+                LoadNextDirect();
+            });
+        });
+    }
+    private void LossHomeButton()
+    {
+        SoundManager.Instance?.ButtonClick();
+
+        HapticManager.Instance?.MediumImpact();
+
+        resultPanelAnimation.HideResultPanels(() =>
+        {
+            manager.BackToLevelFromGame();
+        });
+    }
+    private void LossWatchAdButton()
+    {
+        SoundManager.Instance?.ButtonClick();
+
+        AdMobManager.Instance.ShowRewarded(() =>
+        {
+            hintPoints++;
+
+            SaveHints();
+
+            HapticManager.Instance?.HeavyImpact();
+
+            Debug.Log("Rewarded ad: +1 Hint");
+        });
+    }
+    private void RetryCurrentQuestion()
+    {
+        Restart();
+
+        ItemDetail chosen = currentItem;
+
+        if (chosen == null)
+            return;
+
+        currentQuestionId =
+            chosen.Manufacturer.Trim().ToLower();
+
+        correctAnswer =
+            chosen.Manufacturer.Trim().ToLower();
+
+        foreach (char c in correctAnswer)
+        {
+            answerChars.Add(c);
+
+            var go = Instantiate(
+                pfCorrectAnwser,
+                userAnswer.transform
+            );
+
+            var handler =
+                go.GetComponent<AnswerTexthandler>();
+
+            handler.SetText("");
+
+            answerLetter.Add(handler);
+        }
+
+        CreateRandomLetters();
+
+        logoImage.sprite =
+            chosen.LogoURL;
+
+        fillIndex = 0;
+
+        gamePanelAnimation?.AnimateNewQuestion();
     }
     private void WinNextButton()
     {
@@ -87,24 +226,16 @@ public class GameInternal : MonoBehaviour
 
     private void LossTryAgainButton()
     {
+        SoundManager.Instance?.ButtonClick();
+
+        HapticManager.Instance?.MediumImpact();
+
         resultPanelAnimation.HideResultPanels(() =>
         {
-            LoadNextDirect();
+            RetryCurrentQuestion();
         });
+    }
 
-        HapticManager.Instance.MediumImpact();
-    }
-    private void OnDisable()
-    {
-        nextBtn?.onClick.RemoveAllListeners();
-        hintBtn?.onClick.RemoveAllListeners();
-        removeWrongBtn?.onClick.RemoveAllListeners();
-        skipBtn?.onClick.RemoveAllListeners();
-        watchAdBtn?.onClick.RemoveAllListeners();
-        nextBtn?.onClick.RemoveAllListeners();
-        tryAgainBtn.onClick.RemoveAllListeners();
-        revealBtn.onClick.RemoveAllListeners();
-    }
 
     private void Start()
     {
@@ -141,8 +272,10 @@ public class GameInternal : MonoBehaviour
     {
         Restart();
 
-        var chosen =
-            items[Random.Range(0, items.Count)];
+        currentItem =
+    items[Random.Range(0, items.Count)];
+
+        var chosen = currentItem;
 
         // Unique ID for this question
         currentQuestionId =
