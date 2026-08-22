@@ -2,45 +2,103 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-
-
 public class ButtonCat : MonoBehaviour
 {
+    [Header("UI")]
     [SerializeField] private TextMeshProUGUI buttonText;
-    private Button onbutton;
+    [SerializeField] private TextMeshProUGUI progressText;
 
+
+    [Header("Category")]
     [SerializeField] private CategorySO categorySO;
-    [SerializeField] private GameInternal gameInternal;
-    [SerializeField] private GameObject loadingpanel;
+    [SerializeField] private Transform levelPanel;
+
+    private Button onButton;
+    private GameInternal gameInternal;
 
     private void Awake()
     {
-        onbutton = GetComponent<Button>();
+        onButton = GetComponent<Button>();
     }
+
+    private void OnEnable()
+    {
+        if (onButton != null)
+            onButton.onClick.AddListener(OnButtonClick);
+    }
+
+    private void OnDisable()
+    {
+        if (onButton != null)
+            onButton.onClick.RemoveListener(OnButtonClick);
+    }
+
     public void SetCategorySO(CategorySO _categorySO)
     {
         categorySO = _categorySO;
+
+        UpdateProgress();
     }
-    public void SetTextToButton(string _buttonText)
+    private void UpdateProgress()
     {
-        buttonText.text = _buttonText;
+        if (categorySO == null)
+            return;
+
+        int solved =
+            PlayerDataManager.Instance
+                .GetCategorySolvedCount(
+                    categorySO.category
+                );
+
+        int total =
+            categorySO.logos.Length;
+
+        if (progressText != null)
+        {
+            progressText.text =
+                $"{solved}/{total}";
+        }
     }
-    void OnEnable()
+
+    public void SetTextToButton(string text)
     {
-        onbutton.onClick.AddListener(OnButtonClick);
+        if (buttonText != null)
+            buttonText.text = text;
     }
-    public void SetGameInternal(GameInternal _gameInternal)
+
+    public void SetGameInternal(GameInternal internalManager)
     {
-        gameInternal = _gameInternal;
+        gameInternal = internalManager;
     }
-    public void SetLoadingPanel(GameObject _loadingpanel)
+    public void SetLevelPanel(Transform _levelPanel)
     {
-        loadingpanel = _loadingpanel;
+        levelPanel = _levelPanel;
     }
     private void OnButtonClick()
     {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
+
+        if (gameInternal == null)
+        {
+            Debug.LogError(
+                $"GameInternal is not assigned for {gameObject.name}"
+            );
+
+            return;
+        }
+
+        if (categorySO == null)
+        {
+            Debug.LogError(
+                $"CategorySO is not assigned for {gameObject.name}"
+            );
+
+            return;
+        }
+
         gameInternal.gameObject.SetActive(true);
-        loadingpanel.SetActive(true);
+        levelPanel.gameObject.SetActive(false);
         gameInternal.LoadCategoryById(categorySO);
     }
 }
