@@ -1,4 +1,5 @@
 using System;
+using UnityEngine;
 
 [Serializable]
 public class AchievementDefinition
@@ -8,4 +9,6 @@ public class AchievementDefinition
     public string Description;
     public int Target;
     public int Reward;
+
+    public Sprite Icon;
 }

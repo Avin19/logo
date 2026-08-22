@@ -6,20 +6,38 @@ public class AchievementManager : MonoBehaviour
 {
     public static AchievementManager Instance;
 
-    public event Action<AchievementDefinition> OnAchievementUnlocked;
-    public event Action<string, int, int> OnAchievementProgressChanged;
+    // =========================================================
+    // EVENTS
+    // =========================================================
 
-    private List<AchievementDefinition> achievements =
-        new List<AchievementDefinition>();
+    public event Action<AchievementSO> OnAchievementUnlocked;
+
+    public event Action<string, int, int>
+        OnAchievementProgressChanged;
+
+
+    // =========================================================
+    // ACHIEVEMENTS
+    // =========================================================
+
+    [Header("Achievements")]
+    [SerializeField]
+    private List<AchievementSO> achievements =
+        new List<AchievementSO>();
+
+
+    // =========================================================
+    // UNITY
+    // =========================================================
 
     private void Awake()
     {
         if (Instance == null)
         {
             Instance = this;
+
             DontDestroyOnLoad(gameObject);
 
-            CreateAchievements();
             InitializePlayerAchievements();
         }
         else
@@ -28,84 +46,30 @@ public class AchievementManager : MonoBehaviour
         }
     }
 
-    private void CreateAchievements()
-    {
-        achievements.Clear();
 
-        // Logos
-        Add("first_guess", "First Guess",
-            "Solve your first logo", 1, 10);
-
-        Add("logo_hunter", "Logo Hunter",
-            "Solve 10 logos", 10, 25);
-
-        Add("brand_spotter", "Brand Spotter",
-            "Solve 25 logos", 25, 50);
-
-        Add("logo_learner", "Logo Learner",
-            "Solve 50 logos", 50, 100);
-
-        Add("logo_expert", "Logo Expert",
-            "Solve 100 logos", 100, 200);
-
-        // Categories
-        Add("category_explorer", "Category Explorer",
-            "Complete 1 category", 1, 100);
-
-        Add("category_master", "Category Master",
-            "Complete 5 categories", 5, 500);
-
-        Add("category_legend", "Category Legend",
-            "Complete every category", 1, 3000);
-
-        // Streak
-        Add("sharp_eye", "Sharp Eye",
-            "Get 5 correct answers in a row", 5, 50);
-
-        Add("unstoppable", "Unstoppable",
-            "Get 25 correct answers in a row", 25, 250);
-
-        // Daily
-        Add("getting_started", "Getting Started",
-            "Reach a 3-day streak", 3, 50);
-
-        Add("dedicated_player", "Dedicated Player",
-            "Reach a 7-day streak", 7, 100);
-
-        Add("logo_addict", "Logo Addict",
-            "Reach a 14-day streak", 14, 250);
-
-        // Special
-        Add("speed_demon", "Speed Demon",
-            "Solve a logo in under 5 seconds", 1, 50);
-
-        Add("no_help_needed", "No Help Needed",
-            "Solve 10 logos without hints", 10, 150);
-    }
-
-    private void Add(
-        string id,
-        string title,
-        string description,
-        int target,
-        int reward)
-    {
-        achievements.Add(
-            new AchievementDefinition
-            {
-                Id = id,
-                Title = title,
-                Description = description,
-                Target = target,
-                Reward = reward
-            }
-        );
-    }
+    // =========================================================
+    // INITIALIZE PLAYER ACHIEVEMENTS
+    // =========================================================
 
     private void InitializePlayerAchievements()
     {
         if (PlayerDataManager.Instance == null)
+        {
+            Debug.LogWarning(
+                "AchievementManager: PlayerDataManager not found."
+            );
+
             return;
+        }
+
+        if (PlayerDataManager.Instance.data == null)
+        {
+            Debug.LogWarning(
+                "AchievementManager: PlayerData is null."
+            );
+
+            return;
+        }
 
         if (PlayerDataManager.Instance.data.Achievements == null)
         {
@@ -113,18 +77,26 @@ public class AchievementManager : MonoBehaviour
                 new List<AchievementProgress>();
         }
 
-        foreach (AchievementDefinition definition in achievements)
+
+        foreach (AchievementSO achievement in achievements)
         {
+            if (achievement == null)
+                continue;
+
             AchievementProgress existing =
                 PlayerDataManager.Instance.data.Achievements
-                    .Find(x => x.AchievementId == definition.Id);
+                    .Find(
+                        x => x.AchievementId ==
+                             achievement.Id
+                    );
+
 
             if (existing == null)
             {
                 PlayerDataManager.Instance.data.Achievements.Add(
                     new AchievementProgress
                     {
-                        AchievementId = definition.Id,
+                        AchievementId = achievement.Id,
                         Progress = 0,
                         Unlocked = false,
                         UnlockedDate = ""
@@ -136,96 +108,242 @@ public class AchievementManager : MonoBehaviour
         PlayerDataManager.Instance.Save();
     }
 
-    public AchievementDefinition GetAchievement(string id)
+
+    // =========================================================
+    // GET ACHIEVEMENT
+    // =========================================================
+
+    public AchievementSO GetAchievement(string id)
     {
-        return achievements.Find(x => x.Id == id);
+        return achievements.Find(
+            x => x != null &&
+                 x.Id == id
+        );
     }
+
+
+    // =========================================================
+    // GET PLAYER PROGRESS
+    // =========================================================
 
     public AchievementProgress GetProgress(string id)
     {
         if (PlayerDataManager.Instance == null)
             return null;
 
+        if (PlayerDataManager.Instance.data == null)
+            return null;
+
+        if (PlayerDataManager.Instance.data.Achievements == null)
+            return null;
+
+
         return PlayerDataManager.Instance.data.Achievements
-            .Find(x => x.AchievementId == id);
+            .Find(
+                x => x.AchievementId == id
+            );
     }
+
+
+    // =========================================================
+    // GET ALL ACHIEVEMENTS
+    // =========================================================
+
+    public List<AchievementSO> GetAllAchievements()
+    {
+        return achievements;
+    }
+
+
+    // =========================================================
+    // ADD PROGRESS
+    // =========================================================
 
     public void AddProgress(
         string achievementId,
         int amount = 1)
     {
-        AchievementDefinition definition =
+        AchievementSO achievement =
             GetAchievement(achievementId);
 
         AchievementProgress progress =
             GetProgress(achievementId);
 
-        if (definition == null ||
-            progress == null ||
-            progress.Unlocked)
+
+        if (achievement == null)
         {
+            Debug.LogWarning(
+                "Achievement not found: " +
+                achievementId
+            );
+
             return;
         }
 
+
+        if (progress == null)
+            return;
+
+
+        if (progress.Unlocked)
+            return;
+
+
         progress.Progress += amount;
 
-        if (progress.Progress >= definition.Target)
-        {
-            progress.Progress = definition.Target;
 
+        progress.Progress =
+            Mathf.Clamp(
+                progress.Progress,
+                0,
+                achievement.Target
+            );
+
+
+        // Achievement completed
+        if (progress.Progress >= achievement.Target)
+        {
             UnlockAchievement(
-                definition,
+                achievement,
                 progress
             );
         }
 
+
         PlayerDataManager.Instance.Save();
+
 
         OnAchievementProgressChanged?.Invoke(
             achievementId,
             progress.Progress,
-            definition.Target
+            achievement.Target
         );
     }
 
+
+    // =========================================================
+    // SET PROGRESS
+    // =========================================================
+
+    private void SetProgress(
+        string achievementId,
+        int value)
+    {
+        AchievementSO achievement =
+            GetAchievement(achievementId);
+
+        AchievementProgress progress =
+            GetProgress(achievementId);
+
+
+        if (achievement == null)
+            return;
+
+        if (progress == null)
+            return;
+
+        if (progress.Unlocked)
+            return;
+
+
+        progress.Progress =
+            Mathf.Clamp(
+                value,
+                0,
+                achievement.Target
+            );
+
+
+        if (progress.Progress >= achievement.Target)
+        {
+            UnlockAchievement(
+                achievement,
+                progress
+            );
+        }
+
+
+        PlayerDataManager.Instance.Save();
+
+
+        OnAchievementProgressChanged?.Invoke(
+            achievementId,
+            progress.Progress,
+            achievement.Target
+        );
+    }
+
+
+    // =========================================================
+    // UNLOCK
+    // =========================================================
+
     private void UnlockAchievement(
-        AchievementDefinition definition,
+        AchievementSO achievement,
         AchievementProgress progress)
     {
         if (progress.Unlocked)
             return;
 
+
         progress.Unlocked = true;
 
-        progress.UnlockedDate =
-            DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
+        progress.Progress =
+            achievement.Target;
 
-        // Give reward
-        PlayerDataManager.Instance.AddCoins(
-            definition.Reward
-        );
+        progress.UnlockedDate =
+            DateTime.Now.ToString(
+                "yyyy-MM-dd HH:mm:ss"
+            );
+
+
+        // =====================================================
+        // REWARD
+        // =====================================================
+
+        if (achievement.Reward > 0)
+        {
+            PlayerDataManager.Instance.AddCoins(
+                achievement.Reward
+            );
+        }
+
 
         Debug.Log(
-            $"Achievement Unlocked: {definition.Title}"
+            $"🏆 Achievement Unlocked: " +
+            $"{achievement.Title} " +
+            $"+{achievement.Reward} Coins"
         );
+
+
+        // =====================================================
+        // EVENT
+        // =====================================================
 
         OnAchievementUnlocked?.Invoke(
-            definition
+            achievement
         );
     }
 
-    public bool IsUnlocked(string id)
-    {
-        AchievementProgress progress =
-            GetProgress(id);
 
-        return progress != null &&
-               progress.Unlocked;
-    }
+    // =========================================================
+    // LOGO SOLVED
+    // =========================================================
+
     public void OnLogoSolved()
     {
+        if (PlayerDataManager.Instance == null)
+            return;
+
+
         int totalSolved =
-            PlayerDataManager.Instance.GetTotalSolvedLogos();
+            PlayerDataManager.Instance
+                .GetTotalSolvedLogos();
+
+
+        // -----------------------------------------------------
+        // Total logo achievements
+        // -----------------------------------------------------
 
         SetProgress(
             "first_guess",
@@ -251,44 +369,123 @@ public class AchievementManager : MonoBehaviour
             "logo_expert",
             totalSolved
         );
-    }
-    private void SetProgress(
-    string achievementId,
-    int value)
-    {
-        AchievementDefinition definition =
-            GetAchievement(achievementId);
 
-        AchievementProgress progress =
-            GetProgress(achievementId);
 
-        if (definition == null ||
-            progress == null ||
-            progress.Unlocked)
-        {
-            return;
-        }
-
-        progress.Progress =
-            Mathf.Min(
-                value,
-                definition.Target
-            );
-
-        if (progress.Progress >=
-            definition.Target)
-        {
-            UnlockAchievement(
-                definition,
-                progress
-            );
-        }
-
-        OnAchievementProgressChanged?.Invoke(
-            achievementId,
-            progress.Progress,
-            definition.Target
+        Debug.Log(
+            "Total Logos Solved: " +
+            totalSolved
         );
     }
 
+
+    // =========================================================
+    // DAILY STREAK
+    // =========================================================
+
+    public void UpdateDailyStreakAchievements(
+        int streak)
+    {
+        SetProgress(
+            "getting_started",
+            streak
+        );
+
+        SetProgress(
+            "dedicated_player",
+            streak
+        );
+
+        SetProgress(
+            "logo_addict",
+            streak
+        );
+    }
+
+
+    // =========================================================
+    // CORRECT ANSWER STREAK
+    // =========================================================
+
+    public void UpdateAnswerStreak(
+        int correctAnswerStreak)
+    {
+        SetProgress(
+            "sharp_eye",
+            correctAnswerStreak
+        );
+
+        SetProgress(
+            "unstoppable",
+            correctAnswerStreak
+        );
+    }
+
+
+    // =========================================================
+    // SPEED DEMON
+    // =========================================================
+
+    public void CheckSpeedAchievement(
+        float answerTime)
+    {
+        if (answerTime <= 5f)
+        {
+            SetProgress(
+                "speed_demon",
+                1
+            );
+        }
+    }
+
+
+    // =========================================================
+    // NO HELP NEEDED
+    // =========================================================
+
+    public void AddNoHintSolved()
+    {
+        AddProgress(
+            "no_help_needed"
+        );
+    }
+
+
+    // =========================================================
+    // CATEGORY COMPLETED
+    // =========================================================
+
+    public void UpdateCategoryAchievements(
+        int completedCategories)
+    {
+        SetProgress(
+            "category_explorer",
+            completedCategories
+        );
+
+        SetProgress(
+            "category_master",
+            completedCategories
+        );
+
+        // For Category Legend, the target should be
+        // the total number of categories.
+        SetProgress(
+            "category_legend",
+            completedCategories
+        );
+    }
+
+
+    // =========================================================
+    // CHECK UNLOCKED
+    // =========================================================
+
+    public bool IsUnlocked(string id)
+    {
+        AchievementProgress progress =
+            GetProgress(id);
+
+        return progress != null &&
+               progress.Unlocked;
+    }
 }

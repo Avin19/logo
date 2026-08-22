@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2785ac19c83ed5740aa405209363199b, type: 3}
+  m_Name: 02
+  m_EditorClassIdentifier: 
+  Id: logo_hunter
+  Title: LOGO HUNTER
+  Description: ' Solve 10 logos'
+  Target: 10
+  Reward: 25
+  Icon: {fileID: -931185298, guid: 8defbb6288f0c524aa48d289a0252ed6, type: 3}
