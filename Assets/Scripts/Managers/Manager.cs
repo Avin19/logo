@@ -43,6 +43,7 @@ public class Manager : MonoBehaviour
     [SerializeField] private Transform achievementPanel;
     [SerializeField] private Button achievementButton;
     [SerializeField] private Button closeAchievementButton;
+    [SerializeField] private bool isDailyChallenge = false;
 
     private void OnEnable()
     {
@@ -51,7 +52,7 @@ public class Manager : MonoBehaviour
         settingbtn.onClick.AddListener(SettingButton);
         backSettingToMenu.onClick.AddListener(CloseSettings);
         backToLevelMenu.onClick.AddListener(BackToMenu);
-        backToLevel.onClick.AddListener(BackToLevel);
+        backToLevel.onClick.AddListener(BackToLevelFromGame);
         achievementButton.onClick.AddListener(OpenAchievements);
         closeAchievementButton.onClick.AddListener(CloseAchievements);
 
@@ -71,7 +72,7 @@ public class Manager : MonoBehaviour
         startBtn.onClick.RemoveListener(StartButtonClick);
         cateBtn.onClick.RemoveListener(StartButtonClick);
         settingbtn.onClick.RemoveListener(SettingButton);
-        backSettingToMenu.onClick.RemoveListener(BackToMenu);
+        backSettingToMenu.onClick.RemoveListener(BackToLevelFromGame);
         backToLevelMenu.onClick.RemoveListener(BackToMenu);
         backToLevel.onClick.RemoveListener(BackToLevel);
 
@@ -90,9 +91,15 @@ public class Manager : MonoBehaviour
     }
     private void CategoryPanel()
     {
-        RandomLoadCategories();
-    }
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
 
+        // Normal category mode
+
+        SetAllThePanelFalse();
+
+        OpenDailyChallenge();
+    }
     private void StartButtonClick()
     {
 
@@ -101,7 +108,31 @@ public class Manager : MonoBehaviour
 
     public void BackToLevelFromGame()
     {
-        BackToLevel();
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
+
+        if (isDailyChallenge)
+        {
+            BackToMainMenuFromGame();
+        }
+        else
+        {
+            BackToLevel();
+        }
+    }
+    private void BackToMainMenuFromGame()
+    {
+        isDailyChallenge = false;
+
+        SetAllThePanelFalse();
+
+        // Hide game
+        if (gameInternal != null)
+            gameInternal.gameObject.SetActive(false);
+
+        // Show main menu
+        if (welcomePanel != null)
+            welcomePanel.gameObject.SetActive(true);
     }
 
     private void Start()
@@ -110,6 +141,22 @@ public class Manager : MonoBehaviour
         if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
         PlayerDataManager.Instance.Load();
         // pfBtns.Clear();
+    }
+    public void OpenDailyChallenge()
+    {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
+
+        // Remember that GamePanel was opened from Daily Challenge
+        isDailyChallenge = true;
+
+        SetAllThePanelFalse();
+
+        // Open game directly
+        if (gameInternal != null)
+        {
+            RandomLoadCategories();
+        }
     }
     private void OpenAchievements()
     {
@@ -299,12 +346,14 @@ public class Manager : MonoBehaviour
 
     private void StartButton()
     {
-        if (SoundManager.Instance != null) SoundManager.Instance.ButtonClick();
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
+
+        isDailyChallenge = false;
+
         LoadingData();
         LevelLoaded();
-
     }
-
 
     public void ShowRewardedFromUI()
     {

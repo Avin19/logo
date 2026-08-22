@@ -1552,13 +1552,17 @@ MonoBehaviour:
   removeWrongBtn: {fileID: 1169303640}
   revealBtn: {fileID: 974799376}
   skipBtn: {fileID: 1281637230}
-  watchAdBtn: {fileID: 0}
-  nextWinBtn: {fileID: 1489843972}
-  tryAgainBtn: {fileID: 301247800}
+  watchAdBtn: {fileID: 1212843094}
   hintText: {fileID: 1021596704}
   randomLetterCount: 20
+  claimWinBtn: {fileID: 615261700}
+  watchAdWinBtn: {fileID: 1002009705}
+  homeLossBtn: {fileID: 918408393}
+  tryAgainBtn: {fileID: 301247800}
+  watchAdLossBtn: {fileID: 1212843094}
   questionsBeforeInterstitial: 5
   resultPanelAnimation: {fileID: 1950749009}
+  levelReward: 10
 --- !u!114 &340027070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9374,6 +9378,7 @@ MonoBehaviour:
   achievementPanel: {fileID: 362458787}
   achievementButton: {fileID: 1285659135}
   closeAchievementButton: {fileID: 1353617233}
+  isDailyChallenge: 0
 --- !u!4 &1449044915
 Transform:
   m_ObjectHideFlags: 0
@@ -13639,7 +13644,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &330767375081812430
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -14131,7 +14136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1497914823901804759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -15827,7 +15832,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &5193410185096193730
 GameObject:
   m_ObjectHideFlags: 0
