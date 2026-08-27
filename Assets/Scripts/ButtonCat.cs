@@ -98,7 +98,10 @@ public class ButtonCat : MonoBehaviour
         }
 
         gameInternal.gameObject.SetActive(true);
-        levelPanel.gameObject.SetActive(false);
+
+        if (levelPanel != null)
+            levelPanel.gameObject.SetActive(false);
+
         gameInternal.LoadCategoryById(categorySO);
     }
 }

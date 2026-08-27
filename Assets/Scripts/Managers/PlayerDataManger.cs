@@ -41,9 +41,33 @@ public class PlayerDataManager : MonoBehaviour
     public void Save()
     {
         string json = JsonUtility.ToJson(data, true);
-        File.WriteAllText(saveData, json);
+        string tempPath = saveData + ".tmp";
 
-        Debug.Log(" Game Saved ");
+        try
+        {
+            File.WriteAllText(tempPath, json);
+
+            if (File.Exists(saveData))
+            {
+                File.Replace(tempPath, saveData, null);
+            }
+            else
+            {
+                File.Move(tempPath, saveData);
+            }
+
+            Debug.Log(" Game Saved ");
+        }
+        catch (Exception e)
+        {
+            Debug.LogError("PlayerDataManager: Failed to save data atomically: " + e);
+
+            // Clean up temp file if it was left behind
+            if (File.Exists(tempPath))
+            {
+                try { File.Delete(tempPath); } catch { /* ignore */ }
+            }
+        }
     }
 
     #endregion
@@ -53,11 +77,35 @@ public class PlayerDataManager : MonoBehaviour
     {
         if (File.Exists(saveData))
         {
-            string json = File.ReadAllText(saveData);
-            data = JsonUtility.FromJson<PlayerData>(json);
+            try
+            {
+                string json = File.ReadAllText(saveData);
+                data = JsonUtility.FromJson<PlayerData>(json);
 
-            Debug.Log("Save Loaded");
+                if (data == null)
+                {
+                    throw new Exception("Parsed PlayerData is null.");
+                }
 
+                Debug.Log("Save Loaded");
+            }
+            catch (Exception e)
+            {
+                Debug.LogError("PlayerDataManager: Failed to load save data, it may be corrupted: " + e);
+
+                try
+                {
+                    string backupPath = saveData + ".corrupted.json";
+                    File.Copy(saveData, backupPath, true);
+                    Debug.LogWarning("PlayerDataManager: Backed up corrupted save to " + backupPath);
+                }
+                catch (Exception backupException)
+                {
+                    Debug.LogError("PlayerDataManager: Failed to back up corrupted save: " + backupException);
+                }
+
+                CreateNewSave();
+            }
         }
         else
         {
@@ -190,11 +238,21 @@ public class PlayerDataManager : MonoBehaviour
         return true;
     }
 
+    public void SetCoins(int amount)
+    {
+        data.Coins = Mathf.Max(0, amount);
+
+        Save();
+    }
+
     #endregion
     public CategoryProgress GetCategoryProgress(
         string categoryId,
         int totalCount)
     {
+        if (data == null)
+            return null;
+
         if (data.CategoryProgress == null)
         {
             data.CategoryProgress =
@@ -235,7 +293,7 @@ public class PlayerDataManager : MonoBehaviour
     public int GetCategorySolvedCount(
         string categoryId)
     {
-        if (data.CategoryProgress == null)
+        if (data == null || data.CategoryProgress == null)
             return 0;
 
         CategoryProgress progress =
@@ -254,6 +312,27 @@ public class PlayerDataManager : MonoBehaviour
 
 
     /// <summary>
+    /// Returns true if the given question has already
+    /// been solved in the given category.
+    /// </summary>
+    public bool IsQuestionSolved(string categoryId, string questionId)
+    {
+        if (data == null || data.CategoryProgress == null)
+            return false;
+
+        CategoryProgress progress =
+            data.CategoryProgress.Find(
+                x => x.CategoryId == categoryId
+            );
+
+        if (progress == null || progress.SolvedQuestionIds == null)
+            return false;
+
+        return progress.SolvedQuestionIds.Contains(questionId);
+    }
+
+
+    /// <summary>
     /// Marks a specific question as solved.
     /// The same question cannot be counted twice.
     /// </summary>
@@ -262,11 +341,17 @@ public class PlayerDataManager : MonoBehaviour
         string questionId,
         int totalCount)
     {
+        if (data == null)
+            return;
+
         CategoryProgress progress =
             GetCategoryProgress(
                 categoryId,
                 totalCount
             );
+
+        if (progress == null)
+            return;
 
         if (progress.SolvedQuestionIds == null)
         {
@@ -306,7 +391,7 @@ public class PlayerDataManager : MonoBehaviour
     public bool IsCategoryCompleted(
         string categoryId)
     {
-        if (data.CategoryProgress == null)
+        if (data == null || data.CategoryProgress == null)
             return false;
 
         CategoryProgress progress =
@@ -331,7 +416,7 @@ public class PlayerDataManager : MonoBehaviour
     public float GetCategoryProgressPercent(
         string categoryId)
     {
-        if (data.CategoryProgress == null)
+        if (data == null || data.CategoryProgress == null)
             return 0f;
 
         CategoryProgress progress =
@@ -354,6 +439,9 @@ public class PlayerDataManager : MonoBehaviour
 
     public void CompleteLevel(int level)
     {
+        if (data == null)
+            return;
+
         if (level >= data.HighestUnlockedLevel)
         {
             data.HighestUnlockedLevel = level + 1;

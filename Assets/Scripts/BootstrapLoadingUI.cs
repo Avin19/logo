@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using DG.Tweening;
 
-public class BladeootstrapLoadingUI : MonoBehaviour
+public class BootstrapLoadingUI : MonoBehaviour
 {
     [Header("UI")]
     [SerializeField] private RectTransform logo;
@@ -75,15 +75,19 @@ public class BladeootstrapLoadingUI : MonoBehaviour
     {
         currentProgress = 0f;
 
-        loadingSlider.value = 0f;
+        if (loadingSlider != null)
+            loadingSlider.value = 0f;
 
         if (logo != null)
         {
             logo.localScale = Vector3.one * logoStartScale;
         }
 
-        loadingText.text = "Preparing Adventure...";
-        percentageText.text = "0%";
+        if (loadingText != null)
+            loadingText.text = "Preparing Adventure...";
+
+        if (percentageText != null)
+            percentageText.text = "0%";
     }
 
     // =========================================================
@@ -180,17 +184,21 @@ public class BladeootstrapLoadingUI : MonoBehaviour
     private void UpdateUI()
     {
         // Smooth slider movement.
-        loadingSlider.value = Mathf.Lerp(
-            loadingSlider.value,
-            currentProgress,
-            Time.deltaTime * 8f
-        );
+        if (loadingSlider != null)
+        {
+            loadingSlider.value = Mathf.Lerp(
+                loadingSlider.value,
+                currentProgress,
+                Time.deltaTime * 8f
+            );
+        }
 
         int percent = Mathf.RoundToInt(
             currentProgress * 100f
         );
 
-        percentageText.text = percent + "%";
+        if (percentageText != null)
+            percentageText.text = percent + "%";
 
         // Only animate percentage when the number changes.
         if (percent != lastDisplayedPercentage)

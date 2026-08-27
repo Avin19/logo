@@ -108,7 +108,12 @@ public class UIButtonAnimation : MonoBehaviour,
                 originalScale,
                 0.15f
             )
-            .SetEase(Ease.OutBack);
+            .SetEase(Ease.OutBack)
+            .OnComplete(() =>
+            {
+                if (enableIdleAnimation)
+                    StartIdleAnimation();
+            });
     }
 
     // =========================================================

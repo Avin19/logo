@@ -12,9 +12,9 @@ public class LevelHolder : MonoBehaviour
     public void ClearButtonList()
     {
 
-        for (int i = 0; i <= level.gameObject.GetComponentCount(); i++)
+        for (int i = 0; i < level.childCount; i++)
         {
-            Destroy(level.GetChild(i));
+            Destroy(level.GetChild(i).gameObject);
         }
 
 

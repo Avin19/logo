@@ -1,7 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 
-public class WinStarAnimation : MonoBehaviour
+public class WinPanelAnimation : MonoBehaviour
 {
     [Header("Stars")]
     [SerializeField] private RectTransform leftStar;

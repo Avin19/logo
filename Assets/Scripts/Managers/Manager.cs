@@ -47,14 +47,22 @@ public class Manager : MonoBehaviour
 
     private void OnEnable()
     {
-        startBtn.onClick.AddListener(StartButtonClick);
-        cateBtn.onClick.AddListener(StartButtonClick);
-        settingbtn.onClick.AddListener(SettingButton);
-        backSettingToMenu.onClick.AddListener(CloseSettings);
-        backToLevelMenu.onClick.AddListener(BackToMenu);
-        backToLevel.onClick.AddListener(BackToLevelFromGame);
-        achievementButton.onClick.AddListener(OpenAchievements);
-        closeAchievementButton.onClick.AddListener(CloseAchievements);
+        if (startBtn != null)
+            startBtn.onClick.AddListener(StartButtonClick);
+        if (cateBtn != null)
+            cateBtn.onClick.AddListener(StartButtonClick);
+        if (settingbtn != null)
+            settingbtn.onClick.AddListener(SettingButton);
+        if (backSettingToMenu != null)
+            backSettingToMenu.onClick.AddListener(CloseSettings);
+        if (backToLevelMenu != null)
+            backToLevelMenu.onClick.AddListener(BackToMenu);
+        if (backToLevel != null)
+            backToLevel.onClick.AddListener(BackToLevelFromGame);
+        if (achievementButton != null)
+            achievementButton.onClick.AddListener(OpenAchievements);
+        if (closeAchievementButton != null)
+            closeAchievementButton.onClick.AddListener(CloseAchievements);
 
         if (rewardedButton != null)
             rewardedButton.onClick.AddListener(
@@ -69,15 +77,23 @@ public class Manager : MonoBehaviour
 
     private void OnDisable()
     {
-        startBtn.onClick.RemoveListener(StartButtonClick);
-        cateBtn.onClick.RemoveListener(StartButtonClick);
-        settingbtn.onClick.RemoveListener(SettingButton);
-        backSettingToMenu.onClick.RemoveListener(BackToLevelFromGame);
-        backToLevelMenu.onClick.RemoveListener(BackToMenu);
-        backToLevel.onClick.RemoveListener(BackToLevel);
+        if (startBtn != null)
+            startBtn.onClick.RemoveListener(StartButtonClick);
+        if (cateBtn != null)
+            cateBtn.onClick.RemoveListener(StartButtonClick);
+        if (settingbtn != null)
+            settingbtn.onClick.RemoveListener(SettingButton);
+        if (backSettingToMenu != null)
+            backSettingToMenu.onClick.RemoveListener(CloseSettings);
+        if (backToLevelMenu != null)
+            backToLevelMenu.onClick.RemoveListener(BackToMenu);
+        if (backToLevel != null)
+            backToLevel.onClick.RemoveListener(BackToLevelFromGame);
 
-        achievementButton.onClick.RemoveListener(OpenAchievements);
-        closeAchievementButton.onClick.RemoveListener(CloseAchievements);
+        if (achievementButton != null)
+            achievementButton.onClick.RemoveListener(OpenAchievements);
+        if (closeAchievementButton != null)
+            closeAchievementButton.onClick.RemoveListener(CloseAchievements);
 
         if (rewardedButton != null)
             rewardedButton.onClick.RemoveListener(
@@ -139,7 +155,6 @@ public class Manager : MonoBehaviour
     {
         SetAllThePanelFalse();
         if (welcomePanel != null) welcomePanel.gameObject.SetActive(true);
-        PlayerDataManager.Instance.Load();
         // pfBtns.Clear();
     }
     public void OpenDailyChallenge()
@@ -339,7 +354,7 @@ public class Manager : MonoBehaviour
     {
         SetAllThePanelFalse();
         if (levelPanel != null) levelPanel.gameObject.SetActive(true);
-        LoadCategoeries();
+        LoadCategories();
 
     }
 
@@ -360,7 +375,7 @@ public class Manager : MonoBehaviour
 
 
     }
-    private void LoadCategoeries()
+    private void LoadCategories()
     {
         // Clear previous category buttons
         for (int i = levelHolder.childCount - 1; i >= 0; i--)
@@ -416,6 +431,12 @@ public class Manager : MonoBehaviour
     }
     private void RandomLoadCategories()
     {
+        if (categorySOs == null || categorySOs.Count == 0)
+        {
+            Debug.LogWarning("Manager: categorySOs is null or empty, cannot load a random category.");
+            return;
+        }
+
         gameInternal.gameObject.SetActive(true);
         gameInternal.LoadCategoryById(categorySOs[UnityEngine.Random.Range(0, categorySOs.Count)]);
     }

@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -40,7 +41,6 @@ public class GameInternal : MonoBehaviour
     [SerializeField] private Button tryAgainBtn;
     [SerializeField] private Button watchAdLossBtn;
 
-    private const string HINT_KEY = "HintPoints";
     private int hintPoints;
 
     private List<ItemDetail> items = new();
@@ -127,7 +127,7 @@ public class GameInternal : MonoBehaviour
     {
         SoundManager.Instance?.ButtonClick();
 
-        AdMobManager.Instance.ShowRewarded(() =>
+        AdMobManager.Instance?.ShowRewarded(() =>
         {
             int bonusReward = 100;
 
@@ -153,14 +153,14 @@ public class GameInternal : MonoBehaviour
 
         resultPanelAnimation.HideResultPanels(() =>
         {
-            manager.BackToLevelFromGame();
+            manager?.BackToLevelFromGame();
         });
     }
     private void LossWatchAdButton()
     {
         SoundManager.Instance?.ButtonClick();
 
-        AdMobManager.Instance.ShowRewarded(() =>
+        AdMobManager.Instance?.ShowRewarded(() =>
         {
             hintPoints++;
 
@@ -212,18 +212,6 @@ public class GameInternal : MonoBehaviour
 
         gamePanelAnimation?.AnimateNewQuestion();
     }
-    private void WinNextButton()
-    {
-        Debug.Log("Next button Clicked");
-
-        resultPanelAnimation.HideResultPanels(() =>
-        {
-            LoadNextDirect();
-        });
-
-        HapticManager.Instance.MediumImpact();
-    }
-
     private void LossTryAgainButton()
     {
         SoundManager.Instance?.ButtonClick();
@@ -242,7 +230,7 @@ public class GameInternal : MonoBehaviour
         hintPoints = PlayerDataManager.Instance.Hint;
         score = PlayerDataManager.Instance.Coins;
         UpdateUI();
-        AdMobManager.Instance.ShowBanner();
+        AdMobManager.Instance?.ShowBanner();
     }
 
     #endregion
@@ -272,8 +260,7 @@ public class GameInternal : MonoBehaviour
     {
         Restart();
 
-        currentItem =
-    items[Random.Range(0, items.Count)];
+        currentItem = PickNextItem();
 
         var chosen = currentItem;
 
@@ -319,6 +306,39 @@ public class GameInternal : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Picks the next question for the current category, favoring
+    /// unsolved Easy items first, then Medium, then Hard. Once every
+    /// item in the category has been solved, falls back to picking
+    /// randomly from the full item list (replay mode).
+    /// </summary>
+    private ItemDetail PickNextItem()
+    {
+        if (items == null || items.Count == 0)
+            return null;
+
+        string categoryId = currentCategory != null ? currentCategory.category : string.Empty;
+
+        LogoDifficulty[] tierOrder = { LogoDifficulty.Easy, LogoDifficulty.Medium, LogoDifficulty.Hard };
+
+        foreach (var tier in tierOrder)
+        {
+            List<ItemDetail> unsolvedInTier = items.Where(i =>
+                i.Difficulty == tier &&
+                !PlayerDataManager.Instance.IsQuestionSolved(
+                    categoryId,
+                    i.Manufacturer.Trim().ToLower()
+                )
+            ).ToList();
+
+            if (unsolvedInTier.Count > 0)
+                return unsolvedInTier[Random.Range(0, unsolvedInTier.Count)];
+        }
+
+        // Every difficulty tier is fully solved — replay randomly from everything.
+        return items[Random.Range(0, items.Count)];
+    }
+
     #endregion
 
     #region INPUT
@@ -330,14 +350,14 @@ public class GameInternal : MonoBehaviour
         string letter = th.GetText();
         if (string.IsNullOrEmpty(letter)) return;
 
-        answerLetter[fillIndex].SetText(letter);
+        answerLetter[fillIndex].SetText(letter, th);
         th.gameObject.SetActive(false);
 
         fillIndex++;
 
         if (fillIndex >= answerLetter.Count)
             CheckAnswer();
-        HapticManager.Instance.LightImpact();
+        HapticManager.Instance?.LightImpact();
     }
 
     #endregion
@@ -400,7 +420,7 @@ public class GameInternal : MonoBehaviour
             resultPanelAnimation.ShowLoss();
         }
 
-        PlayerDataManager.Instance.data.Coins = score;
+        PlayerDataManager.Instance.SetCoins(score);
 
         UpdateUI();
 
@@ -424,6 +444,7 @@ public class GameInternal : MonoBehaviour
             if (answerLetter[i].GetText().ToLower() != answerChars[i].ToString())
             {
                 hintPoints--;
+                answerLetter[i].GetSource()?.gameObject.SetActive(true);
                 answerLetter[i].SetText(answerChars[i].ToString());
                 fillIndex = i + 1;
                 break;
@@ -432,7 +453,7 @@ public class GameInternal : MonoBehaviour
 
         SaveHints();
         // AdMobManager.Instance.TryShowInterstitial();
-        HapticManager.Instance.MediumImpact();
+        HapticManager.Instance?.MediumImpact();
 
     }
 
@@ -447,14 +468,16 @@ public class GameInternal : MonoBehaviour
         {
             if (!string.IsNullOrEmpty(answerLetter[i].GetText()))
             {
-                answerLetter[i].SetText("");
+                hintPoints--;
+                answerLetter[i].GetSource()?.gameObject.SetActive(true);
+                answerLetter[i].Clear();
                 fillIndex = i;
                 break;
             }
         }
         // AdMobManager.Instance.TryShowInterstitial();
         SaveHints();
-        HapticManager.Instance.MediumImpact();
+        HapticManager.Instance?.MediumImpact();
 
     }
 
@@ -476,7 +499,7 @@ public class GameInternal : MonoBehaviour
 
         SaveHints();
         // AdMobManager.Instance.TryShowInterstitial();
-        HapticManager.Instance.MediumImpact();
+        HapticManager.Instance?.MediumImpact();
 
     }
 
@@ -492,13 +515,13 @@ public class GameInternal : MonoBehaviour
         }
         else
         {
-            AdMobManager.Instance.ShowRewarded(() =>
+            AdMobManager.Instance?.ShowRewarded(() =>
             {
                 LoadNextDirect();
             });
         }
 
-        HapticManager.Instance.MediumImpact();
+        HapticManager.Instance?.MediumImpact();
     }
 
     private void LoadNextDirect()
@@ -513,7 +536,7 @@ public class GameInternal : MonoBehaviour
 
     public void RequestHintAd()
     {
-        AdMobManager.Instance.ShowRewarded(() =>
+        AdMobManager.Instance?.ShowRewarded(() =>
         {
             hintPoints += 5;
             SaveHints();
@@ -523,7 +546,6 @@ public class GameInternal : MonoBehaviour
     private void SaveHints()
     {
         PlayerDataManager.Instance.data.hint = hintPoints;
-        //PlayerPrefs.SetInt(HINT_KEY, hintPoints);
         UpdateUI();
     }
     private void TryShowGameplayInterstitial()
@@ -534,7 +556,7 @@ public class GameInternal : MonoBehaviour
         {
             questionsCompletedSinceAd = 0;
 
-            AdMobManager.Instance.TryShowInterstitial();
+            AdMobManager.Instance?.TryShowInterstitial();
         }
     }
 
@@ -549,18 +571,21 @@ public class GameInternal : MonoBehaviour
 
         randomLetterList.Clear();
 
+        int poolSize = Mathf.Max(randomLetterCount, answerChars.Count);
+
         List<char> pool = new(answerChars);
 
         char[] alphabet = "abcdefghijklmnopqrstuvwxyz".ToCharArray();
-        while (pool.Count < randomLetterCount)
+        while (pool.Count < poolSize)
             pool.Add(alphabet[UnityEngine.Random.Range(0, alphabet.Length)]);
 
         Shuffle(pool);
 
-        for (int i = 0; i < randomLetterCount; i++)
+        for (int i = 0; i < poolSize; i++)
         {
             var go = Instantiate(pfRandomLetter, randomAnwser.transform);
             var th = go.GetComponent<TextHandler>();
+            th.SetGameInternal(this);
             th.SetText(pool[i].ToString());
             randomLetterList.Add(th);
         }

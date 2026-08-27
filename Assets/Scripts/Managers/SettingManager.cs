@@ -47,21 +47,32 @@ public class SettingManager : MonoBehaviour
 
     void LoadSettings()
     {
-        sfx = PlayerDataManager.Instance.SFX;
-        music = PlayerDataManager.Instance.Music;
-        haptic = PlayerDataManager.Instance.Haptic;
-        playerId.text = "YourID :" + PlayerDataManager.Instance.PlayerId;
+        if (PlayerDataManager.Instance != null)
+        {
+            sfx = PlayerDataManager.Instance.SFX;
+            music = PlayerDataManager.Instance.Music;
+            haptic = PlayerDataManager.Instance.Haptic;
+
+            if (playerId != null)
+                playerId.text = "YourID :" + PlayerDataManager.Instance.PlayerId;
+        }
     }
 
     #region BUTTON EVENTS
 
     private void SFXChange()
     {
-        SoundManager.Instance.ButtonClick();
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
+
         sfx = !sfx;
 
-        PlayerDataManager.Instance.data.SoundEnabled = sfx;
-        SoundManager.Instance.gameObject.GetComponent<AudioSource>().mute = !sfx;
+        if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.data != null)
+            PlayerDataManager.Instance.data.SoundEnabled = sfx;
+
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.SetMuted(!sfx);
+
         ApplySFX();
 
         Save();
@@ -69,11 +80,17 @@ public class SettingManager : MonoBehaviour
 
     private void MusicChange()
     {
-        SoundManager.Instance.ButtonClick();
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
+
         music = !music;
 
-        PlayerDataManager.Instance.data.MusicEnabled = music;
-        musicManager.mute = !music;
+        if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.data != null)
+            PlayerDataManager.Instance.data.MusicEnabled = music;
+
+        if (musicManager != null)
+            musicManager.mute = !music;
+
         ApplyMusic();
 
         Save();
@@ -81,11 +98,16 @@ public class SettingManager : MonoBehaviour
 
     private void HapticChange()
     {
+        if (SoundManager.Instance != null)
+            SoundManager.Instance.ButtonClick();
+
         haptic = !haptic;
 
-        PlayerDataManager.Instance.data.Haptic = haptic;
+        if (PlayerDataManager.Instance != null && PlayerDataManager.Instance.data != null)
+            PlayerDataManager.Instance.data.Haptic = haptic;
 
-        HapticManager.Instance.SetHaptics(haptic);
+        if (HapticManager.Instance != null)
+            HapticManager.Instance.SetHaptics(haptic);
 
         ApplyHaptic();
 
@@ -140,6 +162,7 @@ public class SettingManager : MonoBehaviour
 
     void Save()
     {
-        PlayerDataManager.Instance.Save();
+        if (PlayerDataManager.Instance != null)
+            PlayerDataManager.Instance.Save();
     }
 }

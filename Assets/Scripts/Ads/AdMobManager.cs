@@ -23,6 +23,7 @@ public class AdMobManager : MonoBehaviour
     private InterstitialAd interstitialAd;
     private int interstitialEventCounter;
     private float lastInterstitialTime;
+    private bool isInterstitialLoading;
 
     // =========================
     // Rewarded
@@ -78,11 +79,24 @@ public class AdMobManager : MonoBehaviour
         }
 
         currentBannerRetryDelay = config.bannerRetryInitialDelay;
-        canRequestAds = !config.enableGdprConsent || !config.requestConsentOnStartup;
+        canRequestAds = !config.enableGdprConsent;
 
-        if (config.enableGdprConsent && config.requestConsentOnStartup)
+#if UNITY_EDITOR
+        bool isDevelopmentBuild = true;
+#else
+        bool isDevelopmentBuild = Debug.isDebugBuild;
+#endif
+
+        if (config.useTestAds && !isDevelopmentBuild)
         {
-            // ✅ GDPR-enabled flow
+            Debug.LogError("AdConfig: useTestAds is enabled but this does not look like an Editor/development build. Test ads should not be shipped in production!");
+        }
+
+        if (config.enableGdprConsent)
+        {
+            // ✅ GDPR-enabled flow. Consent must always be requested before
+            // initializing ads when GDPR handling is enabled -
+            // requestConsentOnStartup no longer bypasses this.
             GdprConsentManager.RequestConsent(OnConsentResolved);
         }
         else
@@ -254,6 +268,11 @@ public class AdMobManager : MonoBehaviour
             Debug.LogWarning("Interstitial ad unit id missing.");
             return;
         }
+        if (isInterstitialLoading)
+            return;
+
+        isInterstitialLoading = true;
+
         interstitialAd?.Destroy();
         interstitialAd = null;
 
@@ -262,6 +281,8 @@ public class AdMobManager : MonoBehaviour
             new AdRequest(),
             (ad, error) =>
             {
+                isInterstitialLoading = false;
+
                 if (error != null)
                 {
                     Debug.LogWarning("Interstitial load failed: " + error);
@@ -286,15 +307,14 @@ public class AdMobManager : MonoBehaviour
         if (interstitialEventCounter < config.interstitialEveryNEvents)
             return;
 
-        if (Time.time - lastInterstitialTime < config.interstitialCooldownSeconds)
+        if (Time.unscaledTime - lastInterstitialTime < config.interstitialCooldownSeconds)
             return;
 
         if (interstitialAd != null && interstitialAd.CanShowAd())
         {
             interstitialAd.Show();
-            lastInterstitialTime = Time.time;
+            lastInterstitialTime = Time.unscaledTime;
             interstitialEventCounter = 0;
-            LoadInterstitial();
         }
         else
         {

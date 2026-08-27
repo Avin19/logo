@@ -51,22 +51,27 @@ public class AchievementManager : MonoBehaviour
     // INITIALIZE PLAYER ACHIEVEMENTS
     // =========================================================
 
+    private const int MaxInitRetryAttempts = 50;
+    private int initRetryAttempts = 0;
+
     private void InitializePlayerAchievements()
     {
-        if (PlayerDataManager.Instance == null)
+        if (PlayerDataManager.Instance == null ||
+            PlayerDataManager.Instance.data == null)
         {
-            Debug.LogWarning(
-                "AchievementManager: PlayerDataManager not found."
-            );
+            initRetryAttempts++;
 
-            return;
-        }
+            if (initRetryAttempts > MaxInitRetryAttempts)
+            {
+                Debug.LogWarning(
+                    "AchievementManager: Gave up waiting for PlayerDataManager after " +
+                    MaxInitRetryAttempts + " attempts."
+                );
 
-        if (PlayerDataManager.Instance.data == null)
-        {
-            Debug.LogWarning(
-                "AchievementManager: PlayerData is null."
-            );
+                return;
+            }
+
+            Invoke(nameof(InitializePlayerAchievements), 0.1f);
 
             return;
         }
@@ -161,7 +166,8 @@ public class AchievementManager : MonoBehaviour
 
     public void AddProgress(
         string achievementId,
-        int amount = 1)
+        int amount = 1,
+        bool saveImmediately = true)
     {
         AchievementSO achievement =
             GetAchievement(achievementId);
@@ -210,7 +216,8 @@ public class AchievementManager : MonoBehaviour
         }
 
 
-        PlayerDataManager.Instance.Save();
+        if (saveImmediately)
+            PlayerDataManager.Instance.Save();
 
 
         OnAchievementProgressChanged?.Invoke(
@@ -227,7 +234,8 @@ public class AchievementManager : MonoBehaviour
 
     private void SetProgress(
         string achievementId,
-        int value)
+        int value,
+        bool saveImmediately = true)
     {
         AchievementSO achievement =
             GetAchievement(achievementId);
@@ -263,7 +271,8 @@ public class AchievementManager : MonoBehaviour
         }
 
 
-        PlayerDataManager.Instance.Save();
+        if (saveImmediately)
+            PlayerDataManager.Instance.Save();
 
 
         OnAchievementProgressChanged?.Invoke(
@@ -347,28 +356,36 @@ public class AchievementManager : MonoBehaviour
 
         SetProgress(
             "first_guess",
-            totalSolved
+            totalSolved,
+            false
         );
 
         SetProgress(
             "logo_hunter",
-            totalSolved
+            totalSolved,
+            false
         );
 
         SetProgress(
             "brand_spotter",
-            totalSolved
+            totalSolved,
+            false
         );
 
         SetProgress(
             "logo_learner",
-            totalSolved
+            totalSolved,
+            false
         );
 
         SetProgress(
             "logo_expert",
-            totalSolved
+            totalSolved,
+            false
         );
+
+        if (PlayerDataManager.Instance != null)
+            PlayerDataManager.Instance.Save();
 
 
         Debug.Log(
@@ -387,18 +404,24 @@ public class AchievementManager : MonoBehaviour
     {
         SetProgress(
             "getting_started",
-            streak
+            streak,
+            false
         );
 
         SetProgress(
             "dedicated_player",
-            streak
+            streak,
+            false
         );
 
         SetProgress(
             "logo_addict",
-            streak
+            streak,
+            false
         );
+
+        if (PlayerDataManager.Instance != null)
+            PlayerDataManager.Instance.Save();
     }
 
 
@@ -411,13 +434,18 @@ public class AchievementManager : MonoBehaviour
     {
         SetProgress(
             "sharp_eye",
-            correctAnswerStreak
+            correctAnswerStreak,
+            false
         );
 
         SetProgress(
             "unstoppable",
-            correctAnswerStreak
+            correctAnswerStreak,
+            false
         );
+
+        if (PlayerDataManager.Instance != null)
+            PlayerDataManager.Instance.Save();
     }
 
 
@@ -459,20 +487,26 @@ public class AchievementManager : MonoBehaviour
     {
         SetProgress(
             "category_explorer",
-            completedCategories
+            completedCategories,
+            false
         );
 
         SetProgress(
             "category_master",
-            completedCategories
+            completedCategories,
+            false
         );
 
         // For Category Legend, the target should be
         // the total number of categories.
         SetProgress(
             "category_legend",
-            completedCategories
+            completedCategories,
+            false
         );
+
+        if (PlayerDataManager.Instance != null)
+            PlayerDataManager.Instance.Save();
     }
 
 

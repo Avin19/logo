@@ -23,7 +23,7 @@ public class CoinRotation : MonoBehaviour
 
         rotationTween = transform
     .DORotate(
-        new Vector3(0f, 360f, 0f),
+        new Vector3(0f, rotation, 0f),
         rotationDuration,
         RotateMode.FastBeyond360
     )

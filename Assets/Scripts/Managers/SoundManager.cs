@@ -14,37 +14,65 @@ public class SoundManager : MonoBehaviour
 
         if (Instance != null && Instance != this)
         {
-            Destroy(this);
+            Destroy(gameObject);
+            return;
         }
         else
         {
             Instance = this;
+            DontDestroyOnLoad(gameObject);
         }
 
         audioSource = GetComponent<AudioSource>();
+
+        if (audioSource == null)
+        {
+            Debug.LogWarning("SoundManager: No AudioSource component found on " + gameObject.name);
+        }
+    }
+
+    private void PlayClip(int index)
+    {
+        if (audioSource == null)
+            return;
+
+        if (audioClip == null || index < 0 || index >= audioClip.Length || audioClip[index] == null)
+        {
+            Debug.LogWarning("SoundManager: Audio clip at index " + index + " is missing.");
+            return;
+        }
+
+        audioSource.PlayOneShot(audioClip[index]);
     }
 
     public void ButtonClick()
     {
-        audioSource.PlayOneShot(audioClip[0]);
+        PlayClip(0);
     }
     public void CorrectAnswer()
     {
-        audioSource.PlayOneShot(audioClip[1]);
+        PlayClip(1);
     }
     public void WrongAnswer()
     {
-        audioSource.PlayOneShot(audioClip[2]);
+        PlayClip(2);
     }
 
 
     public void SoundVolume(float volume)
     {
-        audioSource.volume = volume;
+        if (audioSource != null)
+            audioSource.volume = volume;
     }
     public float SetSoundVolumen()
     {
-        return audioSource.volume;
+        return audioSource != null ? audioSource.volume : 0f;
+    }
+
+    public void SetMuted(bool muted)
+    {
+        if (audioSource != null)
+            audioSource.mute = muted;
     }
 
 }

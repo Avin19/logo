@@ -12,10 +12,14 @@ public class TextHandler : MonoBehaviour
     {
         txt = GetComponentInChildren<TextMeshProUGUI>();
         btn = GetComponent<Button>();
-        game = FindFirstObjectByType<GameInternal>();
 
         if (btn != null)
             btn.onClick.AddListener(OnClick);
+    }
+
+    public void SetGameInternal(GameInternal g)
+    {
+        game = g;
     }
 
     void OnClick()
